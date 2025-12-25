@@ -17,6 +17,7 @@ public record Task(
     String question,
     String answer,
     String imports,
+    String solution,
     Integer idDocumentation,
     Double difficult,
     Double rating

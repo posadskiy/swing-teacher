@@ -62,6 +62,7 @@ public final class DtoMapper {
                 .question(d.question())
                 .answer(d.answer())
                 .imports(d.imports())
+                .solution(d.solution())
                 .idDocumentation(toInt(d.documentationId()))
                 .difficult(d.difficult())
                 .rating(d.rating())

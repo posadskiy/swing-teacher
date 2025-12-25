@@ -74,6 +74,11 @@ public final class DynamicCompiler {
             %s
             public class Answer extends CreateFrame {
                 public Answer() {
+                    createFrame();
+                }
+                
+                @Override
+                public void createFrame() {
                     setTitle("Your frame");
                     %s
                     setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

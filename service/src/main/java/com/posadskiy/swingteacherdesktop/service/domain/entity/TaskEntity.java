@@ -29,6 +29,7 @@ public class TaskEntity {
     private String question;
     private String answer;
     private String imports;
+    private String solution;
 
     @Column(name = "id_documentation")
     private Long documentationId;

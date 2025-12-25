@@ -8,6 +8,7 @@ public record TaskDto(
     String question,
     String answer,
     String imports,
+    String solution,
     Long documentationId,
     Double difficult,
     Double rating

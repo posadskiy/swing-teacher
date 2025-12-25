@@ -45,6 +45,7 @@ public final class DtoMapper {
             entity.getQuestion(),
             entity.getAnswer(),
             entity.getImports(),
+            entity.getSolution(),
             entity.getDocumentationId(),
             entity.getDifficult(),
             entity.getRating()

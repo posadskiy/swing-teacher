@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: swingteacher-service
+  datasource:
+    url: ${SWINGTEACHER_DB_URL:jdbc:postgresql://localhost:5432/swingteacher}
+    username: ${SWINGTEACHER_DB_USER:postgres}
+    password: ${SWINGTEACHER_DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+server:
+  port: ${SWINGTEACHER_SERVICE_PORT:8080}
+
+logging:
+  level:
+    root: INFO
+
+jwt:
+  secret: ${JWT_SECRET:defaultSecretKeyForDevelopmentOnlyChangeInProductionUseAtLeast256Bits}
+  access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:900000}
+  refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION:604800000}
+

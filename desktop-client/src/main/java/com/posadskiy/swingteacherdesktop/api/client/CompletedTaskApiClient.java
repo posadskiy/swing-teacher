@@ -6,6 +6,7 @@ import com.posadskiy.swingteacherdesktop.domain.model.CompletedTask;
 import com.posadskiy.swingteacherdesktop.domain.repository.CompletedTaskRepository;
 import com.posadskiy.swingteacherdesktop.domain.request.CompletedTaskRequest;
 import org.springframework.http.MediaType;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 
@@ -47,17 +48,19 @@ public class CompletedTaskApiClient implements CompletedTaskRepository {
     @Override
     public Optional<CompletedTask> getCompletedTaskByUserIdByTaskId(int userId, int taskId) throws SQLException {
         try {
-            var response = client.get()
-                .uri(uriBuilder -> uriBuilder
-                    .path("/api/completed-tasks")
-                    .queryParam("userId", userId)
-                    .queryParam("taskId", taskId)
-                    .build())
+            var entity = client.get()
+                .uri("/api/completed-tasks/{userId}/{taskId}", userId, taskId)
                 .retrieve()
-                .body(CompletedTaskDto.class);
+                .toEntity(CompletedTaskDto.class);
             
-            return Optional.ofNullable(response)
-                .map(DtoMapper::toCompletedTask);
+            if (entity.getStatusCode().is2xxSuccessful() && entity.getBody() != null) {
+                return Optional.ofNullable(entity.getBody())
+                    .map(DtoMapper::toCompletedTask);
+            }
+            return Optional.empty();
+        } catch (HttpClientErrorException.NotFound ex) {
+            // 404 means task not completed - return empty Optional
+            return Optional.empty();
         } catch (RestClientException ex) {
             throw new SQLException("Failed to fetch completed task", ex);
         }

@@ -37,6 +37,7 @@ public class ModernEditorPane extends JEditorPane {
             "line-height: 1.5; " +
             "margin: 0; " +
             "padding: 0; " +
+            "text-align: left; " +
         "}");
         styleSheet.addRule("h1, h2, h3, h4 { color: #f8fafc; margin-top: 12px; margin-bottom: 6px; }");
         styleSheet.addRule("h1 { font-size: 20px; }");

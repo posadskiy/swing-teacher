@@ -218,9 +218,17 @@ public class MainFrameView extends JFrame {
 
         ModernSplitPane splitPane = new ModernSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
         splitPane.setResizeWeight(0.5);
+        splitPane.setContinuousLayout(true);
         
-        // Set divider location after component is shown
-        SwingUtilities.invokeLater(() -> splitPane.setDividerLocation(0.5));
+        // Set divider location to 50% after component is shown to ensure equal split
+        SwingUtilities.invokeLater(() -> {
+            int totalWidth = splitPane.getWidth();
+            if (totalWidth > 0) {
+                splitPane.setDividerLocation(totalWidth / 2);
+            } else {
+                splitPane.setDividerLocation(0.5);
+            }
+        });
         
         return splitPane;
     }

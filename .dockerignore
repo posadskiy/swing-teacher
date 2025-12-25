@@ -1,0 +1,8 @@
+target/
+.m2repo/
+.idea/
+*.iml
+out/
+screen/
+**/*.class
+

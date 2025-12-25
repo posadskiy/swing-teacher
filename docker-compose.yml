@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: swingteacher
+      POSTGRES_USER: swingteacher
+      POSTGRES_PASSWORD: swingteacher
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U swingteacher -d swingteacher -h 127.0.0.1"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  flyway:
+    image: flyway/flyway:10
+    depends_on:
+      db:
+        condition: service_healthy
+    command: ["-connectRetries=60", "migrate"]
+    environment:
+      FLYWAY_URL: jdbc:postgresql://db:5432/swingteacher
+      FLYWAY_USER: swingteacher
+      FLYWAY_PASSWORD: swingteacher
+    volumes:
+      - ./service/src/main/resources/db/migration:/flyway/sql:ro
+
+  service:
+    build: .
+    depends_on:
+      flyway:
+        condition: service_completed_successfully
+    ports:
+      - "8080:8080"
+    environment:
+      SWINGTEACHER_DB_URL: jdbc:postgresql://db:5432/swingteacher
+      SWINGTEACHER_DB_USER: swingteacher
+      SWINGTEACHER_DB_PASSWORD: swingteacher
+      SWINGTEACHER_SERVICE_PORT: 8080
+
+

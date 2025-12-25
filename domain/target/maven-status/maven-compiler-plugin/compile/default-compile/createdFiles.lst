@@ -1,0 +1,15 @@
+com/posadskiy/swingteacherdesktop/domain/dto/ShorthandDto.class
+com/posadskiy/swingteacherdesktop/domain/request/AuthRequest.class
+com/posadskiy/swingteacherdesktop/domain/dto/LessonDto.class
+com/posadskiy/swingteacherdesktop/domain/dto/ErrorDto.class
+com/posadskiy/swingteacherdesktop/domain/response/AuthResponse.class
+com/posadskiy/swingteacherdesktop/domain/request/CompletedTaskRequest.class
+com/posadskiy/swingteacherdesktop/domain/request/RegisterRequest.class
+com/posadskiy/swingteacherdesktop/domain/dto/KeywordDto.class
+com/posadskiy/swingteacherdesktop/domain/dto/UserDto.class
+com/posadskiy/swingteacherdesktop/domain/dto/TaskDto.class
+com/posadskiy/swingteacherdesktop/domain/dto/TaskCategoryDto.class
+com/posadskiy/swingteacherdesktop/domain/dto/CompletedTaskDto.class
+com/posadskiy/swingteacherdesktop/domain/dto/DocumentationDto.class
+com/posadskiy/swingteacherdesktop/domain/request/RefreshTokenRequest.class
+com/posadskiy/swingteacherdesktop/domain/response/RefreshTokenResponse.class

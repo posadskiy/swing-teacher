@@ -1,0 +1,15 @@
+/Users/dmitrii/Documents/projects/outdated/SwingTeacherDesktop/domain/src/main/java/com/posadskiy/swingteacherdesktop/domain/dto/CompletedTaskDto.java
+/Users/dmitrii/Documents/projects/outdated/SwingTeacherDesktop/domain/src/main/java/com/posadskiy/swingteacherdesktop/domain/dto/DocumentationDto.java
+/Users/dmitrii/Documents/projects/outdated/SwingTeacherDesktop/domain/src/main/java/com/posadskiy/swingteacherdesktop/domain/dto/ErrorDto.java
+/Users/dmitrii/Documents/projects/outdated/SwingTeacherDesktop/domain/src/main/java/com/posadskiy/swingteacherdesktop/domain/dto/KeywordDto.java
+/Users/dmitrii/Documents/projects/outdated/SwingTeacherDesktop/domain/src/main/java/com/posadskiy/swingteacherdesktop/domain/dto/LessonDto.java
+/Users/dmitrii/Documents/projects/outdated/SwingTeacherDesktop/domain/src/main/java/com/posadskiy/swingteacherdesktop/domain/dto/ShorthandDto.java
+/Users/dmitrii/Documents/projects/outdated/SwingTeacherDesktop/domain/src/main/java/com/posadskiy/swingteacherdesktop/domain/dto/TaskCategoryDto.java
+/Users/dmitrii/Documents/projects/outdated/SwingTeacherDesktop/domain/src/main/java/com/posadskiy/swingteacherdesktop/domain/dto/TaskDto.java
+/Users/dmitrii/Documents/projects/outdated/SwingTeacherDesktop/domain/src/main/java/com/posadskiy/swingteacherdesktop/domain/dto/UserDto.java
+/Users/dmitrii/Documents/projects/outdated/SwingTeacherDesktop/domain/src/main/java/com/posadskiy/swingteacherdesktop/domain/request/AuthRequest.java
+/Users/dmitrii/Documents/projects/outdated/SwingTeacherDesktop/domain/src/main/java/com/posadskiy/swingteacherdesktop/domain/request/CompletedTaskRequest.java
+/Users/dmitrii/Documents/projects/outdated/SwingTeacherDesktop/domain/src/main/java/com/posadskiy/swingteacherdesktop/domain/request/RefreshTokenRequest.java
+/Users/dmitrii/Documents/projects/outdated/SwingTeacherDesktop/domain/src/main/java/com/posadskiy/swingteacherdesktop/domain/request/RegisterRequest.java
+/Users/dmitrii/Documents/projects/outdated/SwingTeacherDesktop/domain/src/main/java/com/posadskiy/swingteacherdesktop/domain/response/AuthResponse.java
+/Users/dmitrii/Documents/projects/outdated/SwingTeacherDesktop/domain/src/main/java/com/posadskiy/swingteacherdesktop/domain/response/RefreshTokenResponse.java

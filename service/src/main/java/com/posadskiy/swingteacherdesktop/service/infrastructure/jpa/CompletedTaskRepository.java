@@ -12,3 +12,4 @@ public interface CompletedTaskRepository extends JpaRepository<CompletedTaskEnti
     List<CompletedTaskEntity> findByUserId(Long userId);
 }
 
+

@@ -9,3 +9,4 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
     List<TaskEntity> findByLessonId(Long lessonId);
 }
 
+

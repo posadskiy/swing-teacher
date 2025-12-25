@@ -24,3 +24,4 @@ public interface LessonRepository {
     List<Lesson> getLessonsByCategory(int category) throws SQLException;
 }
 
+

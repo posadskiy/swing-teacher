@@ -37,3 +37,4 @@ public record SolutionComponent(String className, List<String> expectedMethods) 
     }
 }
 
+

@@ -1,7 +1,13 @@
 package com.posadskiy.swingteacherdesktop.presentation.controller;
 
-import com.posadskiy.swingteacherdesktop.application.service.*;
-import com.posadskiy.swingteacherdesktop.domain.model.*;
+import com.posadskiy.swingteacherdesktop.application.service.AuthenticationService;
+import com.posadskiy.swingteacherdesktop.application.service.CodeCompletionService;
+import com.posadskiy.swingteacherdesktop.application.service.LessonService;
+import com.posadskiy.swingteacherdesktop.application.service.TaskCheckingService;
+import com.posadskiy.swingteacherdesktop.domain.model.CompletedTask;
+import com.posadskiy.swingteacherdesktop.domain.model.Documentation;
+import com.posadskiy.swingteacherdesktop.domain.model.Lesson;
+import com.posadskiy.swingteacherdesktop.domain.model.Task;
 import com.posadskiy.swingteacherdesktop.infrastructure.compiler.DynamicCompiler;
 import lombok.extern.slf4j.Slf4j;
 import org.fife.ui.autocomplete.CompletionProvider;
@@ -130,4 +136,5 @@ public class MainFrameController {
         authenticationService.logout();
     }
 }
+
 

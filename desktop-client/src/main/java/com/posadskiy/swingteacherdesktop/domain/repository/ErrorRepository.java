@@ -13,3 +13,4 @@ public interface ErrorRepository {
     Optional<Error> getError(int id) throws SQLException;
 }
 
+

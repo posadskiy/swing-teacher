@@ -1,7 +1,13 @@
 package com.posadskiy.swingteacherdesktop.application.service;
 
-import com.posadskiy.swingteacherdesktop.domain.model.*;
-import com.posadskiy.swingteacherdesktop.domain.repository.*;
+import com.posadskiy.swingteacherdesktop.domain.model.CompletedTask;
+import com.posadskiy.swingteacherdesktop.domain.model.Documentation;
+import com.posadskiy.swingteacherdesktop.domain.model.Lesson;
+import com.posadskiy.swingteacherdesktop.domain.model.Task;
+import com.posadskiy.swingteacherdesktop.domain.repository.CompletedTaskRepository;
+import com.posadskiy.swingteacherdesktop.domain.repository.DocumentationRepository;
+import com.posadskiy.swingteacherdesktop.domain.repository.LessonRepository;
+import com.posadskiy.swingteacherdesktop.domain.repository.TaskRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -92,4 +98,5 @@ public class LessonService {
         return getCompletedTask(userId, taskId).isPresent();
     }
 }
+
 

@@ -9,9 +9,10 @@ import java.awt.*;
 import java.io.IOException;
 
 /**
- * Modern styled syntax text area for code editing.
+ * Modern styled syntax text area for code editing with line numbers.
  */
 public class ModernTextArea extends RSyntaxTextArea {
+    private StatusBar statusBar;
 
     public ModernTextArea() {
         this("");
@@ -20,12 +21,21 @@ public class ModernTextArea extends RSyntaxTextArea {
     public ModernTextArea(String text) {
         super(text);
         setupStyle();
+        setupCaretListener();
+    }
+
+    public void setStatusBar(StatusBar statusBar) {
+        this.statusBar = statusBar;
     }
 
     private void setupStyle() {
         setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
         setCodeFoldingEnabled(true);
         setAntiAliasingEnabled(true);
+
+        // Enable line numbers
+        setPaintMatchedBracketPair(true);
+        setPaintTabLines(true);
         
         // Apply dark theme
         applyDarkTheme();
@@ -40,6 +50,22 @@ public class ModernTextArea extends RSyntaxTextArea {
         setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         setBorder(new EmptyBorder(8, 10, 8, 10));
         setTabSize(4);
+    }
+
+    private void setupCaretListener() {
+        addCaretListener(e -> {
+            if (statusBar != null) {
+                try {
+                    int caretPosition = getCaretPosition();
+                    int line = getLineOfOffset(caretPosition);
+                    int column = caretPosition - getLineStartOffset(line) + 1;
+                    int charCount = getText().length();
+                    statusBar.updateStatus(line + 1, column, charCount);
+                } catch (Exception ex) {
+                    // Ignore errors
+                }
+            }
+        });
     }
 
     private void applyDarkTheme() {

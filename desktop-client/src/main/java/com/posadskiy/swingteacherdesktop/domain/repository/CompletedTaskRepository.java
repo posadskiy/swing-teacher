@@ -18,3 +18,4 @@ public interface CompletedTaskRepository {
     List<CompletedTask> getCompletedTaskByUserId(int userId) throws SQLException;
 }
 
+

@@ -24,3 +24,4 @@ public interface TaskRepository {
     List<Task> getTasksByLesson(int lesson) throws SQLException;
 }
 
+

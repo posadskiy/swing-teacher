@@ -41,10 +41,14 @@ public class MainFrameView extends JFrame {
     private ModernComboBox<Task> taskComboBox;
     private ModernEditorPane questionPane;
     private ModernEditorPane documentationPane;
-    private ModernTextArea answerTextArea;
+    private CodeEditorPanel codeEditorPanel;
     private ModernButton showSolutionButton;
     private ModernButton viewButton;
     private ModernButton checkButton;
+    private ModernButton prevTaskButton;
+    private ModernButton nextTaskButton;
+    private ProgressBar progressBar;
+    private JLabel taskCounterLabel;
     
     // Data
     private User currentUser;
@@ -164,7 +168,7 @@ public class MainFrameView extends JFrame {
     private JPanel createToolbar() {
         JPanel toolbar = new JPanel(new GridBagLayout());
         toolbar.setOpaque(false);
-        toolbar.setBorder(new EmptyBorder(0, 0, 8, 0));
+        toolbar.setBorder(new EmptyBorder(0, 0, 12, 0));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -175,9 +179,9 @@ public class MainFrameView extends JFrame {
         gbc.weightx = 0;
         toolbar.add(createLabel("Lesson:"), gbc);
 
-        // Lesson combo - 50%
+        // Lesson combo - 40%
         gbc.gridx = 1;
-        gbc.weightx = 0.5;
+        gbc.weightx = 0.4;
         lessonComboBox = new ModernComboBox<>(new ComboBoxModel<>(new ArrayList<>(lessons)));
         lessonComboBox.setPreferredSize(new Dimension(0, 40));
         lessonComboBox.addActionListener(e -> onLessonChanged());
@@ -189,15 +193,34 @@ public class MainFrameView extends JFrame {
         gbc.insets = new Insets(0, 16, 0, 8);
         toolbar.add(createLabel("Task:"), gbc);
 
-        // Task combo - 50%
+        // Task combo - 40%
         gbc.gridx = 3;
-        gbc.weightx = 0.5;
-        gbc.insets = new Insets(0, 0, 0, 0);
+        gbc.weightx = 0.4;
+        gbc.insets = new Insets(0, 0, 0, 8);
         taskComboBox = new ModernComboBox<>(new ComboBoxModel<>(new ArrayList<>(tasks)));
         taskComboBox.setPreferredSize(new Dimension(0, 40));
         taskComboBox.setRenderer(new TaskCellRenderer());
         taskComboBox.addActionListener(e -> onTaskChanged());
         toolbar.add(taskComboBox, gbc);
+
+        // Task counter
+        gbc.gridx = 4;
+        gbc.weightx = 0;
+        gbc.insets = new Insets(0, 8, 0, 0);
+        taskCounterLabel = new JLabel();
+        taskCounterLabel.setFont(UITheme.getFont(Font.PLAIN, 12));
+        taskCounterLabel.setForeground(UITheme.TEXT_SECONDARY);
+        updateTaskCounter();
+        toolbar.add(taskCounterLabel, gbc);
+
+        // Progress bar
+        gbc.gridx = 5;
+        gbc.weightx = 0.2;
+        gbc.insets = new Insets(0, 16, 0, 0);
+        progressBar = new ProgressBar();
+        progressBar.setPreferredSize(new Dimension(0, 6));
+        updateProgress();
+        toolbar.add(progressBar, gbc);
 
         return toolbar;
     }
@@ -234,10 +257,10 @@ public class MainFrameView extends JFrame {
     }
 
     private JPanel createDocumentationPanel() {
-        JPanel panel = new JPanel(new BorderLayout());
+        JPanel panel = new JPanel(new BorderLayout(0, 12));
         panel.setOpaque(false);
 
-        JLabel title = createSectionTitle("Documentation");
+        SectionTitle title = new SectionTitle("Documentation", "📚");
         panel.add(title, BorderLayout.NORTH);
 
         documentationPane = new ModernEditorPane();
@@ -254,9 +277,10 @@ public class MainFrameView extends JFrame {
         panel.setOpaque(false);
 
         // Question section
-        JPanel questionSection = new JPanel(new BorderLayout());
+        JPanel questionSection = new JPanel(new BorderLayout(0, 8));
         questionSection.setOpaque(false);
-        questionSection.add(createSectionTitle("Task"), BorderLayout.NORTH);
+        questionSection.add(new SectionTitle("Task", "📝"), BorderLayout.NORTH);
+        questionSection.add(new Divider(), BorderLayout.SOUTH);
         
         questionPane = new ModernEditorPane();
         updateQuestion();
@@ -267,14 +291,13 @@ public class MainFrameView extends JFrame {
         // Answer section with buttons
         JPanel answerSection = new JPanel(new BorderLayout(0, 12));
         answerSection.setOpaque(false);
-        answerSection.setBorder(new EmptyBorder(8, 0, 0, 0)); // Extra top padding
-        answerSection.add(createSectionTitle("Solution"), BorderLayout.NORTH);
+        answerSection.setBorder(new EmptyBorder(8, 0, 0, 0));
+        answerSection.add(new SectionTitle("Solution", "💻"), BorderLayout.NORTH);
 
-        answerTextArea = new ModernTextArea();
+        codeEditorPanel = new CodeEditorPanel();
         setupAutoCompletion();
-        
-        ModernScrollPane answerScroll = new ModernScrollPane(answerTextArea);
-        answerSection.add(answerScroll, BorderLayout.CENTER);
+
+        answerSection.add(codeEditorPanel, BorderLayout.CENTER);
         answerSection.add(createButtonPanel(), BorderLayout.SOUTH);
 
         // Vertical split with modern styling
@@ -286,32 +309,55 @@ public class MainFrameView extends JFrame {
         return panel;
     }
 
-    private JLabel createSectionTitle(String text) {
-        JLabel label = new JLabel(text);
-        label.setFont(UITheme.getFont(Font.BOLD, 18));
-        label.setForeground(UITheme.TEXT_PRIMARY);
-        label.setBorder(new EmptyBorder(4, 0, 12, 0));
-        return label;
-    }
 
     private JPanel createButtonPanel() {
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 12, 0));
+        JPanel panel = new JPanel(new BorderLayout(0, 0));
         panel.setOpaque(false);
+        panel.setBorder(new EmptyBorder(8, 0, 0, 0));
+
+        // Navigation buttons on the left
+        JPanel navPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
+        navPanel.setOpaque(false);
+
+        prevTaskButton = ModernButton.secondary("◀ Previous");
+        prevTaskButton.setPreferredSize(new Dimension(120, 44));
+        prevTaskButton.setToolTipText("Previous task (Ctrl+Left)");
+        prevTaskButton.addActionListener(e -> onPreviousTask());
+        navPanel.add(prevTaskButton);
+
+        nextTaskButton = ModernButton.secondary("Next ▶");
+        nextTaskButton.setPreferredSize(new Dimension(120, 44));
+        nextTaskButton.setToolTipText("Next task (Ctrl+Right)");
+        nextTaskButton.addActionListener(e -> onNextTask());
+        navPanel.add(nextTaskButton);
+
+        // Action buttons on the right
+        JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 12, 0));
+        actionPanel.setOpaque(false);
 
         showSolutionButton = ModernButton.secondary("Show Solution");
         showSolutionButton.setPreferredSize(new Dimension(160, 44));
+        showSolutionButton.setToolTipText("Show solution (Ctrl+S)");
         showSolutionButton.addActionListener(e -> onShowSolutionClick());
-        panel.add(showSolutionButton);
+        actionPanel.add(showSolutionButton);
 
         viewButton = ModernButton.secondary("Run Code");
         viewButton.setPreferredSize(new Dimension(140, 44));
+        viewButton.setToolTipText("Run code (Ctrl+R)");
         viewButton.addActionListener(e -> onViewClick());
-        panel.add(viewButton);
+        actionPanel.add(viewButton);
 
         checkButton = ModernButton.primary("Submit Answer");
         checkButton.setPreferredSize(new Dimension(160, 44));
+        checkButton.setToolTipText("Submit answer (Ctrl+Enter)");
         checkButton.addActionListener(e -> onCheckClick());
-        panel.add(checkButton);
+        actionPanel.add(checkButton);
+
+        panel.add(navPanel, BorderLayout.WEST);
+        panel.add(actionPanel, BorderLayout.EAST);
+
+        setupKeyboardShortcuts();
+        updateNavigationButtons();
 
         return panel;
     }
@@ -319,7 +365,103 @@ public class MainFrameView extends JFrame {
     private void setupAutoCompletion() {
         var provider = controller.createCompletionProvider();
         var ac = new AutoCompletion(provider);
-        ac.install(answerTextArea);
+        ac.install(codeEditorPanel.getTextArea());
+    }
+
+    private void setupKeyboardShortcuts() {
+        // Ctrl+Left: Previous task
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+            .put(KeyStroke.getKeyStroke("ctrl LEFT"), "prevTask");
+        getRootPane().getActionMap().put("prevTask", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                onPreviousTask();
+            }
+        });
+
+        // Ctrl+Right: Next task
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+            .put(KeyStroke.getKeyStroke("ctrl RIGHT"), "nextTask");
+        getRootPane().getActionMap().put("nextTask", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                onNextTask();
+            }
+        });
+
+        // Ctrl+S: Show solution
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+            .put(KeyStroke.getKeyStroke("ctrl S"), "showSolution");
+        getRootPane().getActionMap().put("showSolution", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                onShowSolutionClick();
+            }
+        });
+
+        // Ctrl+R: Run code
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+            .put(KeyStroke.getKeyStroke("ctrl R"), "runCode");
+        getRootPane().getActionMap().put("runCode", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                onViewClick();
+            }
+        });
+
+        // Ctrl+Enter: Submit answer
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+            .put(KeyStroke.getKeyStroke("ctrl ENTER"), "submitAnswer");
+        getRootPane().getActionMap().put("submitAnswer", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                onCheckClick();
+            }
+        });
+    }
+
+    private void onPreviousTask() {
+        int currentIndex = taskComboBox.getSelectedIndex();
+        if (currentIndex > 0) {
+            taskComboBox.setSelectedIndex(currentIndex - 1);
+        }
+    }
+
+    private void onNextTask() {
+        int currentIndex = taskComboBox.getSelectedIndex();
+        if (currentIndex < taskComboBox.getItemCount() - 1) {
+            taskComboBox.setSelectedIndex(currentIndex + 1);
+        }
+    }
+
+    private void updateNavigationButtons() {
+        int currentIndex = taskComboBox.getSelectedIndex();
+        prevTaskButton.setEnabled(currentIndex > 0);
+        nextTaskButton.setEnabled(currentIndex < taskComboBox.getItemCount() - 1);
+    }
+
+    private void updateTaskCounter() {
+        int currentIndex = taskComboBox.getSelectedIndex();
+        int total = taskComboBox.getItemCount();
+        if (total > 0) {
+            taskCounterLabel.setText(String.format("Task %d of %d", currentIndex + 1, total));
+        } else {
+            taskCounterLabel.setText("");
+        }
+    }
+
+    private void updateProgress() {
+        int total = tasks.size();
+        int completed = (int) tasks.stream()
+            .filter(t -> completedTaskIds.contains(t.id()))
+            .count();
+
+        if (total > 0) {
+            int progress = (completed * 100) / total;
+            progressBar.setProgress(progress);
+        } else {
+            progressBar.setProgress(0);
+        }
     }
 
     // MARK: - Event Handlers
@@ -336,11 +478,16 @@ public class MainFrameView extends JFrame {
         
         updateQuestion();
         updateDocumentation();
+        updateTaskCounter();
+        updateProgress();
+        updateNavigationButtons();
     }
 
     private void onTaskChanged() {
         updateQuestion();
         updateDocumentation();
+        updateTaskCounter();
+        updateNavigationButtons();
     }
 
     private void updateQuestion() {
@@ -383,14 +530,32 @@ public class MainFrameView extends JFrame {
         );
         
         if (result == JOptionPane.YES_OPTION) {
-            answerTextArea.setText(solution);
+            codeEditorPanel.setText(solution);
         }
     }
 
     private void onViewClick() {
         Task task = (Task) taskComboBox.getSelectedItem();
-        String imports = Optional.ofNullable(task).map(Task::imports).orElse("");
-        controller.runUserCode(answerTextArea.getText(), imports);
+        if (task == null) {
+            popupController.showError("Please select a task first!");
+            return;
+        }
+
+        viewButton.setLoading(true);
+
+        new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() {
+                String imports = Optional.ofNullable(task).map(Task::imports).orElse("");
+                controller.runUserCode(codeEditorPanel.getText(), imports);
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                viewButton.setLoading(false);
+            }
+        }.execute();
     }
 
     private void onCheckClick() {
@@ -410,32 +575,60 @@ public class MainFrameView extends JFrame {
             return;
         }
 
-        // Compile check
-        var errors = controller.compileUserCode(answerTextArea.getText(), task.imports());
-        if (!errors.isEmpty()) {
-            popupController.showMessage(errors, "Compilation Error");
-            return;
-        }
-        
-        // Validation check
-        errors = controller.validateAnswer(task.answer(), answerTextArea.getText());
-        if (!errors.isEmpty()) {
-            popupController.showMessage(errors, "Execution Error");
-            return;
-        }
+        checkButton.setLoading(true);
 
-        // Success!
-        controller.markTaskCompleted(currentUser.id(), task.id());
-        completedTaskIds.add(task.id());
-        taskComboBox.repaint();
-        
-        answerTextArea.setText("");
-        popupController.showSuccess("Correct! Great job!");
-        
-        // Move to next task
-        if (taskComboBox.getItemCount() > taskComboBox.getSelectedIndex() + 1) {
-            taskComboBox.setSelectedIndex(taskComboBox.getSelectedIndex() + 1);
-        }
+        new SwingWorker<Boolean, Void>() {
+            private String errorMessage;
+            private String errorTitle;
+
+            @Override
+            protected Boolean doInBackground() {
+                // Compile check
+                String errors = controller.compileUserCode(codeEditorPanel.getText(), task.imports());
+                if (errors != null && !errors.isEmpty()) {
+                    errorMessage = errors;
+                    errorTitle = "Compilation Error";
+                    return false;
+                }
+
+                // Validation check
+                errors = controller.validateAnswer(task.answer(), codeEditorPanel.getText());
+                if (errors != null && !errors.isEmpty()) {
+                    errorMessage = errors;
+                    errorTitle = "Execution Error";
+                    return false;
+                }
+
+                return true;
+            }
+
+            @Override
+            protected void done() {
+                checkButton.setLoading(false);
+                try {
+                    if (get()) {
+                        // Success!
+                        controller.markTaskCompleted(currentUser.id(), task.id());
+                        completedTaskIds.add(task.id());
+                        taskComboBox.repaint();
+
+                        codeEditorPanel.setText("");
+                        popupController.showSuccess("Correct! Great job!");
+                        updateProgress();
+
+                        // Move to next task
+                        if (taskComboBox.getItemCount() > taskComboBox.getSelectedIndex() + 1) {
+                            taskComboBox.setSelectedIndex(taskComboBox.getSelectedIndex() + 1);
+                        }
+                    } else {
+                        popupController.showMessage(errorMessage, errorTitle);
+                    }
+                } catch (Exception e) {
+                    log.error("Error checking task", e);
+                    popupController.showError("An error occurred. Please try again.");
+                }
+            }
+        }.execute();
     }
 
     // MARK: - Menu Actions
@@ -505,11 +698,28 @@ public class MainFrameView extends JFrame {
 
     // MARK: - Task Cell Renderer
 
+    public JComboBox<Task> getTaskComboBox() {
+        return taskComboBox;
+    }
+
+    // MARK: - Public Accessors
+
+    public void setUser(User user) {
+        this.currentUser = user;
+    }
+
+    public CodeEditorPanel getCodeEditorPanel() {
+        return codeEditorPanel;
+    }
+
     private class TaskCellRenderer extends DefaultListCellRenderer {
         @Override
         public java.awt.Component getListCellRendererComponent(
             JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus
         ) {
+            JPanel panel = new JPanel(new BorderLayout(8, 0));
+            panel.setOpaque(false);
+            
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             
             label.setFont(UITheme.getFont(Font.PLAIN, 14));
@@ -523,23 +733,25 @@ public class MainFrameView extends JFrame {
                 label.setForeground(UITheme.TEXT_PRIMARY);
             }
 
-            if (value instanceof Task task && completedTaskIds.contains(task.id())) {
-                label.setText("✓ " + task.toString());
-                label.setForeground(new Color(74, 222, 128)); // Green
+            if (value instanceof Task task) {
+                String text = task.toString();
+                if (completedTaskIds.contains(task.id())) {
+                    text = "✓ " + text;
+                    label.setForeground(new Color(74, 222, 128)); // Green
+                }
+                label.setText(text);
+
+                // Add difficulty badge
+                DifficultyBadge badge = new DifficultyBadge(task.difficult());
+                panel.add(label, BorderLayout.CENTER);
+                panel.add(badge, BorderLayout.EAST);
+                panel.setBackground(label.getBackground());
+
+                return panel;
             }
 
             return label;
         }
-    }
-
-    // MARK: - Public Accessors
-
-    public void setUser(User user) {
-        this.currentUser = user;
-    }
-
-    public JComboBox<Task> getTaskComboBox() {
-        return taskComboBox;
     }
 
     public Set<Integer> getCompletedTaskIds() {

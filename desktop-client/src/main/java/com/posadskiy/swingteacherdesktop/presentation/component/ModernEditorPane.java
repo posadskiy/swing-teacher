@@ -46,16 +46,25 @@ public class ModernEditorPane extends JEditorPane {
         styleSheet.addRule("p { margin: 6px 0; }");
         styleSheet.addRule("code { " +
             "background-color: #334155; " +
-            "padding: 2px 4px; " +
-            "border-radius: 3px; " +
-            "font-family: 'SF Mono', Consolas, monospace; " +
-            "font-size: 11px; " +
+            "padding: 3px 6px; " +
+            "border-radius: 4px; " +
+            "font-family: 'SF Mono', Consolas, 'Courier New', monospace; " +
+            "font-size: 12px; " +
+            "color: #e2e8f0; " +
+            "border: 1px solid #475569; " +
         "}");
         styleSheet.addRule("pre { " +
             "background-color: #1e293b; " +
-            "padding: 8px; " +
+            "padding: 12px; " +
             "border-radius: 6px; " +
             "overflow-x: auto; " +
+            "border: 1px solid #334155; " +
+            "margin: 8px 0; " +
+            "}");
+        styleSheet.addRule("pre code { " +
+            "background-color: transparent; " +
+            "padding: 0; " +
+            "border: none; " +
         "}");
         styleSheet.addRule("a { color: #818cf8; text-decoration: none; }");
         styleSheet.addRule("a:hover { text-decoration: underline; }");

@@ -93,6 +93,34 @@ public class ModernButton extends JButton {
         animationTimer.start();
     }
 
+    private LoadingSpinner loadingSpinner;
+    private String originalText;
+
+    public void setLoading(boolean loading) {
+        if (loading) {
+            originalText = getText();
+            setText("");
+            setEnabled(false);
+            if (loadingSpinner == null) {
+                loadingSpinner = new LoadingSpinner();
+            }
+            add(loadingSpinner);
+            loadingSpinner.setBounds((getWidth() - 16) / 2, (getHeight() - 16) / 2, 16, 16);
+        } else {
+            setEnabled(true);
+            if (loadingSpinner != null) {
+                remove(loadingSpinner);
+                loadingSpinner.stop();
+                loadingSpinner = null;
+            }
+            if (originalText != null) {
+                setText(originalText);
+                originalText = null;
+            }
+        }
+        repaint();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
@@ -118,15 +146,18 @@ public class ModernButton extends JButton {
         g2d.setColor(currentColor);
         g2d.fill(new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), 12, 12));
 
-        // Draw text
-        g2d.setColor(isEnabled() ? UITheme.TEXT_PRIMARY : UITheme.TEXT_SECONDARY);
-        g2d.setFont(getFont());
-        FontMetrics fm = g2d.getFontMetrics();
-        int x = (getWidth() - fm.stringWidth(getText())) / 2;
-        int y = (getHeight() + fm.getAscent() - fm.getDescent()) / 2;
-        g2d.drawString(getText(), x, y);
+        // Draw text only if not loading
+        if (loadingSpinner == null && getText() != null && !getText().isEmpty()) {
+            g2d.setColor(isEnabled() ? UITheme.TEXT_PRIMARY : UITheme.TEXT_SECONDARY);
+            g2d.setFont(getFont());
+            FontMetrics fm = g2d.getFontMetrics();
+            int x = (getWidth() - fm.stringWidth(getText())) / 2;
+            int y = (getHeight() + fm.getAscent() - fm.getDescent()) / 2;
+            g2d.drawString(getText(), x, y);
+        }
 
         g2d.dispose();
     }
 }
+
 

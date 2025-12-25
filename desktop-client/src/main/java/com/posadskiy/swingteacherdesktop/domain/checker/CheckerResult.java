@@ -49,3 +49,4 @@ public record CheckerResult(String className, int errorCode) {
     public int getErrorCode() { return errorCode; }
 }
 
+

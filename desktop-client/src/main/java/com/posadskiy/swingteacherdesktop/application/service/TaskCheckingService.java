@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -88,4 +87,5 @@ public class TaskCheckingService {
         }
     }
 }
+
 

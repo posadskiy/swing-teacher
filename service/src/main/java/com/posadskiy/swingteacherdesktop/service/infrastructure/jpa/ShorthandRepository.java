@@ -6,3 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ShorthandRepository extends JpaRepository<ShorthandEntity, Long> {
 }
 
+

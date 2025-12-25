@@ -13,3 +13,4 @@ public interface ShorthandRepository {
     List<Shorthand> getAllShorthands() throws SQLException;
 }
 
+

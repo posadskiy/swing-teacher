@@ -1,22 +1,31 @@
 package com.posadskiy.swingteacherdesktop.tables;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.io.Serial;
 import java.io.Serializable;
+import java.util.Optional;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class Documentation implements Serializable {
-
-    @Serial
+/**
+ * Immutable documentation entity.
+ */
+public record Documentation(
+    Integer id,
+    String text
+) implements Serializable {
+    
     private static final long serialVersionUID = -5527568544502296042L;
-
-    private Integer id;
-
-    private String text;
-
+    
+    public Optional<String> getTextOptional() {
+        return Optional.ofNullable(text).filter(s -> !s.isBlank());
+    }
+    
+    public boolean hasContent() {
+        return text != null && !text.isBlank();
+    }
+    
+    // Compatibility getters
+    public Integer getId() { return id; }
+    public String getText() { return text; }
+    
+    public static Documentation of(Integer id, String text) {
+        return new Documentation(id, text);
+    }
 }

@@ -2,144 +2,174 @@ package com.posadskiy.swingteacherdesktop.utils;
 
 import lombok.extern.slf4j.Slf4j;
 
-import javax.tools.*;
-import java.io.*;
-import java.util.Arrays;
+import javax.tools.Diagnostic;
+import javax.tools.DiagnosticCollector;
+import javax.tools.JavaCompiler;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-
+/**
+ * Modern file utilities using NIO and try-with-resources.
+ */
 @Slf4j
-public class FileUtils {
-
+public final class FileUtils {
+    
+    private static final String JAVA_FILE = "Answer.java";
+    private static final String CLASS_FILE = "Answer.class";
+    
+    private FileUtils() {
+        // Utility class
+    }
+    
+    /**
+     * Writes text to a file, creating it if it doesn't exist.
+     */
     public static void write(String fileName, String text) {
-        //Определяем файл
-        File file = new File(fileName);
-
+        var path = Path.of(fileName);
         try {
-            //проверяем, что если файл не существует то создаем его
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-
-            //PrintWriter обеспечит возможности записи в файл
-            PrintWriter out = new PrintWriter(file.getAbsoluteFile());
-
-            try {
-                //Записываем текст у файл
-                out.print(text);
-            } finally {
-                //После чего мы должны закрыть файл
-                //Иначе файл не запишется
-                out.close();
-            }
+            Files.writeString(path, text);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException("Failed to write file: " + fileName, e);
         }
     }
-
-    public static String read(String fileName) throws FileNotFoundException {
-        //Этот спец. объект для построения строки
-        StringBuilder sb = new StringBuilder();
-        exists(fileName);
-
-        File file = new File(fileName);
-
+    
+    /**
+     * Reads entire file content as a single string.
+     */
+    public static String read(String fileName) throws IOException {
+        var path = Path.of(fileName);
+        if (!Files.exists(path)) {
+            throw new IOException("File not found: " + fileName);
+        }
+        return Files.readString(path);
+    }
+    
+    /**
+     * Reads file content as Optional, returning empty if file doesn't exist.
+     */
+    public static Optional<String> readOptional(String fileName) {
         try {
-            //Объект для чтения файла в буфер
-            BufferedReader in = new BufferedReader(new FileReader(file.getAbsoluteFile()));
-            try {
-                //В цикле построчно считываем файл
-                String s;
-                while ((s = in.readLine()) != null) {
-                    sb.append(s);
+            return Optional.of(read(fileName));
+        } catch (IOException e) {
+            log.debug("Could not read file: {}", fileName, e);
+            return Optional.empty();
+        }
+    }
+    
+    /**
+     * Checks if file exists.
+     */
+    public static boolean exists(String fileName) {
+        return Files.exists(Path.of(fileName));
+    }
+    
+    /**
+     * Runs compiled Answer.class file if it exists.
+     */
+    public static void runFile() throws ReflectiveOperationException, IOException {
+        var classFile = new File(CLASS_FILE);
+        if (!classFile.exists()) {
+            log.warn("Class file {} does not exist", CLASS_FILE);
+            return;
+        }
+        
+        var loader = new DynamicClassLoader();
+        var clazz = loader.loadClassFromFile(classFile);
+        var instance = clazz.getDeclaredConstructor().newInstance();
+        
+        if (instance instanceof CreateFrame createFrame) {
+            createFrame.createFrame();
+        } else {
+            log.warn("Loaded class does not implement CreateFrame");
+        }
+    }
+    
+    /**
+     * Compiles user code and returns compilation errors (empty string if success).
+     */
+    public static String isCompileFile(String operators, String imports) throws IOException {
+        // Clean up old files
+        cleanupFiles(JAVA_FILE, CLASS_FILE);
+        
+        // Generate source code using text blocks
+        var sourceCode = generateSourceCode(operators, imports);
+        Files.writeString(Path.of(JAVA_FILE), sourceCode);
+        
+        // Compile
+        return compileAndGetErrors(JAVA_FILE);
+    }
+    
+    private static String generateSourceCode(String operators, String imports) {
+        var importsSection = Optional.ofNullable(imports).orElse("");
+        
+        return """
+            package com.posadskiy.swingteacherdesktop.utils;
+            import javax.swing.*;
+            import java.awt.*;
+            %s
+            public class Answer extends CreateFrame {
+                public Answer() {
+                    setTitle("Your frame");
+                    %s
+                    setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                    setPreferredSize(new Dimension(700, 400));
+                    pack();
+                    setLocationRelativeTo(null);
+                    setVisible(true);
                 }
-            } finally {
-                //Также не забываем закрыть файл
-                in.close();
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        //Возвращаем полученный текст с файла
-        return sb.toString();
+            """.formatted(importsSection, operators);
     }
-
-    private static void exists(String fileName) throws FileNotFoundException {
-        File file = new File(fileName);
-        if (!file.exists()) {
-            throw new FileNotFoundException(file.getName());
-        }
-    }
-
-    public static void runFile() throws InstantiationException, IllegalAccessException {
-        String className = "Answer.class";
-        if (new File(className).exists()) {
-            MyClassLoader loader = new MyClassLoader();
-            Class my = loader.getClassFromFile(new File(className));
-            Object o = my.newInstance();
-            CreateFrame cf = (CreateFrame) o;
-            cf.createFrame();
-        }
-    }
-
-    public static String isCompileFile(String operators, String imports) throws IOException, InstantiationException, IllegalAccessException {
-        String fileName = "Answer.java";
-        String className = "Answer.class";
-        File[] f = new File[]{new File(fileName), new File(className)};
-        for (File file : f)
-            file.delete();
-
-        BufferedWriter fos = new BufferedWriter(new FileWriter(fileName));
-        fos.write("package com.posadskiy.swingteacherdesktop.utils;\n"
-            + "import javax.swing.*;\n"
-            + "import java.awt.*;\n"
-            + ((imports == null) ? "" : imports) + "\n"
-            + "public class Answer extends CreateFrame {\n "
-            + "public Answer() {\n"
-            + "setTitle(\"Your frame\");\n"
-            + operators + "\n"
-            + "setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);\n"
-            + "setPreferredSize(new Dimension(700, 400));\n"
-            + "pack();\n"
-            + "setLocationRelativeTo(null);\n"
-            + "setVisible(true);\n}}");
-        fos.flush();
-        fos.close();
-
-        JavaCompiler javac = ToolProvider.getSystemJavaCompiler();
-        StandardJavaFileManager fileManager = javac.getStandardFileManager(null, null, null);
-        DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
-        Iterable<? extends JavaFileObject> compilationUnits1 = fileManager.getJavaFileObjectsFromFiles(Arrays
-            .asList(new File[]{new File(fileName)}));
-        javac.getTask(null, fileManager, diagnostics, null, null, compilationUnits1).call();
-        String problems = "";
-        for (Diagnostic diagnostic : diagnostics.getDiagnostics())
-            problems += diagnostic + "\n";
-        fileManager.close();
-
-        return problems;
-    }
-
-    static class MyClassLoader extends ClassLoader {
-
-        public Class<?> getClassFromFile(File f) {
-            byte[] raw = new byte[(int) f.length()];
-            InputStream in = null;
+    
+    private static void cleanupFiles(String... fileNames) {
+        for (var fileName : fileNames) {
             try {
-                in = new FileInputStream(f);
-                //noinspection ResultOfMethodCallIgnored
-                in.read(raw);
-            } catch (Exception e) {
-                log.error("Failed to read class bytes from {}", f, e);
-            }
-            try {
-                if (in != null)
-                    in.close();
+                Files.deleteIfExists(Path.of(fileName));
             } catch (IOException e) {
-                log.warn("Failed to close stream for {}", f, e);
+                log.warn("Failed to delete file: {}", fileName, e);
             }
-            return defineClass(null, raw, 0, raw.length);
         }
     }
-
+    
+    private static String compileAndGetErrors(String sourceFile) throws IOException {
+        var compiler = ToolProvider.getSystemJavaCompiler();
+        if (compiler == null) {
+            return "Java compiler not available. Please run with JDK, not JRE.";
+        }
+        
+        var diagnostics = new DiagnosticCollector<JavaFileObject>();
+        
+        try (var fileManager = compiler.getStandardFileManager(diagnostics, null, null)) {
+            var compilationUnits = fileManager.getJavaFileObjectsFromFiles(
+                List.of(new File(sourceFile))
+            );
+            
+            compiler.getTask(null, fileManager, diagnostics, null, null, compilationUnits).call();
+            
+            return diagnostics.getDiagnostics().stream()
+                .map(Diagnostic::toString)
+                .collect(Collectors.joining("\n"));
+        }
+    }
+    
+    /**
+     * Custom class loader for dynamically loading compiled classes.
+     */
+    private static final class DynamicClassLoader extends ClassLoader {
+        
+        public Class<?> loadClassFromFile(File file) throws IOException {
+            var bytes = Files.readAllBytes(file.toPath());
+            return defineClass(null, bytes, 0, bytes.length);
+        }
+    }
 }

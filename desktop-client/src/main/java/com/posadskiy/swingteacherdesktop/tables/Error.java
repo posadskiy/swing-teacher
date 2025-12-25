@@ -1,22 +1,27 @@
 package com.posadskiy.swingteacherdesktop.tables;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.io.Serial;
 import java.io.Serializable;
+import java.util.Optional;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class Error implements Serializable {
-
-    @Serial
+/**
+ * Immutable error entity.
+ */
+public record Error(
+    Integer id,
+    String errorText
+) implements Serializable {
+    
     private static final long serialVersionUID = -5527568543302296042L;
-
-    private Integer id;
-
-    private String errorText;
-
+    
+    public Optional<String> getErrorTextOptional() {
+        return Optional.ofNullable(errorText);
+    }
+    
+    // Compatibility getters
+    public Integer getId() { return id; }
+    public String getErrorText() { return errorText; }
+    
+    public static Error of(Integer id, String errorText) {
+        return new Error(id, errorText);
+    }
 }

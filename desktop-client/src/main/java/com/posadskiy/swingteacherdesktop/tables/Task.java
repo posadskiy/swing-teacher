@@ -1,43 +1,35 @@
 package com.posadskiy.swingteacherdesktop.tables;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Builder;
 
-import java.io.Serial;
 import java.io.Serializable;
+import java.util.Optional;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class Task implements Serializable {
-
-    @Serial
+/**
+ * Immutable task entity using Java record with Lombok @Builder.
+ */
+@Builder(toBuilder = true)
+public record Task(
+    Integer id,
+    Integer idLesson,
+    Integer taskNumber,
+    String title,
+    String question,
+    String answer,
+    String imports,
+    Integer idDocumentation,
+    Double difficult,
+    Double rating
+) implements Serializable {
+    
     private static final long serialVersionUID = -5527566248002296042L;
-
-    private Integer id;
-
-    private Integer idLesson;
-
-    private Integer taskNumber;
-
-    private String title;
-
-    private String question;
-
-    private String answer;
-
-    private String imports;
-
-    private Integer idDocumentation;
-
-    private Double difficult;
-
-    private Double rating;
-
+    
+    public Optional<String> getImportsOptional() {
+        return Optional.ofNullable(imports).filter(s -> !s.isBlank());
+    }
+    
     @Override
     public String toString() {
-        return this.title;
+        return Optional.ofNullable(title).orElse("Untitled Task");
     }
-
 }

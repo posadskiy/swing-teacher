@@ -7,58 +7,67 @@ import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
+/**
+ * Modern REST-based documentation DAO using Optional and streams.
+ */
 public class DocumentationDaoRest implements DocumentationDao {
+    
     private final RestClient client;
-
+    
     public DocumentationDaoRest(RestClient client) {
         this.client = client;
     }
-
+    
     @Override
     public void addDocumentation(Documentation documentation) {
         throw new UnsupportedOperationException("addDocumentation is not supported over REST");
     }
-
+    
     @Override
     public void deleteDocumentation(Documentation documentation) {
         throw new UnsupportedOperationException("deleteDocumentation is not supported over REST");
     }
-
+    
     @Override
     public void deleteDocumentation(int id) {
         throw new UnsupportedOperationException("deleteDocumentation is not supported over REST");
     }
-
+    
     @Override
     public Documentation getDocumentation(int id) throws SQLException {
         try {
-            DocumentationDto dto = client.get()
-                .uri("/api/ref/documentation/{id}", id)
-                .retrieve()
-                .body(DocumentationDto.class);
-            return RestDtoMapper.toDocumentation(dto);
+            return Optional.ofNullable(
+                    client.get()
+                        .uri("/api/ref/documentation/{id}", id)
+                        .retrieve()
+                        .body(DocumentationDto.class)
+                )
+                .map(RestDtoMapper::toDocumentation)
+                .orElse(null);
         } catch (RestClientException ex) {
-            throw new SQLException("Failed to load documentation", ex);
+            throw new SQLException("Failed to load documentation: " + id, ex);
         }
     }
-
+    
     @Override
-    public java.util.List<Documentation> getAllDocumentation() throws SQLException {
+    public List<Documentation> getAllDocumentation() throws SQLException {
         try {
-            DocumentationDto[] dtos = client.get()
+            var response = client.get()
                 .uri("/api/ref/documentation")
                 .retrieve()
                 .body(DocumentationDto[].class);
-            if (dtos == null) {
-                return java.util.Collections.emptyList();
-            }
-            return java.util.Arrays.stream(dtos)
-                .map(RestDtoMapper::toDocumentation)
-                .collect(java.util.stream.Collectors.toList());
+            
+            return Optional.ofNullable(response)
+                .map(arr -> Arrays.stream(arr)
+                    .map(RestDtoMapper::toDocumentation)
+                    .toList())
+                .orElse(List.of());
         } catch (RestClientException ex) {
             throw new SQLException("Failed to load all documentation", ex);
         }
     }
 }
-

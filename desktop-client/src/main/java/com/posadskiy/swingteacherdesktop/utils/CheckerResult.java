@@ -1,39 +1,50 @@
 package com.posadskiy.swingteacherdesktop.utils;
 
 /**
- *
- * @author DPosadsky
+ * Immutable result of code validation check.
+ * Error codes:
+ * 0 = Success
+ * 1 = Wrong method or incorrect implementation
+ * 2 = Missing required method
+ * 3 = Missing component constructor
  */
-public class CheckerResult {
-
-    private String className;
-    private int errorCode;
-
-    public CheckerResult() {
-        className = null;
-        errorCode = 0;
+public record CheckerResult(String className, int errorCode) {
+    
+    public static CheckerResult success(String className) {
+        return new CheckerResult(className, 0);
     }
-
-    public CheckerResult(String className, int errorCode) {
-        this.className = className;
-        this.errorCode = errorCode;
+    
+    public static CheckerResult wrongMethod(String className) {
+        return new CheckerResult(className, 1);
     }
-
-    public String getClassName() {
-        return className;
+    
+    public static CheckerResult missingMethod(String className) {
+        return new CheckerResult(className, 2);
     }
-
-    public void setClassName(String className) {
-        this.className = className;
+    
+    public static CheckerResult missingConstructor(String className) {
+        return new CheckerResult(className, 3);
     }
-
-    public int getErrorCode() {
-        return errorCode;
+    
+    public boolean isSuccess() {
+        return errorCode == 0;
     }
-
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
+    
+    public boolean isError() {
+        return errorCode != 0;
     }
-
-
+    
+    public String getErrorDescription() {
+        return switch (errorCode) {
+            case 0 -> "Success";
+            case 1 -> "Wrong method or incorrect implementation";
+            case 2 -> "Missing required method";
+            case 3 -> "Missing component constructor";
+            default -> "Unknown error (code: %d)".formatted(errorCode);
+        };
+    }
+    
+    // Compatibility getters for legacy code (tests use getClassName/getErrorCode)
+    public String getClassName() { return className; }
+    public int getErrorCode() { return errorCode; }
 }

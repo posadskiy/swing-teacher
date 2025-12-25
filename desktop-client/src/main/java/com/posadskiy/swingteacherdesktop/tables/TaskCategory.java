@@ -1,21 +1,27 @@
 package com.posadskiy.swingteacherdesktop.tables;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.io.Serial;
 import java.io.Serializable;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class TaskCategory implements Serializable {
-
-    @Serial
+/**
+ * Immutable task category entity.
+ */
+public record TaskCategory(
+    Integer id,
+    String name
+) implements Serializable {
+    
     private static final long serialVersionUID = 1L;
-
-    private Integer id;
-
-    private String name;
+    
+    // Compatibility getters
+    public Integer getId() { return id; }
+    public String getName() { return name; }
+    
+    public static TaskCategory of(Integer id, String name) {
+        return new TaskCategory(id, name);
+    }
+    
+    @Override
+    public String toString() {
+        return name != null ? name : "Unknown Category";
+    }
 }

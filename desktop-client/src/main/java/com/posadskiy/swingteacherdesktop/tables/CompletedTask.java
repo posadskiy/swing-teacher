@@ -1,24 +1,28 @@
 package com.posadskiy.swingteacherdesktop.tables;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.io.Serial;
 import java.io.Serializable;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class CompletedTask implements Serializable {
+/**
+ * Immutable completed task entity.
+ */
+public record CompletedTask(
+    Integer id,
+    Integer userId,
+    Integer taskId
+) implements Serializable {
     
-    @Serial
     private static final long serialVersionUID = -5527568542422296042L;
-
-    private Integer id;
-
-    private Integer userId;
-
-    private Integer taskId;
-
+    
+    // Compatibility getters
+    public Integer getId() { return id; }
+    public Integer getUserId() { return userId; }
+    public Integer getTaskId() { return taskId; }
+    
+    public static CompletedTask of(Integer id, Integer userId, Integer taskId) {
+        return new CompletedTask(id, userId, taskId);
+    }
+    
+    public static CompletedTask forUser(Integer userId, Integer taskId) {
+        return new CompletedTask(null, userId, taskId);
+    }
 }

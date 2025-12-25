@@ -1,21 +1,22 @@
 package com.posadskiy.swingteacherdesktop.tables;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.io.Serial;
 import java.io.Serializable;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class Keyword implements Serializable {
-    @Serial
+/**
+ * Immutable keyword entity.
+ */
+public record Keyword(
+    Integer id,
+    String keywordText
+) implements Serializable {
+    
     private static final long serialVersionUID = -1L;
-
-    private Integer id;
-
-    private String keywordText;
-
+    
+    // Compatibility getters
+    public Integer getId() { return id; }
+    public String getKeywordText() { return keywordText; }
+    
+    public static Keyword of(Integer id, String keywordText) {
+        return new Keyword(id, keywordText);
+    }
 }

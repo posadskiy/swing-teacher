@@ -3,6 +3,7 @@ package com.posadskiy.swingteacherdesktop.views;
 import com.posadskiy.swingteacherdesktop.controllers.MainFrameController;
 import com.posadskiy.swingteacherdesktop.controllers.PopupWindowsController;
 import com.posadskiy.swingteacherdesktop.models.ComboBoxModel;
+import com.posadskiy.swingteacherdesktop.models.TaskListCellRenderer;
 import com.posadskiy.swingteacherdesktop.navigation.AppNavigator;
 import com.posadskiy.swingteacherdesktop.service.AuthService;
 import com.posadskiy.swingteacherdesktop.state.AppState;
@@ -20,40 +21,43 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
+/**
+ * Main application frame view with task management.
+ */
 @Slf4j
 @Lazy
 @Component
 public class MainFrameView extends JFrame {
 
     private final AppState appState;
-    int taskCategory;
-    int lesson;
-    // Элементы интерфейса
+    private final MainFrameController mainFrameController;
+    private final PopupWindowsController popupWindowsController;
+    private final AppNavigator navigator;
+    private final AuthService authService;
+    
+    private int taskCategory;
+    private int lesson;
+    
+    // UI Components
     private JMenuBar menuBar;
     private JLabel lessonLabel;
     private JLabel taskLabel;
-    private JComboBox lessonComboBox;
-    private JComboBox taskComboBox;
+    private JComboBox<Lesson> lessonComboBox;
+    private JComboBox<Task> taskComboBox;
     private JButton lookButton;
     private JButton checkButton;
     private JScrollPane answerScrollPane;
     private JScrollPane questionScrollPane;
     private JScrollPane documentationScrollPane;
-    // Вспомогательные компоненты
-    private MainFrameController mainFrameController;
-    private PopupWindowsController popupWindowsController;
-    private AppNavigator navigator;
-    private AuthService authService;
+    
+    // Data
     private User currentUser;
-    // Данные из БД
     private List<Task> tasks;
     private List<Lesson> lessons;
-    private List<CompletedTask> completedTasks;
-    private List<Integer> completedTasksId;
-    private TaskCategory categoryTask;
+    private final Set<Integer> completedTaskIds = new HashSet<>();
 
     public MainFrameView(
         MainFrameController mainFrameController,
@@ -71,95 +75,88 @@ public class MainFrameView extends JFrame {
 
     public void initComponents() {
         currentUser = appState.getCurrentUser();
-
         taskCategory = 1;
         lesson = -1;
 
-        // Получение объектов из БД (only if user is authenticated)
-        if (currentUser != null && currentUser.getId() != null) {
-            try {
-                lessons = mainFrameController.getLessonByCategory(taskCategory);
-                if (lessons != null && !lessons.isEmpty() && lessons.get(0) != null && lessons.get(0).getId() != null) {
-                    lesson = lessons.get(0).getId();
-                    // Get tasks from the first lesson
-                    Lesson firstLesson = lessons.get(0);
-                    tasks = firstLesson.getTasks() != null ? firstLesson.getTasks() : new ArrayList<>();
-                } else {
-                    tasks = new ArrayList<>();
-                }
-
-                Integer currentUserId = currentUser.getId();
-                completedTasks = mainFrameController.getCompletedTaskByUserId(currentUserId);
-            } catch (Exception e) {
-                log.warn("Failed to load initial data, will retry later", e);
-                lessons = new ArrayList<>();
-                tasks = new ArrayList<>();
-                completedTasks = new ArrayList<>();
+        loadInitialData();
+        createUIComponents();
+        setupLayout();
+        setupListeners();
+        doSetupFrame();
+    }
+    
+    private void loadInitialData() {
+        if (currentUser == null || currentUser.id() == null) {
+            lessons = List.of();
+            tasks = List.of();
+            return;
+        }
+        
+        try {
+            lessons = Optional.ofNullable(mainFrameController.getLessonByCategory(taskCategory))
+                .orElse(List.of());
+            
+            if (!lessons.isEmpty() && lessons.getFirst().id() != null) {
+                lesson = lessons.getFirst().id();
+                tasks = Optional.ofNullable(lessons.getFirst().tasks())
+                    .orElse(List.of());
+            } else {
+                tasks = List.of();
             }
-        } else {
-            // No user authenticated yet, initialize with empty data
-            lessons = new ArrayList<>();
-            tasks = new ArrayList<>();
-            completedTasks = new ArrayList<>();
+            
+            // Load completed tasks
+            var completedTasks = mainFrameController.getCompletedTaskByUserId(currentUser.id());
+            completedTasks.stream()
+                .map(CompletedTask::taskId)
+                .filter(Objects::nonNull)
+                .forEach(completedTaskIds::add);
+                
+        } catch (Exception e) {
+            log.warn("Failed to load initial data, will retry later", e);
+            lessons = List.of();
+            tasks = List.of();
         }
-
-        completedTasksId = new ArrayList<>();
-        for (CompletedTask completedTask : completedTasks) {
-            completedTasksId.add(completedTask.getTaskId());
-        }
-
-        // Инициализация компонентов 
+    }
+    
+    private void createUIComponents() {
         menuBar = doCreateMenuBar();
-        lessonLabel = doCreateLabel("Lesson");
-        taskLabel = doCreateLabel("Task");
-
-        lessonLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        taskLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
-
-        lessonComboBox = new JComboBox(new ComboBoxModel(lessons == null ? new ArrayList<>() : lessons));
-        taskComboBox = new JComboBox(new ComboBoxModel(tasks == null ? new ArrayList<>() : tasks));
-
+        lessonLabel = createLabel("Lesson");
+        taskLabel = createLabel("Task");
+        
+        lessonComboBox = new JComboBox<>(new ComboBoxModel<>(new ArrayList<>(lessons)));
+        taskComboBox = new JComboBox<>(new ComboBoxModel<>(new ArrayList<>(tasks)));
+        
+        // Use custom renderer for completed task display
+        taskComboBox.setRenderer(new TaskListCellRenderer(completedTaskIds));
+        
         lessonComboBox.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         taskComboBox.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-
-        //taskComboBox.setRenderer(new ComplexCellRenderer());
-
-        //if (currentUser.getCompleteTraining() == 0) {
-        // (debug) taskComboBox.getEditor().getEditorComponent().getName()
-        //}
-
-        for (int i = 0; i < tasks.size(); ++i) {
-            Task cTask = (Task) taskComboBox.getItemAt(i);
-            if (completedTasksId.contains(cTask.getId())) {
-                //taskComboBox.setSelectedItem(cTask);
-                cTask.setTitle("☑ " + cTask.getTitle());
-            }
-        }
-
+        
         if (!tasks.isEmpty()) {
-            Task cTask = tasks.get(0);
-            questionScrollPane = doCreateQuestionScrollPane(cTask.getQuestion());
-            Documentation doc = mainFrameController.getDocumentation(cTask.getIdDocumentation());
-            String docText = (doc != null && doc.getText() != null)
-                ? doc.getText()
-                : "Documentation not available";
+            var firstTask = tasks.getFirst();
+            questionScrollPane = doCreateQuestionScrollPane(firstTask.question());
+            var doc = mainFrameController.getDocumentation(firstTask.idDocumentation());
+            var docText = Optional.ofNullable(doc)
+                .map(Documentation::text)
+                .filter(t -> !t.isBlank())
+                .orElse("Documentation not available");
             documentationScrollPane = doCreateDocumentationScrollPane(docText);
         } else {
             questionScrollPane = doCreateQuestionScrollPane("Question not available");
             documentationScrollPane = doCreateDocumentationScrollPane("Documentation not available");
         }
-
+        
         answerScrollPane = doCreateAnswerScrollPane("");
-        lookButton = doCreateButton("View");
-        checkButton = doCreateButton("Check");
-
-
-        // Связывание компонентов
+        lookButton = new JButton("View");
+        checkButton = new JButton("Check");
+    }
+    
+    private void setupLayout() {
         setJMenuBar(menuBar);
-
-        MigLayout migLayout = new MigLayout("wrap 16", "grow, fill");
+        
+        var migLayout = new MigLayout("wrap 16", "grow, fill");
         setLayout(migLayout);
-
+        
         add(lessonLabel, "span 2");
         add(lessonComboBox, "span 2, w 20%");
         add(taskLabel, "span 2");
@@ -169,74 +166,57 @@ public class MainFrameView extends JFrame {
         add(answerScrollPane, "span 8 4, h 70%");
         add(lookButton, "span 4");
         add(checkButton, "span 4");
-
-
-        // Добавление слушателей
-
+    }
+    
+    private void setupListeners() {
         lessonComboBox.addActionListener(this::changeSelectedElementInLessonComboBox);
-
         taskComboBox.addActionListener(this::changeSelectedElementInTaskComboBox);
-
         lookButton.addActionListener(this::clickLookButton);
-
         checkButton.addActionListener(this::clickOkButton);
-
-        // Настройка компонентов
-        doSetupFrame();
-
+    }
+    
+    private JLabel createLabel(String text) {
+        var label = new JLabel(text);
+        label.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        return label;
     }
 
     public void doSetupFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(1000, 600));
-        //setPreferredSize(new Dimension(1000, 600));
-        // setVisible(true) removed - frame should only be shown after successful authentication
-        //pack();
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
-    public void setLookAndFeel() {
-        try {
-            javax.swing.UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException
-                 | ClassNotFoundException ex) {
-            log.warn("Failed to set system Look&Feel", ex);
-        }
-    }
-
     public JMenuBar doCreateMenuBar() {
+        var font = new Font("Verdana", Font.PLAIN, 11);
+        var menuBar = new JMenuBar();
 
-        Font font = new Font("Verdana", Font.PLAIN, 11);
-
-        JMenuBar menuBar = new JMenuBar();
-
-        JMenu settingsMenu = new JMenu("Settings");
+        var settingsMenu = new JMenu("Settings");
         settingsMenu.setFont(font);
 
-        JMenuItem logoutItem = new JMenuItem("Logout");
+        var logoutItem = new JMenuItem("Logout");
         logoutItem.setFont(font);
         logoutItem.addActionListener(e -> logout());
         settingsMenu.add(logoutItem);
 
         settingsMenu.addSeparator();
 
-        JMenuItem exitItem = new JMenuItem("Exit");
+        var exitItem = new JMenuItem("Exit");
         exitItem.setFont(font);
-        settingsMenu.add(exitItem);
-
         exitItem.addActionListener(e -> System.exit(0));
+        settingsMenu.add(exitItem);
 
         menuBar.add(settingsMenu);
 
-        JMenu refMenu = new JMenu("Help");
+        var refMenu = new JMenu("Help");
 
-        JMenuItem documentationItem = new JMenuItem("Documentation");
+        var documentationItem = new JMenuItem("Documentation");
         documentationItem.setFont(font);
         documentationItem.addActionListener(e -> showDocumentation());
         refMenu.add(documentationItem);
 
-        JMenuItem aboutProgram = new JMenuItem("About");
+        var aboutProgram = new JMenuItem("About");
         aboutProgram.setFont(font);
         aboutProgram.addActionListener(e -> showAbout());
         refMenu.add(aboutProgram);
@@ -244,200 +224,193 @@ public class MainFrameView extends JFrame {
         menuBar.add(refMenu);
 
         return menuBar;
-
-    }
-
-    public JLabel doCreateLabel(String text) {
-        JLabel label = new JLabel(text);
-
-        return label;
-    }
-
-    public JButton doCreateButton(String text) {
-        JButton button = new JButton(text);
-
-        return button;
     }
 
     public JScrollPane doCreateDocumentationScrollPane(String text) {
-        JEditorPane html = new JEditorPane();
+        var html = new JEditorPane();
         html.setContentType("text/html;Content-Type=windows-1251");
         html.setEditable(false);
         html.setText(text);
-        TitledBorder tBorder = BorderFactory.createTitledBorder("Help");
+        var tBorder = BorderFactory.createTitledBorder("Help");
         tBorder.setTitleFont(new Font("Serif", Font.BOLD, 15));
         html.setBorder(tBorder);
 
-        JScrollPane scrollPane = new JScrollPane(html);
-        return scrollPane;
+        return new JScrollPane(html);
     }
 
     public JScrollPane doCreateQuestionScrollPane(String text) {
-        JEditorPane html = new JEditorPane();
+        var html = new JEditorPane();
         html.setContentType("text/html;Content-Type=windows-1251");
         html.setEditable(false);
         html.setText(text);
-        TitledBorder tBorder = BorderFactory.createTitledBorder("Task");
+        var tBorder = BorderFactory.createTitledBorder("Task");
         tBorder.setTitleFont(new Font("Serif", Font.BOLD, 15));
         html.setBorder(tBorder);
-        JScrollPane scrollPane = new JScrollPane(html);
+        var scrollPane = new JScrollPane(html);
         scrollPane.setMinimumSize(new Dimension(500, 60));
         return scrollPane;
     }
 
     public JScrollPane doCreateAnswerScrollPane(String text) {
-        RSyntaxTextArea textArea = new RSyntaxTextArea(text);
+        var textArea = new RSyntaxTextArea(text);
 
-        TitledBorder tBorder = BorderFactory.createTitledBorder("Solution");
+        var tBorder = BorderFactory.createTitledBorder("Solution");
         tBorder.setTitleFont(new Font("Serif", Font.BOLD, 15));
         textArea.setBorder(tBorder);
         textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
 
         CompletionProvider provider = mainFrameController.createCompletionProvider();
-        AutoCompletion ac = new AutoCompletion(provider);
+        var ac = new AutoCompletion(provider);
         ac.install(textArea);
 
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        return scrollPane;
+        return new JScrollPane(textArea);
     }
 
     public void changeSelectedElementInLessonComboBox(ActionEvent ae) {
-        int selectedIndex = lessonComboBox.getSelectedIndex();
-        if (selectedIndex >= 0 && selectedIndex < lessons.size()) {
-            Lesson selectedLesson = lessons.get(selectedIndex);
-            tasks = selectedLesson.getTasks() != null ? selectedLesson.getTasks() : new ArrayList<>();
-        } else {
-            tasks = new ArrayList<>();
-        }
+        var selectedIndex = lessonComboBox.getSelectedIndex();
         
+        tasks = (selectedIndex >= 0 && selectedIndex < lessons.size())
+            ? Optional.ofNullable(lessons.get(selectedIndex).tasks()).orElse(List.of())
+            : List.of();
+
         taskComboBox.removeAllItems();
-        JEditorPane pane = ((JEditorPane) documentationScrollPane.getViewport().getView());
-        Task cTask = null;
-        pane.setText("Reference information for this task is not available");
+        
+        var questionPane = (JEditorPane) questionScrollPane.getViewport().getView();
+        var docPane = (JEditorPane) documentationScrollPane.getViewport().getView();
+        
         if (!tasks.isEmpty()) {
-            cTask = tasks.get(0);
-            ((JEditorPane) questionScrollPane.getViewport().getView()).setText(cTask.getQuestion());
-            Documentation doc = mainFrameController.getDocumentation(cTask.getIdDocumentation());
-            String docText = (doc != null && doc.getText() != null)
-                ? doc.getText()
-                : "Reference information for this task is not available";
-            pane.setText(docText);
-            for (Task task : tasks)
-                taskComboBox.addItem(task);
-            for (int i = 0; i < tasks.size(); ++i) {
-                cTask = (Task) taskComboBox.getItemAt(i);
-                if (completedTasksId.contains(cTask.getId()))
-                    cTask.setTitle("☑ " + cTask.getTitle());
-            }
+            var firstTask = tasks.getFirst();
+            questionPane.setText(firstTask.question());
+            
+            var doc = mainFrameController.getDocumentation(firstTask.idDocumentation());
+            var docText = Optional.ofNullable(doc)
+                .map(Documentation::text)
+                .orElse("Reference information for this task is not available");
+            docPane.setText(docText);
+            
+            tasks.forEach(taskComboBox::addItem);
+        } else {
+            docPane.setText("Reference information for this task is not available");
         }
     }
 
     public void changeSelectedElementInTaskComboBox(ActionEvent ae) {
-        JEditorPane pane = (JEditorPane) questionScrollPane.getViewport().getView();
-        JEditorPane paneDoc = (JEditorPane) documentationScrollPane.getViewport().getView();
+        var questionPane = (JEditorPane) questionScrollPane.getViewport().getView();
+        var docPane = (JEditorPane) documentationScrollPane.getViewport().getView();
+        
         if (taskComboBox.getItemCount() != 0) {
-            Task cTask = (Task) taskComboBox.getSelectedItem();
-            pane.setText(cTask.getQuestion());
-            paneDoc.setText(mainFrameController.getDocumentation(cTask.getIdDocumentation()).getText());
+            var selectedTask = (Task) taskComboBox.getSelectedItem();
+            if (selectedTask != null) {
+                questionPane.setText(selectedTask.question());
+                var doc = mainFrameController.getDocumentation(selectedTask.idDocumentation());
+                docPane.setText(doc != null ? doc.text() : "Documentation not available");
+            }
         } else {
-            pane.setText("Question not available");
-            paneDoc.setText("Documentation not available");
+            questionPane.setText("Question not available");
+            docPane.setText("Documentation not available");
         }
     }
 
     public void clickLookButton(ActionEvent ae) {
-        String imports = "";
-        Object o = taskComboBox.getSelectedItem();
-        if (o != null)
-            imports = ((Task) o).getImports();
-        mainFrameController.loadAndRunClassFromFile(
-            ((JTextArea) answerScrollPane.getViewport().getView()).getText(), imports);
+        var selectedTask = (Task) taskComboBox.getSelectedItem();
+        var imports = Optional.ofNullable(selectedTask)
+            .map(Task::imports)
+            .orElse("");
+        
+        var answerText = ((JTextArea) answerScrollPane.getViewport().getView()).getText();
+        mainFrameController.loadAndRunClassFromFile(answerText, imports);
     }
 
     public void clickOkButton(ActionEvent ae) {
-        String errors = null;
         if (taskComboBox.getItemCount() == 0) {
             popupWindowsController.createPopupWindow("Please select a question first!", "Error!");
             return;
         }
-        Task cTask = (Task) taskComboBox.getSelectedItem();
-        if (mainFrameController.getCompletedTaskByUserIdByTaskId(currentUser.getId(), cTask.getId()) != null) {
+        
+        var selectedTask = (Task) taskComboBox.getSelectedItem();
+        if (selectedTask == null) {
+            popupWindowsController.createPopupWindow("Please select a task!", "Error!");
+            return;
+        }
+        
+        if (mainFrameController.getCompletedTaskByUserIdByTaskId(currentUser.id(), selectedTask.id()) != null) {
             popupWindowsController.createPopupWindow("Task already completed!", "Error!");
             return;
         }
-            
-        /*
-        if (cTask.getAnswer() == null) {
-            popupWindowsController.createPopupWindow("No answer available for this task", "Error!");
-            return;
-        }
-        */
-        JTextArea cTextArea = (JTextArea) answerScrollPane.getViewport().getView();
-        errors = mainFrameController.isFileCompile(cTextArea.getText(), cTask.getImports());
+
+        var answerTextArea = (JTextArea) answerScrollPane.getViewport().getView();
+        var errors = mainFrameController.isFileCompile(answerTextArea.getText(), selectedTask.imports());
+        
         if (!errors.isEmpty()) {
             popupWindowsController.createPopupWindow(errors, "Compilation error!");
             return;
         }
-        errors = mainFrameController.check(cTask.getAnswer(), cTextArea.getText());
+        
+        errors = mainFrameController.check(selectedTask.answer(), answerTextArea.getText());
         if (!errors.isEmpty()) {
             popupWindowsController.createPopupWindow(errors, "Task execution error!");
             return;
         }
 
-        CompletedTask completedTask = new CompletedTask();
-        completedTask.setTaskId(cTask.getId());
-        completedTask.setUserId(currentUser.getId());
+        // Create completed task using factory method
+        var completedTask = CompletedTask.forUser(currentUser.id(), selectedTask.id());
         mainFrameController.addCompletedTask(completedTask);
-        completedTasksId.add(cTask.getId());
-        cTask.setTitle("☑ " + cTask.getTitle());
-        ((JTextArea) answerScrollPane.getViewport().getView()).setText("");
+        completedTaskIds.add(selectedTask.id());
+        
+        // Refresh combo box to show checkmark
+        taskComboBox.repaint();
+        
+        answerTextArea.setText("");
         popupWindowsController.createPopupWindow(new JFrame(), "Solution is correct!", "Ok");
-        if (taskComboBox.getItemCount() > taskComboBox.getSelectedIndex() + 1)
+        
+        if (taskComboBox.getItemCount() > taskComboBox.getSelectedIndex() + 1) {
             taskComboBox.setSelectedIndex(taskComboBox.getSelectedIndex() + 1);
+        }
     }
 
     public void setUser(User user) {
         this.currentUser = user;
     }
 
-    public JComboBox getTaskComboBox() {
+    public JComboBox<Task> getTaskComboBox() {
         return taskComboBox;
     }
 
-    public List<Integer> getCompletedTasksId() {
-        return completedTasksId;
+    public Set<Integer> getCompletedTaskIds() {
+        return Collections.unmodifiableSet(completedTaskIds);
     }
 
     private void logout() {
         authService.logout();
-        appState.setCurrentUser(null);
+        appState.clearUser();
         setVisible(false);
         navigator.showAuth();
     }
 
     private void showDocumentation() {
         try {
-            Documentation doc = mainFrameController.getDocumentation(0); // ID 0 is application documentation
-            String docText = (doc != null && doc.getText() != null)
-                ? doc.getText()
-                : "<h1>Documentation</h1><p>Documentation is not available.</p>";
+            var doc = mainFrameController.getDocumentation(0);
+            var docText = Optional.ofNullable(doc)
+                .map(Documentation::text)
+                .filter(t -> !t.isBlank())
+                .orElse("<h1>Documentation</h1><p>Documentation is not available.</p>");
 
-            JDialog dialog = new JDialog(this, "Documentation", true);
+            var dialog = new JDialog(this, "Documentation", true);
             dialog.setSize(800, 600);
             dialog.setLocationRelativeTo(this);
 
-            JEditorPane editorPane = new JEditorPane();
+            var editorPane = new JEditorPane();
             editorPane.setContentType("text/html");
             editorPane.setEditable(false);
             editorPane.setText(docText);
 
-            JScrollPane scrollPane = new JScrollPane(editorPane);
+            var scrollPane = new JScrollPane(editorPane);
             scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-            JButton closeButton = new JButton("Close");
+            var closeButton = new JButton("Close");
             closeButton.addActionListener(e -> dialog.dispose());
 
-            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+            var buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             buttonPanel.add(closeButton);
 
             dialog.setLayout(new BorderLayout());
@@ -452,23 +425,25 @@ public class MainFrameView extends JFrame {
     }
 
     private void showAbout() {
-        String aboutText = "<html><body style='font-family: Arial; padding: 20px;'>" +
-            "<h1>SwingTeacher Desktop</h1>" +
-            "<p><strong>Version:</strong> 1.0-SNAPSHOT</p>" +
-            "<p><strong>Description:</strong> Educational Java programming application</p>" +
-            "<p>This application helps you learn Java programming through interactive tasks and lessons.</p>" +
-            "<hr>" +
-            "<p><strong>Features:</strong></p>" +
-            "<ul>" +
-            "<li>Interactive Java code editor with syntax highlighting</li>" +
-            "<li>Autocomplete support for keywords and code snippets</li>" +
-            "<li>Task-based learning system</li>" +
-            "<li>Progress tracking</li>" +
-            "<li>Reference documentation</li>" +
-            "</ul>" +
-            "<hr>" +
-            "<p><em>Built with Java 25 and Spring Framework</em></p>" +
-            "</body></html>";
+        var aboutText = """
+            <html><body style='font-family: Arial; padding: 20px;'>
+            <h1>SwingTeacher Desktop</h1>
+            <p><strong>Version:</strong> 1.0-SNAPSHOT</p>
+            <p><strong>Description:</strong> Educational Java programming application</p>
+            <p>This application helps you learn Java programming through interactive tasks and lessons.</p>
+            <hr>
+            <p><strong>Features:</strong></p>
+            <ul>
+            <li>Interactive Java code editor with syntax highlighting</li>
+            <li>Autocomplete support for keywords and code snippets</li>
+            <li>Task-based learning system</li>
+            <li>Progress tracking</li>
+            <li>Reference documentation</li>
+            </ul>
+            <hr>
+            <p><em>Built with Java 25 and Spring Framework</em></p>
+            </body></html>
+            """;
 
         JOptionPane.showMessageDialog(
             this,

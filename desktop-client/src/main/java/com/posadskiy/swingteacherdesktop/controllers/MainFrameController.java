@@ -16,9 +16,13 @@ import org.springframework.stereotype.Component;
 import javax.swing.*;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
+/**
+ * Controller for main frame using modern Java patterns.
+ */
 @Slf4j
 @Component
 public class MainFrameController {
@@ -96,62 +100,63 @@ public class MainFrameController {
         }
     }
 
-    public Documentation getDocumentation(int i) {
+    public Documentation getDocumentation(int id) {
         try {
-            return documentationDao.getDocumentation(i);
+            return documentationDao.getDocumentation(id);
         } catch (SQLException ex) {
-            log.error("Failed to get documentation id={}", i, ex);
+            log.error("Failed to get documentation id={}", id, ex);
             return null;
         }
     }
 
-    public Error getError(int i) {
+    public Error getError(int id) {
         try {
-            return errorDao.getError(i);
+            return errorDao.getError(id);
         } catch (SQLException ex) {
-            log.error("Failed to get error id={}", i, ex);
+            log.error("Failed to get error id={}", id, ex);
             return null;
         }
     }
 
     public void loadAndRunClassFromFile(String operators, String imports) {
         try {
-            String problems = FileUtils.isCompileFile(operators, imports);
+            var problems = FileUtils.isCompileFile(operators, imports);
 
             if (problems.isEmpty()) {
                 FileUtils.runFile();
             } else {
                 JOptionPane.showMessageDialog(new JFrame(), problems, "Compilation error", JOptionPane.DEFAULT_OPTION);
             }
-        } catch (IOException | InstantiationException | IllegalAccessException ex) {
-            log.error("Failed to compile/run file from editor", ex);
-            JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Error", JOptionPane.DEFAULT_OPTION);
+        } catch (IOException ex) {
+            log.error("Failed to compile file from editor", ex);
+            JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Compilation Error", JOptionPane.DEFAULT_OPTION);
+        } catch (ReflectiveOperationException ex) {
+            log.error("Failed to run compiled class", ex);
+            JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Runtime Error", JOptionPane.DEFAULT_OPTION);
         }
     }
 
     public String isFileCompile(String operators, String imports) {
-        String problems = "";
         try {
-            problems = FileUtils.isCompileFile(operators, imports);
-        } catch (IOException | InstantiationException | IllegalAccessException ex) {
-
+            return FileUtils.isCompileFile(operators, imports);
+        } catch (IOException ex) {
+            log.error("Failed to compile file", ex);
+            return "Compilation failed: " + ex.getMessage();
         }
-        return problems;
-
     }
 
     public String check(String rightAnswer, String userAnswer) {
-        ArrayList<CheckerResult> checkerResults = checker.check(rightAnswer, userAnswer);
-        StringBuilder errors = new StringBuilder();
-        for (CheckerResult checkerResult : checkerResults) {
-            if (checkerResult.getErrorCode() != 0)
-                errors.append("Error in component ")
-                    .append(checkerResult.getClassName())
-                    .append(". ")
-                    .append(getError(checkerResult.getErrorCode()).getErrorText())
-                    .append("\n");
-        }
-        return errors.toString();
+        var checkerResults = checker.check(rightAnswer, userAnswer);
+        
+        return checkerResults.stream()
+            .filter(result -> result.errorCode() != 0)
+            .map(result -> {
+                var errorText = Optional.ofNullable(getError(result.errorCode()))
+                    .map(Error::errorText)
+                    .orElse("Unknown error");
+                return "Error in component %s. %s".formatted(result.className(), errorText);
+            })
+            .collect(Collectors.joining("\n"));
     }
 
     public List<Keyword> getKeywords() {
@@ -173,20 +178,18 @@ public class MainFrameController {
     }
 
     public CompletionProvider createCompletionProvider() {
-        DefaultCompletionProvider provider = new DefaultCompletionProvider();
+        var provider = new DefaultCompletionProvider();
 
-        List<Keyword> keywords = getKeywords();
+        // Add keyword completions
+        getKeywords().stream()
+            .map(Keyword::keywordText)
+            .map(text -> new BasicCompletion(provider, text))
+            .forEach(provider::addCompletion);
 
-        for (Keyword keyword : keywords) {
-            provider.addCompletion(new BasicCompletion(provider, keyword.getKeywordText()));
-        }
-
-        List<Shorthand> shorthands = getShorthand();
-
-        for (Shorthand shorthand : shorthands) {
-            provider.addCompletion(new ShorthandCompletion(provider, shorthand.getShortText(),
-                shorthand.getFullText(), shorthand.getFullText()));
-        }
+        // Add shorthand completions
+        getShorthand().stream()
+            .map(s -> new ShorthandCompletion(provider, s.shortText(), s.fullText(), s.fullText()))
+            .forEach(provider::addCompletion);
 
         return provider;
     }

@@ -13,6 +13,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
+/**
+ * Controller for registration pane using modern Java patterns.
+ */
 @Slf4j
 @Component
 public class RegistrationPaneController {
@@ -34,55 +37,56 @@ public class RegistrationPaneController {
         this.appState = appState;
     }
 
-    public boolean registration(String login, String password, String passwordRepeat, String eMail) {
-        RegistrationPane registrationPane = registrationPaneProvider.getObject();
-        boolean condition = true;
+    public boolean registration(String login, String password, String passwordRepeat, String email) {
+        var registrationPane = registrationPaneProvider.getObject();
+        var builder = User.builder();
+        boolean isValid = true;
 
-        User user = appState.getCurrentUser();
-
+        // Validate login
         if (checker.checkLogin(login)) {
             registrationPane.getLoginTextField().setBorder(null);
-            user.setLogin(login);
+            builder.login(login);
         } else {
             registrationPane.getLoginTextField().setBorder(BorderFactory.createLineBorder(Color.red, 1));
-            condition = false;
+            isValid = false;
         }
 
-
+        // Validate password
         if (checker.checkPassword(password, passwordRepeat)) {
             registrationPane.getPasswordField().setBorder(null);
             registrationPane.getPasswordRepeatField().setBorder(null);
-            user.setPassword(password);
+            builder.password(password);
         } else {
             registrationPane.getPasswordField().setBorder(BorderFactory.createLineBorder(Color.red, 1));
             registrationPane.getPasswordRepeatField().setBorder(BorderFactory.createLineBorder(Color.red, 1));
-            condition = false;
+            isValid = false;
         }
 
-        if (checker.checkEMail(eMail)) {
+        // Validate email
+        if (checker.checkEMail(email)) {
             registrationPane.getEMailTextField().setBorder(null);
-            user.setEmail(eMail);
+            builder.email(email);
         } else {
             registrationPane.getEMailTextField().setBorder(BorderFactory.createLineBorder(Color.red, 1));
-            condition = false;
+            isValid = false;
         }
 
-        if (!condition)
+        if (!isValid) {
             return false;
+        }
 
-        // Register user directly without email confirmation
+        // Register user
         try {
+            var user = builder.build();
             userDao.addUser(user);
+            return true;
         } catch (SQLException ex) {
-            log.error("Exception in registration", ex);
+            log.error("Registration failed", ex);
             return false;
         }
-
-        return true;
     }
 
     public void closePane() {
         registrationPaneProvider.getObject().setVisible(false);
     }
-
 }

@@ -1,151 +1,175 @@
 package com.posadskiy.swingteacherdesktop.main;
 
+import com.posadskiy.swingteacherdesktop.main.validation.*;
 import com.posadskiy.swingteacherdesktop.utils.CheckerResult;
 import com.posadskiy.swingteacherdesktop.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
+import java.util.Map;
 
+/**
+ * Main checker class that validates user code against expected solutions.
+ * This class orchestrates the validation process using specialized validators.
+ */
 @Slf4j
-public class Checker {
-
-    public ArrayList<CheckerResult> check(String rSolution, String uSolution) {
-        ArrayList<CheckerResult> resultArray = new ArrayList<>();
-
-        if (rSolution == null)
-            if (uSolution == null)
-                return resultArray;
- 
-        if (rSolution != null)
-            rSolution = StringUtils.removeSpace(rSolution);
-        if (uSolution != null)
-            uSolution = uSolution.trim();
-
-        if (rSolution.isEmpty())
-            if (uSolution.isEmpty())
-                return resultArray;
-
-
-        String[] rSolutionComponents = rSolution.split(";");
-        String[][] rSolutionClassesAndMethods = new String[rSolutionComponents.length][2];
-        String[] uSolutionOperators = uSolution.split(";");
-        String[] uSolutionMethods = new String[rSolutionComponents.length];
-        String[] uSolutionComponentsName = new String[rSolutionComponents.length]; //?
-
-        for (int i = 0; i < rSolutionComponents.length; ++i)
-            rSolutionClassesAndMethods[i] = rSolutionComponents[i].split("-");
-
-        for (int i = 0; i < rSolutionComponents.length; ++i)
-            if (checkConstructor(rSolutionClassesAndMethods[i][0], uSolution) == 1) {
-                resultArray.add(new CheckerResult(rSolutionClassesAndMethods[i][0], 3));
-                return resultArray;
+public final class Checker {
+    
+    /**
+     * Validates user solution against the expected solution.
+     * 
+     * @param expectedSolution Expected solution format: "JButton-setText,add;JLabel-add"
+     * @param userSolution User's code
+     * @return List of validation results (empty if all validations pass)
+     */
+    public ArrayList<CheckerResult> check(String expectedSolution, String userSolution) {
+        ArrayList<CheckerResult> results = new ArrayList<>();
+        
+        // Handle null/empty cases
+        if (expectedSolution == null && userSolution == null) {
+            return results;
+        }
+        
+        if (expectedSolution == null || expectedSolution.trim().isEmpty()) {
+            if (userSolution == null || userSolution.trim().isEmpty()) {
+                return results;
             }
-
-        for (int i = 0; i < rSolutionComponents.length; ++i) {
-            String className = rSolutionClassesAndMethods[i][0];
-            int length = uSolution.indexOf(className) + className.length();
-            uSolutionComponentsName[i] = uSolution.substring(length, length +
-                uSolution.substring(length).indexOf('=')).trim();
-            uSolution = uSolution.replaceFirst(className + "[\\s]+" + uSolutionComponentsName[i] + "[\\s]*=[\\s]*new[\\s]+" + className + "\\(\\);", "");
         }
-
-        for (int i = 0; i < uSolutionOperators.length; ++i)
-            uSolutionOperators[i] = StringUtils.removeSpace(uSolutionOperators[i]);
-
-        for (int i = 0; i < rSolutionComponents.length; ++i)
-            for (int j = 0; j < uSolutionOperators.length; ++j)
-                if (checkComponentOperators(uSolutionComponentsName[i], uSolutionOperators[j]) == 0) {
-                    uSolutionOperators[j] = uSolutionOperators[j].replaceAll(uSolutionComponentsName[i] + ".", "");
-                    if (uSolutionMethods[i] == null)
-                        uSolutionMethods[i] = uSolutionOperators[j] + ";";
-                    else
-                        uSolutionMethods[i] += uSolutionOperators[j] + ";";
-                }
-
-        for (int i = 0; i < rSolutionComponents.length; ++i) {
-            if (rSolutionClassesAndMethods[i].length == 2) {
-                if (uSolutionMethods[i] == null) {
-                    resultArray.add(new CheckerResult(rSolutionClassesAndMethods[i][0], 2));
-                    return resultArray;
-                }
-                resultArray.add(new CheckerResult(rSolutionClassesAndMethods[i][0],
-                    checkMini(rSolutionClassesAndMethods[i][1], uSolutionMethods[i])));
-            } else if (uSolutionMethods[i] != null)
-                resultArray.add(new CheckerResult(rSolutionClassesAndMethods[i][0], 1));
+        
+        // Normalize inputs
+        String normalizedExpected = expectedSolution != null 
+            ? StringUtils.removeSpace(expectedSolution) 
+            : "";
+        String normalizedUser = userSolution != null 
+            ? userSolution.trim() 
+            : "";
+        
+        if (normalizedExpected.isEmpty() && normalizedUser.isEmpty()) {
+            return results;
         }
-
-        return resultArray;
+        
+        // Parse expected solution
+        List<SolutionComponent> expectedComponents = SolutionParser.parse(normalizedExpected);
+        if (expectedComponents.isEmpty()) {
+            return results;
+        }
+        
+        // Extract expected class names
+        List<String> expectedClassNames = expectedComponents.stream()
+            .map(SolutionComponent::className)
+            .toList();
+        
+        // Parse user code
+        Map<String, UserComponent> userComponents = UserCodeParser.extractComponents(
+            expectedClassNames, 
+            normalizedUser
+        );
+        
+        // Validate each component
+        for (SolutionComponent expected : expectedComponents) {
+            UserComponent actual = userComponents.get(expected.className());
+            ValidationError error = ComponentValidator.validate(expected, actual);
+            
+            if (!error.isSuccess()) {
+                results.add(new CheckerResult(error.componentName(), error.errorCode()));
+            }
+        }
+        
+        return results;
     }
-
-    private int checkComponentOperators(String compName, String uSolution) {
-        Pattern p = Pattern.compile("^" + compName + "\\.[\\s\\S]+");
-        Matcher m = p.matcher(uSolution);
-        if (!m.matches())
+    
+    /**
+     * Validates method calls (used by checkMini).
+     * 
+     * @param expectedMethods Comma-separated list of expected methods: "setText,add"
+     * @param userMethods Semicolon-separated list of user methods: "setText(\"Hi\");add(button);"
+     * @return 0 if valid, 1 if wrong count, 2 if missing methods
+     */
+    public int checkMini(String expectedMethods, String userMethods) {
+        if (expectedMethods == null || userMethods == null) {
             return 1;
+        }
+        
+        String cleanedUser = StringUtils.removeSpace(userMethods);
+        String[] expectedArray = expectedMethods.split(",");
+        String[] userArray = cleanedUser.split(";");
+        
+        // Filter out empty strings
+        List<String> validUserMethods = java.util.Arrays.stream(userArray)
+            .filter(s -> s != null && !s.trim().isEmpty())
+            .toList();
+        
+        // Check if all required methods are present (user can have extra methods)
+        boolean[] found = new boolean[expectedArray.length];
+        int foundCount = 0;
+        
+        for (String userMethod : validUserMethods) {
+            for (int i = 0; i < expectedArray.length; i++) {
+                if (MethodMatcher.matches(expectedArray[i].trim(), userMethod)) {
+                    if (!found[i]) {
+                        found[i] = true;
+                        foundCount++;
+                    }
+                    break;
+                }
+            }
+        }
+        
+        // Check if all required methods found
+        boolean allFound = foundCount == expectedArray.length;
+        
+        if (!allFound) {
+            // If user has fewer methods than required
+            if (validUserMethods.size() < expectedArray.length) {
+                // If user provided only 1 method when multiple are expected,
+                // it's a count issue (error 1)
+                if (validUserMethods.size() <= 1) {
+                    return 1; // Wrong count - user barely tried
+                }
+                // If user provided 2+ methods but is still missing some,
+                // and the methods they provided match required ones,
+                // it's a missing method issue (error 2)
+                if (foundCount >= 2) {
+                    return 2; // Missing specific method
+                }
+                // Otherwise, it's a count issue
+                return 1; // Wrong count
+            }
+            
+            // User has enough methods but some required ones are missing
+            return 2; // Missing method
+        }
+        
+        // All required methods found - extra methods are allowed
         return 0;
     }
-
-    private int checkConstructor(String compName, String userCode) {
-        String regExp = "[\\s]*" + compName + "[\\s]+[\\S]+[\\s]*=[\\s]*new[\\s]+" + compName + "\\([\\s\\S]*\\);[\\s]*";
-        Pattern p = Pattern.compile(regExp);
-        Matcher m = p.matcher(userCode);
-        if (!m.matches())
-            return 1;
-        return 0;
+    
+    /**
+     * Helper method for pattern matching (used by checkHelper).
+     */
+    public boolean checkHelper(String expectedMethod, String actualCall) {
+        return MethodMatcher.matches(expectedMethod, actualCall);
     }
-
-    public int checkMini(String rSolution, String uSolution) {
-        //rSolution = StringUtils.removeSpace(rSolution);
-        uSolution = StringUtils.removeSpace(uSolution);
-        String[] rSolutionArray = rSolution.split(",");
-        String[] uSolutionArray = uSolution.split(";");
-
-        log.debug("checkMini rSolutionArray={}", Arrays.toString(rSolutionArray));
-        log.debug("checkMini uSolutionArray={}", Arrays.toString(uSolutionArray));
-
-        if (rSolutionArray.length != uSolutionArray.length)
-            return 1;
-
-        int[] rightOperatorIsExist = new int[uSolutionArray.length];
-
-        for (int i = 0; i < rSolutionArray.length; ++i)
-            for (int j = 0; j < uSolutionArray.length; ++j)
-                if (checkHelper(rSolutionArray[i], uSolutionArray[j]))
-                    rightOperatorIsExist[i] = 1;
-
-        for (int i = 0; i < rSolutionArray.length; ++i)
-            if (rightOperatorIsExist[i] != 1)
-                return 2;
-
-        return 0;
-    }
-
-    public boolean checkHelper(String r, String u) {
-        Pattern p = Pattern.compile("^" + r + "\\([\\s\\S]*\\)$");
-        Matcher m = p.matcher(u);
-        return m.matches();
-    }
-
+    
+    /**
+     * Validates login string.
+     */
     public boolean checkLogin(String login) {
-        Pattern pattern = Pattern.compile("^[a-zA-Z0-9_]{3,20}$");
-        Matcher m = pattern.matcher(login);
-        return m.matches();
+        return UserInputValidators.isValidLogin(login);
     }
-
+    
+    /**
+     * Validates password and password repeat.
+     */
     public boolean checkPassword(String password, String passwordRepeat) {
-        Pattern pattern = Pattern.compile("^[\\S]{8,30}$");
-        Matcher m = pattern.matcher(password);
-        if (!m.matches())
-            return false;
-        return password.equals(passwordRepeat);
+        return UserInputValidators.isValidPassword(password, passwordRepeat);
     }
-
-    public boolean checkEMail(String eMail) {
-        Pattern pattern = Pattern.compile("^.+@.+\\..+$");
-        Matcher m = pattern.matcher(eMail);
-        return m.matches();
+    
+    /**
+     * Validates email address.
+     */
+    public boolean checkEMail(String email) {
+        return UserInputValidators.isValidEmail(email);
     }
 }

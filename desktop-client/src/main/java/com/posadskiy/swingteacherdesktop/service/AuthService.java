@@ -6,140 +6,181 @@ import com.posadskiy.swingteacherdesktop.domain.request.RegisterRequest;
 import com.posadskiy.swingteacherdesktop.domain.response.AuthResponse;
 import com.posadskiy.swingteacherdesktop.domain.response.RefreshTokenResponse;
 import com.posadskiy.swingteacherdesktop.utils.TokenStorage;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 
+import java.util.Optional;
+
+/**
+ * Modern authentication service using Optional and functional error handling.
+ */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class AuthService {
+    
     private final RestClient restClient;
     private final TokenStorage tokenStorage;
-
-    public AuthService(RestClient restClient, TokenStorage tokenStorage) {
-        this.restClient = restClient;
-        this.tokenStorage = tokenStorage;
-    }
-
+    
+    /**
+     * Authenticates user and stores tokens.
+     *
+     * @return true if login successful, false otherwise
+     */
     public boolean login(String login, String password) {
-        try {
-            AuthRequest request = new AuthRequest(login, password);
-            log.debug("Attempting login for user: {}", login);
-            AuthResponse response =
-                restClient
-                    .post()
-                    .uri("/api/auth/login")
-                    .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
-                    .accept(org.springframework.http.MediaType.APPLICATION_JSON)
-                    .body(request)
-                    .retrieve()
-                    .body(AuthResponse.class);
-
-            if (response != null) {
-                tokenStorage.saveTokens(
-                    response.accessToken(), response.refreshToken(), response.expiresAt());
-                log.debug("Login successful for user: {}", login);
-                return true;
-            }
-            log.warn("Login returned null response for user: {}", login);
+        log.debug("Attempting login for user: {}", login);
+        
+        return executeAuthRequest(
+            new AuthRequest(login, password),
+            "/api/auth/login"
+        ).map(response -> {
+            saveTokens(response);
+            log.debug("Login successful for user: {}", login);
+            return true;
+        }).orElseGet(() -> {
+            log.warn("Login failed for user: {}", login);
             return false;
-        } catch (HttpClientErrorException ex) {
-            log.error("Login failed for user: {} with status: {} and body: {}",
-                login, ex.getStatusCode(), ex.getResponseBodyAsString(), ex);
-            if (ex.getStatusCode() == HttpStatus.UNAUTHORIZED) {
-                return false;
-            }
-            throw new RuntimeException("Login failed", ex);
-        } catch (RestClientException ex) {
-            log.error("Login failed for user: {} due to client error", login, ex);
-            throw new RuntimeException("Login failed", ex);
-        }
+        });
     }
-
+    
+    /**
+     * Registers new user and stores tokens.
+     *
+     * @return true if registration successful, false otherwise
+     */
     public boolean register(String login, String password, String email) {
-        try {
-            RegisterRequest request = new RegisterRequest(login, password, email);
-            AuthResponse response =
-                restClient
-                    .post()
-                    .uri("/api/auth/register")
-                    .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
-                    .body(request)
-                    .retrieve()
-                    .body(AuthResponse.class);
-
-            if (response != null) {
-                tokenStorage.saveTokens(
-                    response.accessToken(), response.refreshToken(), response.expiresAt());
-                return true;
-            }
-            return false;
-        } catch (HttpClientErrorException ex) {
-            if (ex.getStatusCode() == HttpStatus.BAD_REQUEST) {
-                return false;
-            }
-            throw new RuntimeException("Registration failed", ex);
-        } catch (RestClientException ex) {
-            throw new RuntimeException("Registration failed", ex);
-        }
+        log.debug("Attempting registration for user: {}", login);
+        
+        return executeAuthRequest(
+            new RegisterRequest(login, password, email),
+            "/api/auth/register"
+        ).map(response -> {
+            saveTokens(response);
+            log.debug("Registration successful for user: {}", login);
+            return true;
+        }).orElse(false);
     }
-
+    
+    /**
+     * Refreshes the access token using the refresh token.
+     *
+     * @return true if refresh successful, false otherwise
+     */
     public boolean refreshToken() {
-        String refreshToken = tokenStorage.getRefreshToken();
+        var refreshToken = tokenStorage.getRefreshToken();
         if (refreshToken == null) {
+            log.debug("No refresh token available");
             return false;
         }
-
+        
         try {
-            RefreshTokenRequest request = new RefreshTokenRequest(refreshToken);
-            RefreshTokenResponse response =
-                restClient
-                    .post()
-                    .uri("/api/auth/refresh")
-                    .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
-                    .body(request)
-                    .retrieve()
-                    .body(RefreshTokenResponse.class);
-
-            if (response != null) {
-                tokenStorage.saveTokens(
-                    response.accessToken(),
-                    response.refreshToken(),
-                    response.expiresAt());
-                return true;
-            }
-            return false;
+            var response = restClient.post()
+                .uri("/api/auth/refresh")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new RefreshTokenRequest(refreshToken))
+                .retrieve()
+                .body(RefreshTokenResponse.class);
+            
+            return Optional.ofNullable(response)
+                .map(r -> {
+                    tokenStorage.saveTokens(r.accessToken(), r.refreshToken(), r.expiresAt());
+                    log.debug("Token refresh successful");
+                    return true;
+                })
+                .orElse(false);
+                
         } catch (HttpClientErrorException ex) {
             if (ex.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+                log.warn("Token refresh failed - unauthorized");
                 tokenStorage.clear();
                 return false;
             }
-            throw new RuntimeException("Token refresh failed", ex);
+            log.error("Token refresh failed with status: {}", ex.getStatusCode(), ex);
+            throw new AuthenticationException("Token refresh failed", ex);
         } catch (RestClientException ex) {
-            throw new RuntimeException("Token refresh failed", ex);
+            log.error("Token refresh failed due to client error", ex);
+            throw new AuthenticationException("Token refresh failed", ex);
         }
     }
-
+    
+    /**
+     * Logs out the current user and clears tokens.
+     */
     public void logout() {
-        String refreshToken = tokenStorage.getRefreshToken();
-        if (refreshToken != null) {
-            try {
-                RefreshTokenRequest request = new RefreshTokenRequest(refreshToken);
-                restClient
-                    .post()
-                    .uri("/api/auth/logout")
-                    .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
-                    .body(request)
-                    .retrieve()
-                    .toBodilessEntity();
-            } catch (RestClientException ex) {
-                // Ignore errors during logout
-            }
-        }
+        Optional.ofNullable(tokenStorage.getRefreshToken())
+            .ifPresent(this::sendLogoutRequest);
+        
         tokenStorage.clear();
+        log.debug("User logged out");
+    }
+    
+    /**
+     * Checks if user has valid (non-expired) tokens.
+     */
+    public boolean hasValidSession() {
+        return tokenStorage.hasValidTokens();
+    }
+    
+    private Optional<AuthResponse> executeAuthRequest(Object request, String uri) {
+        try {
+            var response = restClient.post()
+                .uri(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(request)
+                .retrieve()
+                .body(AuthResponse.class);
+            
+            return Optional.ofNullable(response);
+            
+        } catch (HttpClientErrorException ex) {
+            var status = ex.getStatusCode();
+            if (status == HttpStatus.UNAUTHORIZED || status == HttpStatus.BAD_REQUEST) {
+                log.debug("Auth request failed with status: {}", status);
+                return Optional.empty();
+            }
+            log.error("Auth request failed with status: {} and body: {}", 
+                ex.getStatusCode(), ex.getResponseBodyAsString(), ex);
+            throw new AuthenticationException("Authentication failed", ex);
+        } catch (RestClientException ex) {
+            log.error("Auth request failed due to client error", ex);
+            throw new AuthenticationException("Authentication failed", ex);
+        }
+    }
+    
+    private void saveTokens(AuthResponse response) {
+        tokenStorage.saveTokens(
+            response.accessToken(),
+            response.refreshToken(),
+            response.expiresAt()
+        );
+    }
+    
+    private void sendLogoutRequest(String refreshToken) {
+        try {
+            restClient.post()
+                .uri("/api/auth/logout")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new RefreshTokenRequest(refreshToken))
+                .retrieve()
+                .toBodilessEntity();
+        } catch (RestClientException ex) {
+            log.debug("Logout request failed (ignoring): {}", ex.getMessage());
+        }
+    }
+    
+    /**
+     * Custom exception for authentication errors.
+     */
+    public static final class AuthenticationException extends RuntimeException {
+        public AuthenticationException(String message, Throwable cause) {
+            super(message, cause);
+        }
     }
 }
-

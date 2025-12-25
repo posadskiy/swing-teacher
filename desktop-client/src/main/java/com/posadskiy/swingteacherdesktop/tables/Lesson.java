@@ -1,35 +1,42 @@
 package com.posadskiy.swingteacherdesktop.tables;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Builder;
 
-import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class Lesson implements Serializable {
-
-    @Serial
+/**
+ * Immutable lesson entity using Java record with Lombok @Builder.
+ */
+@Builder(toBuilder = true)
+public record Lesson(
+    Integer id,
+    Integer lessonNumber,
+    String lessonName,
+    Integer idTaskCategory,
+    List<Task> tasks
+) implements Serializable {
+    
     private static final long serialVersionUID = -5527568548002296042L;
-
-    private Integer id;
-
-    private Integer lessonNumber;
-
-    private String lessonName;
-
-    private Integer idTaskCategory;
-
-    private List<Task> tasks = new ArrayList<>();
-
+    
+    public Lesson {
+        // Ensure immutable list
+        tasks = tasks == null ? List.of() : List.copyOf(tasks);
+    }
+    
+    public Optional<Task> findTaskByNumber(int number) {
+        return tasks.stream()
+            .filter(task -> task.taskNumber() != null && task.taskNumber() == number)
+            .findFirst();
+    }
+    
+    public int taskCount() {
+        return tasks.size();
+    }
+    
     @Override
     public String toString() {
-        return this.lessonName;
+        return Optional.ofNullable(lessonName).orElse("Unnamed Lesson");
     }
-
 }

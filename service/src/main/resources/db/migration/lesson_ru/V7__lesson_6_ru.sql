@@ -158,7 +158,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (53, 6, 3, 'Текстовая область-мастер: включи перенос строк',
         '<p><strong>Задание:</strong><br>Установи setLineWrap(true) и setWrapStyleWord(true) для текстовой области</p>',
-        'JTextArea-setLineWrap-setWrapStyleWord',
+        'JTextArea-setLineWrap,setWrapStyleWord,add',
         '', 53, 22.0, 0.0, 'JTextArea textArea = new JTextArea();
 textArea.setLineWrap(true);
 textArea.setWrapStyleWord(true);
@@ -207,7 +207,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (54, 6, 4, 'Текстовая область-мастер: настрой размер табуляции',
         '<p><strong>Задание:</strong><br>Установи размер табуляции 4 через setTabSize(4)</p>',
-        'JTextArea-setTabSize',
+        'JTextArea-setTabSize,add',
         '', 54, 21.0, 0.0, 'JTextArea textArea = new JTextArea();
 textArea.setTabSize(4);
 add(textArea);');
@@ -257,7 +257,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (55, 6, 5, 'Текстовая область-мастер: включи перенос строк',
         '<p><strong>Задание:</strong><br>Включи перенос через setLineWrap(true), включи перенос по словам через setWrapStyleWord(true)</p>',
-        'JTextArea-setLineWrap-setWrapStyleWord',
+        'JTextArea-setLineWrap,setWrapStyleWord,add',
         '', 55, 23.0, 0.0, 'JTextArea textArea = new JTextArea();
 textArea.setLineWrap(true);
 textArea.setWrapStyleWord(true);
@@ -306,7 +306,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (56, 6, 6, 'Текстовая область-мастер: добавь текст',
         '<p><strong>Задание:</strong><br>Добавь текст "Новая строка\n" через append()</p>',
-        'JTextArea-append',
+        'JTextArea-append,add',
         '', 56, 22.0, 0.0, 'JTextArea textArea = new JTextArea();
 textArea.append("Новая строка\n");
 add(textArea);');
@@ -354,7 +354,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (57, 6, 7, 'Текстовая область-мастер: вставь текст',
         '<p><strong>Задание:</strong><br>Вставь текст "Вставленный текст" в позицию 0 через insert()</p>',
-        'JTextArea-insert',
+        'JTextArea-insert,add',
         '', 57, 22.0, 0.0, 'JTextArea textArea = new JTextArea("Текст");
 textArea.insert("Вставленный текст", 0);
 add(textArea);');
@@ -402,7 +402,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (58, 6, 8, 'Текстовая область-мастер: замени текст',
         '<p><strong>Задание:</strong><br>Замени диапазон 0-5 через replaceRange("Новый текст", 0, 5)</p>',
-        'JTextArea-replaceRange',
+        'JTextArea-replaceRange,add',
         '', 58, 23.0, 0.0, 'JTextArea textArea = new JTextArea("Старый текст");
 textArea.replaceRange("Новый текст", 0, 5);
 add(textArea);');
@@ -450,7 +450,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (59, 6, 9, 'Текстовая область-мастер: получи количество строк',
         '<p><strong>Задание:</strong><br>Получи количество строк через getLineCount()</p>',
-        'JTextArea-getLineCount',
+        'JTextArea-getLineCount,add',
         '', 59, 21.0, 0.0, 'JTextArea textArea = new JTextArea("Строка 1\nСтрока 2");
 int lines = textArea.getLineCount();
 System.out.println("Количество строк: " + lines);
@@ -505,7 +505,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (60, 6, 10, 'Текстовая область-мастер: получи текст строки',
         '<p><strong>Задание:</strong><br>Получи начало строки 0 через getLineStartOffset(), конец через getLineEndOffset(), получи текст через getText()</p>',
-        'JTextArea-getLineStartOffset-getLineEndOffset-getText',
+        'JTextArea-getLineStartOffset,getLineEndOffset,getText,add',
         '', 60, 25.0, 0.0, 'JTextArea textArea = new JTextArea("Первая строка\nВторая строка");
 int start = textArea.getLineStartOffset(0);
 int end = textArea.getLineEndOffset(0);
@@ -555,7 +555,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (61, 6, 11, 'Текстовая область-мастер: включи перенос строк',
         '<p><strong>Задание:</strong><br>Включи перенос через setLineWrap(true)</p>',
-        'JTextArea-setLineWrap',
+        'JTextArea-setLineWrap,add',
         '', 61, 21.0, 0.0, 'JTextArea textArea = new JTextArea();
 textArea.setLineWrap(true);
 add(textArea);');

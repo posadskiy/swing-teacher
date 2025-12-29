@@ -220,7 +220,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (86, 10, 3, 'Радиокнопка-мастер: создай группу кнопок',
         '<p><strong>Задание:</strong><br>Создай ButtonGroup, добавь три радиокнопки в группу через add()</p>',
-        'ButtonGroup-add',
+        'JRadioButton-add;JRadioButton-add;JRadioButton-add',
         '', 86, 24.0, 0.0, 'ButtonGroup group = new ButtonGroup();
 JRadioButton radio1 = new JRadioButton("Вариант 1");
 JRadioButton radio2 = new JRadioButton("Вариант 2");
@@ -278,7 +278,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (87, 10, 4, 'Радиокнопка-мастер: добавь иконку',
         '<p><strong>Задание:</strong><br>Установи иконку через setIcon(), установи иконку выбора через setSelectedIcon()</p>',
-        'JRadioButton-setIcon-setSelectedIcon',
+        'JRadioButton-setIcon,setSelectedIcon,add',
         '', 87, 24.0, 0.0, 'JRadioButton radioButton = new JRadioButton("Вариант");
 radioButton.setIcon(new ImageIcon("unselected.png"));
 radioButton.setSelectedIcon(new ImageIcon("selected.png"));
@@ -330,7 +330,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (88, 10, 5, 'Радиокнопка-мастер: добавь в группу',
         '<p><strong>Задание:</strong><br>Создай ButtonGroup, добавь две радиокнопки через add()</p>',
-        'JRadioButton-ButtonGroup-add',
+        'JRadioButton-add;JRadioButton-add',
         '', 88, 23.0, 0.0, 'ButtonGroup group = new ButtonGroup();
 JRadioButton radioButton1 = new JRadioButton("Вариант 1");
 JRadioButton radioButton2 = new JRadioButton("Вариант 2");
@@ -385,7 +385,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (89, 10, 6, 'Радиокнопка-мастер: добавь мнемонику',
         '<p><strong>Задание:</strong><br>Установи мнемонику VK_R через setMnemonic(), добавь &R в текст радиокнопки</p>',
-        'JRadioButton-setMnemonic-KeyEvent',
+        'JRadioButton-setMnemonic,add',
         '', 89, 23.0, 0.0, 'JRadioButton radioButton = new JRadioButton("Красный (&R)");
 radioButton.setMnemonic(KeyEvent.VK_R);
 add(radioButton);');
@@ -437,7 +437,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (90, 10, 7, 'Радиокнопка-мастер: обрабатывай изменение состояния',
         '<p><strong>Задание:</strong><br>Добавь ItemListener, проверь getStateChange() == SELECTED, выведи сообщение</p>',
-        'JRadioButton-addItemListener-getStateChange',
+        'JRadioButton-addItemListener,add',
         '', 90, 24.0, 0.0, 'JRadioButton radioButton = new JRadioButton("Вариант");
 radioButton.addItemListener(e -> {
     if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -496,7 +496,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (91, 10, 8, 'Радиокнопка-мастер: установи команду действия',
         '<p><strong>Задание:</strong><br>Установи команду "OPTION1" через setActionCommand(), получи команду в ActionListener через getActionCommand()</p>',
-        'JRadioButton-setActionCommand-getActionCommand',
+        'JRadioButton-setActionCommand,addActionListener,add',
         '', 91, 24.0, 0.0, 'JRadioButton radioButton = new JRadioButton("Вариант 1");
 radioButton.setActionCommand("OPTION1");
 radioButton.addActionListener(e -> {
@@ -551,7 +551,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (92, 10, 9, 'Радиокнопка-мастер: установи шрифт',
         '<p><strong>Задание:</strong><br>Создай шрифт new Font("Arial", Font.ITALIC, 12), установи через setFont()</p>',
-        'JRadioButton-setFont-Font',
+        'JRadioButton-setFont,add',
         '', 92, 22.0, 0.0, 'JRadioButton radioButton = new JRadioButton("Вариант");
 Font font = new Font("Arial", Font.ITALIC, 12);
 radioButton.setFont(font);
@@ -600,7 +600,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (93, 10, 10, 'Радиокнопка-мастер: установи отрисовку границы',
         '<p><strong>Задание:</strong><br>Установи отрисовку true через setBorderPainted()</p>',
-        'JRadioButton-setBorderPainted',
+        'JRadioButton-setBorderPainted,add',
         '', 93, 21.0, 0.0, 'JRadioButton radioButton = new JRadioButton("Вариант");
 radioButton.setBorderPainted(true);
 add(radioButton);');

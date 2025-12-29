@@ -113,7 +113,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (109, 14, 2, 'Прогресс-бар-мастер: установи минимальное и максимальное значение',
         '<p><strong>Задание:</strong><br>Создай прогресс-бар, установи минимум 0 и максимум 100 через setMinimum() и setMaximum()</p>',
-        'JProgressBar-setMinimum-setMaximum',
+        'JProgressBar-setMinimum,setMaximum,add',
         '', 109, 15.0, 0.0, 'JProgressBar progressBar = new JProgressBar();
 progressBar.setMinimum(0);
 progressBar.setMaximum(100);
@@ -166,7 +166,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (110, 14, 3, 'Прогресс-бар-мастер: установи текущее значение',
         '<p><strong>Задание:</strong><br>Создай прогресс-бар, установи значение 75 через setValue()</p>',
-        'JProgressBar-setValue',
+        'JProgressBar-setValue,add',
         '', 110, 15.0, 0.0, 'JProgressBar progressBar = new JProgressBar(0, 100);
 progressBar.setValue(75);
 add(progressBar);');
@@ -218,7 +218,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (111, 14, 4, 'Прогресс-бар-мастер: установи ориентацию',
         '<p><strong>Задание:</strong><br>Создай прогресс-бар, установи вертикальную ориентацию через setOrientation(JProgressBar.VERTICAL)</p>',
-        'JProgressBar-setOrientation',
+        'JProgressBar-setOrientation,add',
         '', 111, 16.0, 0.0, 'JProgressBar progressBar = new JProgressBar(0, 100);
 progressBar.setOrientation(JProgressBar.VERTICAL);
 add(progressBar);');
@@ -270,7 +270,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (112, 14, 5, 'Прогресс-бар-мастер: покажи строку с процентами',
         '<p><strong>Задание:</strong><br>Создай прогресс-бар, включи показ строки через setStringPainted(true)</p>',
-        'JProgressBar-setStringPainted',
+        'JProgressBar-setValue,setStringPainted,add',
         '', 112, 16.0, 0.0, 'JProgressBar progressBar = new JProgressBar(0, 100);
 progressBar.setValue(50);
 progressBar.setStringPainted(true);
@@ -323,7 +323,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (113, 14, 6, 'Прогресс-бар-мастер: установи цвета',
         '<p><strong>Задание:</strong><br>Создай прогресс-бар, установи цвет заполнения Color.GREEN через setForeground()</p>',
-        'JProgressBar-setForeground-Color',
+        'JProgressBar-setValue,setForeground,add',
         '', 113, 17.0, 0.0, 'JProgressBar progressBar = new JProgressBar(0, 100);
 progressBar.setValue(50);
 progressBar.setForeground(Color.GREEN);
@@ -376,7 +376,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (114, 14, 7, 'Прогресс-бар-мастер: установи шрифт',
         '<p><strong>Задание:</strong><br>Создай прогресс-бар, создай шрифт new Font("Arial", Font.BOLD, 14), установи через setFont()</p>',
-        'JProgressBar-setFont-Font',
+        'JProgressBar-setStringPainted,setFont,add',
         '', 114, 17.0, 0.0, 'JProgressBar progressBar = new JProgressBar(0, 100);
 progressBar.setStringPainted(true);
 Font font = new Font("Arial", Font.BOLD, 14);

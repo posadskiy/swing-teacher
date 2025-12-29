@@ -60,7 +60,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (170, 20, 1, 'Прокручиваемая панель-новичок: добавь прокрутку',
         '<p><strong>Задание:</strong><br>Создай текстовую область, оберни её в JScrollPane и добавь на форму</p>',
-        'JTextArea-JScrollPane-add',
+        'JScrollPane-add',
         '', 170, 16.0, 0.0, 'JTextArea area = new JTextArea("Длинный текст...");
 JScrollPane scrollPane = new JScrollPane(area);
 add(scrollPane);');
@@ -108,7 +108,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (171, 20, 11, 'Панель-мастер: включи двойную буферизацию',
         '<p><strong>Задание:</strong><br>Включи двойную буферизацию через setDoubleBuffered(true)</p>',
-        'JPanel-setDoubleBuffered',
+        'JPanel-setDoubleBuffered,add',
         '', 171, 20.0, 0.0, 'JPanel panel = new JPanel();
 panel.setDoubleBuffered(true);
 add(panel);');
@@ -156,7 +156,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (172, 20, 12, 'Панель-мастер: установи предпочтительный размер',
         '<p><strong>Задание:</strong><br>Установи предпочтительный размер 200x100 через setPreferredSize(new Dimension(200, 100))</p>',
-        'JPanel-setPreferredSize-Dimension',
+        'JPanel-setPreferredSize,add',
         '', 172, 22.0, 0.0, 'JPanel panel = new JPanel();
 panel.setPreferredSize(new Dimension(200, 100));
 add(panel);');
@@ -204,7 +204,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (173, 20, 13, 'Панель-мастер: установи минимальный размер',
         '<p><strong>Задание:</strong><br>Установи минимальный размер 100x50 через setMinimumSize(new Dimension(100, 50))</p>',
-        'JPanel-setMinimumSize-Dimension',
+        'JPanel-setMinimumSize,add',
         '', 173, 22.0, 0.0, 'JPanel panel = new JPanel();
 panel.setMinimumSize(new Dimension(100, 50));
 add(panel);');
@@ -252,7 +252,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (174, 20, 14, 'Панель-мастер: установи максимальный размер',
         '<p><strong>Задание:</strong><br>Установи максимальный размер 500x300 через setMaximumSize(new Dimension(500, 300))</p>',
-        'JPanel-setMaximumSize-Dimension',
+        'JPanel-setMaximumSize,add',
         '', 174, 22.0, 0.0, 'JPanel panel = new JPanel();
 panel.setMaximumSize(new Dimension(500, 300));
 add(panel);');

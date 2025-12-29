@@ -474,7 +474,7 @@ JMenuBar menuBar = new JMenuBar();
 menuBar.add(viewMenu);
 setJMenuBar(menuBar);');
 INSERT INTO documentation (id, text)
-VALUES (332, '<h2>🎮 Чекбокс-пункт меню-мастер: Добавь иконку!</h2>
+VALUES (331, '<h2>🎮 Чекбокс-пункт меню-мастер: Добавь иконку!</h2>
 
 <p><strong>Привет, мастер иконок!</strong> ☑️ Сегодня ты добавишь иконку к <code>JCheckBoxMenuItem</code> — это как визуальный элемент в игре!</p>
 
@@ -515,10 +515,10 @@ VALUES (332, '<h2>🎮 Чекбокс-пункт меню-мастер: Доба
 
 INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, id_documentation, difficult, rating,
                   solution)
-VALUES (332, 39, 5, 'Чекбокс-пункт меню-мастер: добавь иконку',
+VALUES (331, 39, 5, 'Чекбокс-пункт меню-мастер: добавь иконку',
         '<p><strong>Задание:</strong><br>Установи иконку через setIcon() с ImageIcon</p>',
         'JCheckBoxMenuItem-setIcon-ImageIcon',
-        '', 332, 22.0, 0.0, 'JCheckBoxMenuItem item = new JCheckBoxMenuItem("Показывать панель");
+        '', 331, 22.0, 0.0, 'JCheckBoxMenuItem item = new JCheckBoxMenuItem("Показывать панель");
 item.setIcon(new ImageIcon("icon.png"));
 JMenu viewMenu = new JMenu("Вид");
 viewMenu.add(item);

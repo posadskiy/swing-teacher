@@ -111,7 +111,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (120, 15, 2, 'Скроллбар-мастер: установи ориентацию',
         '<p><strong>Задание:</strong><br>Создай скроллбар, установи горизонтальную ориентацию через setOrientation(JScrollBar.HORIZONTAL)</p>',
-        'JScrollBar-setOrientation',
+        'JScrollBar-setOrientation,add',
         '', 120, 16.0, 0.0, 'JScrollBar scrollBar = new JScrollBar();
 scrollBar.setOrientation(JScrollBar.HORIZONTAL);
 add(scrollBar);');
@@ -163,7 +163,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (121, 15, 3, 'Скроллбар-мастер: установи минимальное и максимальное значение',
         '<p><strong>Задание:</strong><br>Создай скроллбар, установи минимум 0 и максимум 1000 через setMinimum() и setMaximum()</p>',
-        'JScrollBar-setMinimum-setMaximum',
+        'JScrollBar-setMinimum,setMaximum,add',
         '', 121, 16.0, 0.0, 'JScrollBar scrollBar = new JScrollBar();
 scrollBar.setMinimum(0);
 scrollBar.setMaximum(1000);
@@ -216,7 +216,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (122, 15, 4, 'Скроллбар-мастер: установи текущее значение',
         '<p><strong>Задание:</strong><br>Создай скроллбар, установи значение 500 через setValue()</p>',
-        'JScrollBar-setValue',
+        'JScrollBar-setValue,add',
         '', 122, 17.0, 0.0, 'JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL, 0, 10, 0, 1000);
 scrollBar.setValue(500);
 add(scrollBar);');
@@ -265,7 +265,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (123, 15, 5, 'Скроллбар-мастер: установи единичный шаг',
         '<p><strong>Задание:</strong><br>Создай скроллбар, установи единичный шаг 10 через setUnitIncrement()</p>',
-        'JScrollBar-setUnitIncrement',
+        'JScrollBar-setUnitIncrement,add',
         '', 123, 17.0, 0.0, 'JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL, 0, 10, 0, 100);
 scrollBar.setUnitIncrement(10);
 add(scrollBar);');
@@ -314,7 +314,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (124, 15, 6, 'Скроллбар-мастер: установи блочный шаг',
         '<p><strong>Задание:</strong><br>Создай скроллбар, установи блочный шаг 50 через setBlockIncrement()</p>',
-        'JScrollBar-setBlockIncrement',
+        'JScrollBar-setBlockIncrement,add',
         '', 124, 17.0, 0.0, 'JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL, 0, 10, 0, 100);
 scrollBar.setBlockIncrement(50);
 add(scrollBar);');
@@ -366,7 +366,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (125, 15, 7, 'Скроллбар-мастер: установи цвета',
         '<p><strong>Задание:</strong><br>Создай скроллбар, установи цвет ползунка Color.BLUE через setForeground()</p>',
-        'JScrollBar-setForeground-Color',
+        'JScrollBar-setForeground,add',
         '', 125, 18.0, 0.0, 'JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL, 0, 10, 0, 100);
 scrollBar.setForeground(Color.BLUE);
 add(scrollBar);');

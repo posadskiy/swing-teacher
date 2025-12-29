@@ -66,7 +66,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (203, 25, 1, 'Меню-новичок: создай выпадающее меню',
         '<p><strong>Задание:</strong><br>Создай меню "Файл", добавь пункт "Открыть" и добавь меню в строку меню</p>',
-        'JMenu-JMenuItem-add',
+        'JMenu-add',
         '', 203, 18.0, 0.0, 'JMenu fileMenu = new JMenu("Файл");
 JMenuItem openItem = new JMenuItem("Открыть");
 fileMenu.add(openItem);
@@ -123,7 +123,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (204, 25, 1, 'Окно-новичок: создай окно без рамки',
         '<p><strong>Задание:</strong><br>Создай JWindow с родителем frame, добавь JLabel, покажи окно</p>',
-        'JWindow-add-setVisible',
+        'JWindow-add,pack,setVisible',
         '', 204, 22.0, 0.0, 'JFrame parent = new JFrame();
 JWindow window = new JWindow(parent);
 window.add(new JLabel("Всплывающее окно"));
@@ -172,7 +172,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (205, 25, 2, 'Окно-мастер: сделай всегда поверх',
         '<p><strong>Задание:</strong><br>Установи всегда поверх через setAlwaysOnTop(true)</p>',
-        'JWindow-setAlwaysOnTop',
+        'JWindow-setAlwaysOnTop,setVisible',
         '', 205, 23.0, 0.0, 'JFrame parent = new JFrame();
 JWindow window = new JWindow(parent);
 window.setAlwaysOnTop(true);
@@ -219,7 +219,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (206, 25, 3, 'Окно-мастер: установи фон',
         '<p><strong>Задание:</strong><br>Установи фон LIGHT_GRAY через setBackground()</p>',
-        'JWindow-setBackground',
+        'JWindow-setBackground,setVisible',
         '', 206, 21.0, 0.0, 'JFrame parent = new JFrame();
 JWindow window = new JWindow(parent);
 window.setBackground(Color.LIGHT_GRAY);
@@ -267,7 +267,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (207, 25, 4, 'Окно-мастер: всегда поверх',
         '<p><strong>Задание:</strong><br>Установи всегда поверх через setAlwaysOnTop(true)</p>',
-        'JWindow-setAlwaysOnTop',
+        'JWindow-setAlwaysOnTop,setVisible',
         '', 207, 22.0, 0.0, 'JFrame parent = new JFrame();
 JWindow window = new JWindow(parent);
 window.setAlwaysOnTop(true);

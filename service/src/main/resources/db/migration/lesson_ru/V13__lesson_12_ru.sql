@@ -61,7 +61,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (101, 12, 2, 'Переключатель-мастер: обрабатывай состояние',
         '<p><strong>Задание:</strong><br>Добавь ActionListener, проверь isSelected(), выведи сообщение в зависимости от состояния</p>',
-        'JToggleButton-addActionListener-isSelected',
+        'JToggleButton-addActionListener,isSelected,add',
         '', 101, 23.0, 0.0, 'JToggleButton toggleButton = new JToggleButton("Включить");
 toggleButton.addActionListener(e -> {
     if (toggleButton.isSelected()) {
@@ -118,7 +118,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (102, 12, 3, 'Переключатель-мастер: добавь мнемонику',
         '<p><strong>Задание:</strong><br>Установи мнемонику VK_T через setMnemonic(), добавь &T в текст переключателя</p>',
-        'JToggleButton-setMnemonic-KeyEvent',
+        'JToggleButton-setMnemonic,add',
         '', 102, 23.0, 0.0, 'JToggleButton toggleButton = new JToggleButton("Включить (&T)");
 toggleButton.setMnemonic(KeyEvent.VK_T);
 add(toggleButton);');
@@ -227,7 +227,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (104, 12, 5, 'Переключатель-мастер: установи команду действия',
         '<p><strong>Задание:</strong><br>Установи команду "TOGGLE" через setActionCommand(), получи команду в ActionListener через getActionCommand()</p>',
-        'JToggleButton-setActionCommand-getActionCommand',
+        'JToggleButton-setActionCommand,addActionListener,add',
         '', 104, 24.0, 0.0, 'JToggleButton toggleButton = new JToggleButton("Включить");
 toggleButton.setActionCommand("TOGGLE");
 toggleButton.addActionListener(e -> {
@@ -282,7 +282,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (105, 12, 6, 'Переключатель-мастер: установи шрифт',
         '<p><strong>Задание:</strong><br>Создай шрифт new Font("Serif", Font.PLAIN, 16), установи через setFont()</p>',
-        'JToggleButton-setFont-Font',
+        'JToggleButton-setFont,add',
         '', 105, 22.0, 0.0, 'JToggleButton toggleButton = new JToggleButton("Включить");
 Font font = new Font("Serif", Font.PLAIN, 16);
 toggleButton.setFont(font);
@@ -331,7 +331,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (106, 12, 7, 'Переключатель-мастер: установи отрисовку границы',
         '<p><strong>Задание:</strong><br>Установи отрисовку true через setBorderPainted()</p>',
-        'JToggleButton-setBorderPainted',
+        'JToggleButton-setBorderPainted,add',
         '', 106, 21.0, 0.0, 'JToggleButton toggleButton = new JToggleButton("Включить");
 toggleButton.setBorderPainted(true);
 add(toggleButton);');

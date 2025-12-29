@@ -155,7 +155,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (64, 7, 3, 'Поле пароля-мастер: измени символ отображения',
         '<p><strong>Задание:</strong><br>Установи символ отображения ''●'' через setEchoChar()</p>',
-        'JPasswordField-setEchoChar',
+        'JPasswordField-setEchoChar,add',
         '', 64, 22.0, 0.0, 'JPasswordField passwordField = new JPasswordField();
 passwordField.setEchoChar(''●'');
 add(passwordField);');
@@ -210,7 +210,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (65, 7, 4, 'Поле пароля-мастер: проверь надёжность пароля',
         '<p><strong>Задание:</strong><br>Получи пароль через getPassword(), проверь длину меньше 8, выведи сообщение</p>',
-        'JPasswordField-getPassword',
+        'JPasswordField-getPassword,add',
         '', 65, 25.0, 0.0, 'JPasswordField passwordField = new JPasswordField();
 char[] password = passwordField.getPassword();
 if (password.length < 8) {
@@ -269,7 +269,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (66, 7, 5, 'Поле пароля-мастер: запрети копирование',
         '<p><strong>Задание:</strong><br>Получи документ, создай DocumentFilter, переопредели remove() для запрета удаления</p>',
-        'JPasswordField-AbstractDocument-DocumentFilter',
+        'JPasswordField-add',
         '', 66, 26.0, 0.0, 'JPasswordField passwordField = new JPasswordField();
 AbstractDocument doc = (AbstractDocument) passwordField.getDocument();
 doc.setDocumentFilter(new DocumentFilter() {
@@ -321,7 +321,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (67, 7, 6, 'Поле пароля-мастер: измени символ отображения',
         '<p><strong>Задание:</strong><br>Измени символ отображения на ● через setEchoChar()</p>',
-        'JPasswordField-setEchoChar',
+        'JPasswordField-setEchoChar,add',
         '', 67, 23.0, 0.0, 'JPasswordField passwordField = new JPasswordField();
 passwordField.setEchoChar(''●'');
 add(passwordField);');
@@ -376,7 +376,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (68, 7, 7, 'Поле пароля-мастер: покажи пароль',
         '<p><strong>Задание:</strong><br>Получи символ через getEchoChar(), установи 0 через setEchoChar() для показа, затем восстанови символ</p>',
-        'JPasswordField-getEchoChar-setEchoChar',
+        'JPasswordField-getEchoChar,setEchoChar,add',
         '', 68, 24.0, 0.0, 'JPasswordField passwordField = new JPasswordField();
 char echoChar = passwordField.getEchoChar();
 passwordField.setEchoChar((char) 0);
@@ -430,7 +430,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (69, 7, 8, 'Поле пароля-мастер: проверь силу пароля',
         '<p><strong>Задание:</strong><br>Получи пароль через getPassword(), проверь длину >= 8 и наличие заглавных букв</p>',
-        'JPasswordField-getPassword',
+        'JPasswordField-getPassword,add',
         '', 69, 26.0, 0.0, 'JPasswordField passwordField = new JPasswordField();
 char[] password = passwordField.getPassword();
 boolean isStrong = password.length >= 8 && new String(password).matches(".*[A-Z].*");
@@ -483,7 +483,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (70, 7, 9, 'Поле пароля-мастер: скопируй пароль',
         '<p><strong>Задание:</strong><br>Получи пароль через getPassword(), создай StringSelection, установи в Clipboard через setContents()</p>',
-        'JPasswordField-getPassword-StringSelection-Clipboard',
+        'JPasswordField-add',
         '', 70, 27.0, 0.0, 'JPasswordField passwordField = new JPasswordField();
 char[] password = passwordField.getPassword();
 StringSelection selection = new StringSelection(new String(password));
@@ -531,7 +531,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (71, 7, 10, 'Поле пароля-мастер: установи символ отображения',
         '<p><strong>Задание:</strong><br>Установи символ ''*'' через setEchoChar()</p>',
-        'JPasswordField-setEchoChar',
+        'JPasswordField-setEchoChar,add',
         '', 71, 22.0, 0.0, 'JPasswordField passwordField = new JPasswordField();
 passwordField.setEchoChar(''*'');
 add(passwordField);');

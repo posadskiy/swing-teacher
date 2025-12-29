@@ -115,7 +115,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (95, 11, 2, 'Режим выбора: один или несколько элементов',
         '<p><strong>Задание:</strong><br>Создай список, установи режим MULTIPLE_INTERVAL_SELECTION через setSelectionMode() и добавь на форму</p>',
-        'JList-setSelectionMode-ListSelectionModel',
+        'JList-setSelectionMode,add',
         '', 95, 18.0, 0.0, 'String[] items = {"Элемент 1", "Элемент 2", "Элемент 3"};
 JList<String> list = new JList<>(items);
 list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -171,7 +171,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (96, 11, 3, 'Выбранный элемент: получи выбранный элемент',
         '<p><strong>Задание:</strong><br>Создай список, получи выбранный элемент через getSelectedValue(), выведи его</p>',
-        'JList-getSelectedValue',
+        'JList-getSelectedValue,add',
         '', 96, 19.0, 0.0, 'String[] items = {"Элемент 1", "Элемент 2", "Элемент 3"};
 JList<String> list = new JList<>(items);
 String selected = list.getSelectedValue();
@@ -235,7 +235,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (97, 11, 4, 'Слушатель выбора: обрабатывай выбор элементов',
         '<p><strong>Задание:</strong><br>Создай список, добавь ListSelectionListener, проверь getValueIsAdjusting(), получи выбранный элемент и выведи его</p>',
-        'JList-addListSelectionListener-getValueIsAdjusting',
+        'JList-addListSelectionListener,getSelectedValue,add',
         '', 97, 22.0, 0.0, 'String[] items = {"Элемент 1", "Элемент 2", "Элемент 3"};
 JList<String> list = new JList<>(items);
 list.addListSelectionListener(e -> {
@@ -298,7 +298,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (98, 11, 5, 'Модель списка: работай с DefaultListModel',
         '<p><strong>Задание:</strong><br>Создай DefaultListModel, добавь элементы через addElement(), создай список с моделью и добавь на форму</p>',
-        'JList-DefaultListModel-addElement',
+        'JList-add',
         '', 98, 21.0, 0.0, 'DefaultListModel<String> model = new DefaultListModel<>();
 model.addElement("Элемент 1");
 model.addElement("Элемент 2");
@@ -355,7 +355,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (99, 11, 6, 'Прокручиваемый список: добавь прокрутку',
         '<p><strong>Задание:</strong><br>Создай список, оберни его в JScrollPane и добавь на форму</p>',
-        'JList-JScrollPane-add',
+        'JScrollPane-add',
         '', 99, 20.0, 0.0, 'String[] items = {"Элемент 1", "Элемент 2", "Элемент 3", "Элемент 4", "Элемент 5"};
 JList<String> list = new JList<>(items);
 JScrollPane scrollPane = new JScrollPane(list);
@@ -414,7 +414,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (100, 11, 7, 'Множественный выбор: получи все выбранные элементы',
         '<p><strong>Задание:</strong><br>Создай список с MULTIPLE_INTERVAL_SELECTION, получи все выбранные элементы через getSelectedValuesList() и выведи их</p>',
-        'JList-getSelectedValuesList-MULTIPLE_INTERVAL_SELECTION',
+        'JList-setSelectionMode,getSelectedValuesList,add',
         '', 100, 23.0, 0.0, 'String[] items = {"Элемент 1", "Элемент 2", "Элемент 3"};
 JList<String> list = new JList<>(items);
 list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);

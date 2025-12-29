@@ -63,7 +63,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (196, 24, 1, 'Строка меню-новичок: создай меню приложения',
         '<p><strong>Задание:</strong><br>Создай строку меню, добавь меню "Файл" и установи в окно</p>',
-        'JMenuBar-JMenu-setJMenuBar',
+        'JMenuBar-add,setJMenuBar',
         '', 196, 16.0, 0.0, 'JMenuBar menuBar = new JMenuBar();
 JMenu fileMenu = new JMenu("Файл");
 menuBar.add(fileMenu);
@@ -115,7 +115,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (197, 24, 2, 'Прокручиваемая панель-мастер: настрой политику прокрутки',
         '<p><strong>Задание:</strong><br>Установи горизонтальную политику ALWAYS, вертикальную AS_NEEDED</p>',
-        'JScrollPane-setHorizontalScrollBarPolicy-setVerticalScrollBarPolicy',
+        'JScrollPane-setHorizontalScrollBarPolicy,setVerticalScrollBarPolicy,add',
         '', 197, 24.0, 0.0, 'JTextArea area = new JTextArea("Длинный текст...");
 JScrollPane scrollPane = new JScrollPane(area);
 scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -168,7 +168,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (198, 24, 3, 'Прокручиваемая панель-мастер: работай с viewport',
         '<p><strong>Задание:</strong><br>Получи viewport через getViewport(), установи позицию (0, 100) через setViewPosition()</p>',
-        'JScrollPane-getViewport-setViewPosition',
+        'JScrollPane-getViewport,add',
         '', 198, 25.0, 0.0, 'JTextArea area = new JTextArea("Длинный текст...");
 JScrollPane scrollPane = new JScrollPane(area);
 JViewport viewport = scrollPane.getViewport();
@@ -218,7 +218,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (199, 24, 4, 'Прокручиваемая панель-мастер: настрой горизонтальную прокрутку',
         '<p><strong>Задание:</strong><br>Установи политику AS_NEEDED через setHorizontalScrollBarPolicy()</p>',
-        'JScrollPane-setHorizontalScrollBarPolicy-AS_NEEDED',
+        'JScrollPane-setHorizontalScrollBarPolicy,add',
         '', 199, 23.0, 0.0, 'JTextArea area = new JTextArea("Длинный текст...");
 JScrollPane scrollPane = new JScrollPane(area);
 scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -270,7 +270,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (200, 24, 5, 'Прокручиваемая панель-мастер: добавь границу viewport',
         '<p><strong>Задание:</strong><br>Создай границу через BorderFactory.createLineBorder(), установи через setViewportBorder()</p>',
-        'JScrollPane-BorderFactory-setViewportBorder',
+        'JScrollPane-setViewportBorder,add',
         '', 200, 23.0, 0.0, 'JTextArea area = new JTextArea("Длинный текст...");
 JScrollPane scrollPane = new JScrollPane(area);
 Border border = BorderFactory.createLineBorder(Color.GRAY);

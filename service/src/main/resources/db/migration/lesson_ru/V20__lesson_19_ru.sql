@@ -114,7 +114,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (164, 19, 2, 'Окно-мастер: установи размер',
         '<p><strong>Задание:</strong><br>Создай окно, установи размер 500x400 через setSize(500, 400)</p>',
-        'JWindow-setSize',
+        'JWindow-setSize,setVisible',
         '', 164, 16.0, 0.0, 'JFrame frame = new JFrame();
 JWindow window = new JWindow(frame);
 window.setSize(500, 400);
@@ -167,7 +167,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (165, 19, 3, 'Окно-мастер: установи расположение',
         '<p><strong>Задание:</strong><br>Создай окно, установи расположение 100, 100 через setLocation(100, 100)</p>',
-        'JWindow-setLocation',
+        'JWindow-setSize,setLocation,setVisible',
         '', 165, 16.0, 0.0, 'JFrame frame = new JFrame();
 JWindow window = new JWindow(frame);
 window.setSize(400, 300);
@@ -218,7 +218,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (166, 19, 4, 'Окно-мастер: сделай всегда поверх',
         '<p><strong>Задание:</strong><br>Создай окно, включи всегда поверх через setAlwaysOnTop(true)</p>',
-        'JWindow-setAlwaysOnTop',
+        'JWindow-setSize,setAlwaysOnTop,setVisible',
         '', 166, 17.0, 0.0, 'JFrame frame = new JFrame();
 JWindow window = new JWindow(frame);
 window.setSize(400, 300);
@@ -269,7 +269,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (167, 19, 5, 'Окно-мастер: установи цвет фона',
         '<p><strong>Задание:</strong><br>Создай окно, установи цвет фона Color.WHITE через setBackground()</p>',
-        'JWindow-setBackground-Color',
+        'JWindow-setSize,setBackground,setVisible',
         '', 167, 17.0, 0.0, 'JFrame frame = new JFrame();
 JWindow window = new JWindow(frame);
 window.setSize(400, 300);
@@ -320,7 +320,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (168, 19, 6, 'Окно-мастер: установи прозрачность',
         '<p><strong>Задание:</strong><br>Создай окно, установи прозрачность 0.8 через setOpacity(0.8f)</p>',
-        'JWindow-setOpacity',
+        'JWindow-setSize,setOpacity,setVisible',
         '', 168, 18.0, 0.0, 'JFrame frame = new JFrame();
 JWindow window = new JWindow(frame);
 window.setSize(400, 300);
@@ -371,7 +371,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (169, 19, 7, 'Окно-мастер: закрой окно',
         '<p><strong>Задание:</strong><br>Создай окно, закрой его через dispose()</p>',
-        'JWindow-dispose',
+        'JWindow-setSize,setVisible,dispose',
         '', 169, 16.0, 0.0, 'JFrame frame = new JFrame();
 JWindow window = new JWindow(frame);
 window.setSize(400, 300);

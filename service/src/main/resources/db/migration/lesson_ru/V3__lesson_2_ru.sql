@@ -378,8 +378,9 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (7, 2, 6, 'Кнопка-мастер: добавь горячую клавишу',
         '<p><strong>Задание:</strong><br>Установи мнемонику VK_O через setMnemonic(), подчеркни букву в тексте через HTML</p>',
-        'JButton-setMnemonic-setText',
-        '', 7, 25.0, 0.0, 'button.setMnemonic(KeyEvent.VK_O);
+        'JButton-setMnemonic,setText,add',
+        '', 7, 25.0, 0.0, 'JButton button = new JButton();
+button.setMnemonic(KeyEvent.VK_O);
 button.setText("<html>Кн<u>о</u>пка</html>");
 add(button);');
 
@@ -433,8 +434,9 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (8, 2, 7, 'Кнопка-мастер: добавь иконку с текстом',
         '<p><strong>Задание:</strong><br>Установи иконку через setIcon(), установи текст через setText(), установи отступ 5 через setIconTextGap()</p>',
-        'JButton-setIcon-setText-setIconTextGap',
-        '', 8, 24.0, 0.0, 'button.setIcon(new ImageIcon("icon.png"));
+        'JButton-setIcon,setText,setIconTextGap,add',
+        '', 8, 24.0, 0.0, 'JButton button = new JButton();
+button.setIcon(new ImageIcon("icon.png"));
 button.setText("Текст");
 button.setIconTextGap(5);
 add(button);');
@@ -486,8 +488,9 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (9, 2, 8, 'Кнопка-мастер: добавь мнемонику',
         '<p><strong>Задание:</strong><br>Установи мнемонику VK_S через setMnemonic(), добавь &S в текст кнопки</p>',
-        'JButton-setMnemonic-KeyEvent',
-        '', 9, 23.0, 0.0, 'button.setMnemonic(KeyEvent.VK_S);
+        'JButton-setMnemonic,setText,add',
+        '', 9, 23.0, 0.0, 'JButton button = new JButton();
+button.setMnemonic(KeyEvent.VK_S);
 button.setText("Кнопка &S");
 add(button);');
 
@@ -538,8 +541,9 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (10, 2, 9, 'Кнопка-мастер: добавь иконку при наведении',
         '<p><strong>Задание:</strong><br>Установи обычную иконку через setIcon(), установи иконку наведения через setRolloverIcon()</p>',
-        'JButton-setIcon-setRolloverIcon',
-        '', 10, 24.0, 0.0, 'button.setIcon(new ImageIcon("normal.png"));
+        'JButton-setIcon,setRolloverIcon,add',
+        '', 10, 24.0, 0.0, 'JButton button = new JButton();
+button.setIcon(new ImageIcon("normal.png"));
 button.setRolloverIcon(new ImageIcon("hover.png"));
 add(button);');
 
@@ -593,8 +597,9 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (11, 2, 10, 'Кнопка-мастер: добавь иконку для отключённой кнопки',
         '<p><strong>Задание:</strong><br>Установи обычную иконку через setIcon(), установи иконку для отключённой через setDisabledIcon(), отключи кнопку</p>',
-        'JButton-setIcon-setDisabledIcon-setEnabled',
-        '', 11, 24.0, 0.0, 'button.setIcon(new ImageIcon("normal.png"));
+        'JButton-setIcon,setDisabledIcon,setEnabled,add',
+        '', 11, 24.0, 0.0, 'JButton button = new JButton();
+button.setIcon(new ImageIcon("normal.png"));
 button.setDisabledIcon(new ImageIcon("disabled.png"));
 button.setEnabled(false);
 add(button);');
@@ -646,8 +651,9 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (12, 2, 11, 'Кнопка-мастер: добавь иконку при нажатии',
         '<p><strong>Задание:</strong><br>Установи обычную иконку через setIcon(), установи иконку нажатия через setPressedIcon()</p>',
-        'JButton-setIcon-setPressedIcon',
-        '', 12, 24.0, 0.0, 'button.setIcon(new ImageIcon("normal.png"));
+        'JButton-setIcon,setPressedIcon,add',
+        '', 12, 24.0, 0.0, 'JButton button = new JButton();
+button.setIcon(new ImageIcon("normal.png"));
 button.setPressedIcon(new ImageIcon("pressed.png"));
 add(button);');
 
@@ -698,8 +704,9 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (13, 2, 12, 'Кнопка-мастер: добавь иконку при наведении',
         '<p><strong>Задание:</strong><br>Установи обычную иконку через setIcon(), установи иконку наведения через setRolloverIcon()</p>',
-        'JButton-setIcon-setRolloverIcon',
-        '', 13, 24.0, 0.0, 'button.setIcon(new ImageIcon("normal.png"));
+        'JButton-setIcon,setRolloverIcon,add',
+        '', 13, 24.0, 0.0, 'JButton button = new JButton();
+button.setIcon(new ImageIcon("normal.png"));
 button.setRolloverIcon(new ImageIcon("hover.png"));
 add(button);');
 
@@ -750,8 +757,9 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (14, 2, 13, 'Кнопка-мастер: добавь иконку при выборе',
         '<p><strong>Задание:</strong><br>Установи обычную иконку через setIcon(), установи иконку выбора через setSelectedIcon()</p>',
-        'JButton-setIcon-setSelectedIcon',
-        '', 14, 24.0, 0.0, 'button.setIcon(new ImageIcon("normal.png"));
+        'JButton-setIcon,setSelectedIcon,add',
+        '', 14, 24.0, 0.0, 'JButton button = new JButton();
+button.setIcon(new ImageIcon("normal.png"));
 button.setSelectedIcon(new ImageIcon("selected.png"));
 add(button);');
 
@@ -802,7 +810,8 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (15, 2, 14, 'Кнопка-мастер: добавь иконку при отключении',
         '<p><strong>Задание:</strong><br>Установи обычную иконку через setIcon(), установи иконку отключения через setDisabledIcon()</p>',
-        'JButton-setIcon-setDisabledIcon',
-        '', 15, 24.0, 0.0, 'button.setIcon(new ImageIcon("normal.png"));
+        'JButton-setIcon,setDisabledIcon,add',
+        '', 15, 24.0, 0.0, 'JButton button = new JButton();
+button.setIcon(new ImageIcon("normal.png"));
 button.setDisabledIcon(new ImageIcon("disabled.png"));
 add(button);');

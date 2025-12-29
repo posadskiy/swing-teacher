@@ -116,7 +116,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (213, 26, 2, 'Разделённая панель-мастер: настрой позицию разделителя',
         '<p><strong>Задание:</strong><br>Установи позицию разделителя 200 пикселей через setDividerLocation(200)</p>',
-        'JSplitPane-setDividerLocation',
+        'JSplitPane-setDividerLocation,add',
         '', 213, 24.0, 0.0, 'JPanel leftPanel = new JPanel();
 JPanel rightPanel = new JPanel();
 JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
@@ -165,7 +165,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (214, 26, 3, 'Разделённая панель-мастер: включи одно касание',
         '<p><strong>Задание:</strong><br>Включи одно касание через setOneTouchExpandable(true)</p>',
-        'JSplitPane-setOneTouchExpandable',
+        'JSplitPane-setOneTouchExpandable,add',
         '', 214, 22.0, 0.0, 'JPanel leftPanel = new JPanel();
 JPanel rightPanel = new JPanel();
 JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
@@ -218,7 +218,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (215, 26, 4, 'Разделённая панель-мастер: установи позицию разделителя',
         '<p><strong>Задание:</strong><br>Установи позицию разделителя 200 пикселей через setDividerLocation(200)</p>',
-        'JSplitPane-setDividerLocation',
+        'JSplitPane-setDividerLocation,add',
         '', 215, 24.0, 0.0, 'JPanel leftPanel = new JPanel();
 JPanel rightPanel = new JPanel();
 JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
@@ -267,7 +267,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (216, 26, 5, 'Разделённая панель-мастер: включи непрерывную компоновку',
         '<p><strong>Задание:</strong><br>Включи непрерывную компоновку через setContinuousLayout(true)</p>',
-        'JSplitPane-setContinuousLayout',
+        'JSplitPane-setContinuousLayout,add',
         '', 216, 23.0, 0.0, 'JPanel leftPanel = new JPanel();
 JPanel rightPanel = new JPanel();
 JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);

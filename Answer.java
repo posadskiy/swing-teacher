@@ -10,10 +10,9 @@ public class Answer extends CreateFrame {
     @Override
     public void createFrame() {
         setTitle("Your frame");
-        JButton button = new JButton();
-button.setIcon(new ImageIcon("normal.png"));
-button.setPressedIcon(new ImageIcon("pressed.png"));
-add(button);
+        JProgressBar progressBar = new JProgressBar(0, 100);
+progressBar.setIndeterminate(true);
+add(progressBar);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setPreferredSize(new Dimension(700, 400));
         pack();

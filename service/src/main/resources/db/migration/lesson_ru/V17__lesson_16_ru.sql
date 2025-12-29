@@ -115,7 +115,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (130, 16, 1, 'Спиннер-новичок: создай спиннер с моделью',
         '<p><strong>Задание:</strong><br>Создай SpinnerNumberModel со значением 10, min 0, max 100, step 1, создай JSpinner из модели, добавь на форму</p>',
-        'JSpinner-SpinnerNumberModel-add',
+        'JSpinner-add',
         '', 130, 22.0, 0.0, 'SpinnerNumberModel model = new SpinnerNumberModel(10, 0, 100, 1);
 JSpinner spinner = new JSpinner(model);
 add(spinner);');
@@ -172,7 +172,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (131, 16, 2, 'Менеджер компоновки: управляй расположением',
         '<p><strong>Задание:</strong><br>Создай панель, установи FlowLayout, добавь две кнопки и добавь панель на форму</p>',
-        'JPanel-setLayout-FlowLayout-add',
+        'JPanel-setLayout,add;JButton-add;JButton-add',
         '', 131, 18.0, 0.0, 'JPanel panel = new JPanel();
 panel.setLayout(new FlowLayout());
 JButton button1 = new JButton("Кнопка 1");
@@ -231,7 +231,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (132, 16, 2, 'Спиннер-мастер: создай спиннер для дат',
         '<p><strong>Задание:</strong><br>Создай SpinnerDateModel, создай JSpinner, создай DateEditor с форматом "dd/MM/yyyy", установи редактор</p>',
-        'JSpinner-SpinnerDateModel-DateEditor-setEditor',
+        'JSpinner-setEditor,add',
         '', 132, 26.0, 0.0, 'SpinnerDateModel model = new SpinnerDateModel();
 JSpinner spinner = new JSpinner(model);
 JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner, "dd/MM/yyyy");
@@ -287,7 +287,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (133, 16, 3, 'Спиннер-мастер: создай спиннер со списком',
         '<p><strong>Задание:</strong><br>Создай массив строк, создай SpinnerListModel, создай JSpinner с моделью</p>',
-        'JSpinner-SpinnerListModel',
+        'JSpinner-add',
         '', 133, 25.0, 0.0, 'String[] values = {"Январь", "Февраль", "Март"};
 SpinnerListModel model = new SpinnerListModel(values);
 JSpinner spinner = new JSpinner(model);
@@ -339,7 +339,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (134, 16, 4, 'Спиннер-мастер: создай спиннер для чисел',
         '<p><strong>Задание:</strong><br>Создай SpinnerNumberModel с начальным 0, min 0, max 100, шаг 1, создай JSpinner с моделью</p>',
-        'JSpinner-SpinnerNumberModel',
+        'JSpinner-add',
         '', 134, 26.0, 0.0, 'SpinnerNumberModel model = new SpinnerNumberModel(0, 0, 100, 1);
 JSpinner spinner = new JSpinner(model);
 add(spinner);');
@@ -390,7 +390,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (135, 16, 5, 'Спиннер-мастер: обрабатывай изменения',
         '<p><strong>Задание:</strong><br>Добавь ChangeListener, получи значение через getValue(), выведи его</p>',
-        'JSpinner-addChangeListener-getValue',
+        'JSpinner-addChangeListener,getValue,add',
         '', 135, 24.0, 0.0, 'JSpinner spinner = new JSpinner();
 spinner.addChangeListener(e -> {
     Object value = spinner.getValue();

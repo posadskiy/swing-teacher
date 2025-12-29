@@ -115,7 +115,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (73, 8, 2, 'Группа кнопок: объедини радиокнопки в группу',
         '<p><strong>Задание:</strong><br>Создай группу, две радиокнопки, добавь их в группу и на форму</p>',
-        'JRadioButton-ButtonGroup-add',
+        'JRadioButton-add;JRadioButton-add',
         '', 73, 18.0, 0.0, 'ButtonGroup group = new ButtonGroup();
 JRadioButton radio1 = new JRadioButton("Вариант 1");
 JRadioButton radio2 = new JRadioButton("Вариант 2");

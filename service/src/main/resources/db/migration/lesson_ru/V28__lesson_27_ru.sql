@@ -116,7 +116,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (222, 27, 2, 'Вкладки-мастер: выбери активную вкладку',
         '<p><strong>Задание:</strong><br>Выбери вкладку с индексом 1 через setSelectedIndex(1)</p>',
-        'JTabbedPane-setSelectedIndex',
+        'JTabbedPane-addTab,addTab,setSelectedIndex,add',
         '', 222, 23.0, 0.0, 'JTabbedPane tabbedPane = new JTabbedPane();
 tabbedPane.addTab("Вкладка 1", new JPanel());
 tabbedPane.addTab("Вкладка 2", new JPanel());
@@ -166,7 +166,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (223, 27, 3, 'Вкладки-мастер: настрой расположение вкладок',
         '<p><strong>Задание:</strong><br>Установи расположение BOTTOM через setTabPlacement()</p>',
-        'JTabbedPane-setTabPlacement',
+        'JTabbedPane-addTab,setTabPlacement,add',
         '', 223, 23.0, 0.0, 'JTabbedPane tabbedPane = new JTabbedPane();
 tabbedPane.addTab("Вкладка 1", new JPanel());
 tabbedPane.setTabPlacement(JTabbedPane.BOTTOM);
@@ -218,7 +218,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (224, 27, 4, 'Вкладки-мастер: добавь подсказку',
         '<p><strong>Задание:</strong><br>Добавь вкладку, установи подсказку "Описание" через setToolTipTextAt(0, "Описание")</p>',
-        'JTabbedPane-setToolTipTextAt',
+        'JTabbedPane-addTab,setToolTipTextAt,add',
         '', 224, 22.0, 0.0, 'JTabbedPane tabbedPane = new JTabbedPane();
 JPanel panel = new JPanel();
 tabbedPane.addTab("Вкладка", panel);
@@ -271,7 +271,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (225, 27, 5, 'Вкладки-мастер: включи/выключи вкладку',
         '<p><strong>Задание:</strong><br>Выключи вкладку 0 через setEnabledAt(0, false), затем включи через setEnabledAt(0, true)</p>',
-        'JTabbedPane-setEnabledAt',
+        'JTabbedPane-addTab,setEnabledAt,setEnabledAt,add',
         '', 225, 23.0, 0.0, 'JTabbedPane tabbedPane = new JTabbedPane();
 tabbedPane.addTab("Вкладка 1", new JPanel());
 tabbedPane.setEnabledAt(0, false);

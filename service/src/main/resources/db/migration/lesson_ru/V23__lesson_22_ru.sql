@@ -62,7 +62,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (183, 22, 1, 'Вкладки-новичок: создай интерфейс с вкладками',
         '<p><strong>Задание:</strong><br>Создай панель с вкладками, добавь две вкладки "Вкладка 1" и "Вкладка 2" и добавь на форму</p>',
-        'JTabbedPane-addTab-JPanel,add',
+        'JTabbedPane-addTab,add',
         '', 183, 16.0, 0.0, 'JTabbedPane tabbedPane = new JTabbedPane();
 tabbedPane.addTab("Вкладка 1", new JPanel());
 tabbedPane.addTab("Вкладка 2", new JPanel());
@@ -112,7 +112,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (184, 22, 2, 'Вкладки-мастер: установи расположение вкладок',
         '<p><strong>Задание:</strong><br>Создай панель с вкладками, установи расположение внизу через setTabPlacement(JTabbedPane.BOTTOM)</p>',
-        'JTabbedPane-setTabPlacement',
+        'JTabbedPane-addTab,setTabPlacement,add',
         '', 184, 17.0, 0.0, 'JTabbedPane tabbedPane = new JTabbedPane();
 tabbedPane.addTab("Вкладка 1", new JPanel());
 tabbedPane.setTabPlacement(JTabbedPane.BOTTOM);
@@ -165,7 +165,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (185, 22, 3, 'Вкладки-мастер: выбери вкладку',
         '<p><strong>Задание:</strong><br>Создай панель с вкладками, добавь две вкладки, выбери вторую через setSelectedIndex(1)</p>',
-        'JTabbedPane-setSelectedIndex',
+        'JTabbedPane-addTab,addTab,setSelectedIndex,add',
         '', 185, 17.0, 0.0, 'JTabbedPane tabbedPane = new JTabbedPane();
 tabbedPane.addTab("Вкладка 1", new JPanel());
 tabbedPane.addTab("Вкладка 2", new JPanel());
@@ -219,7 +219,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (186, 22, 4, 'Вкладки-мастер: добавь иконку на вкладку',
         '<p><strong>Задание:</strong><br>Создай панель с вкладками, добавь вкладку с иконкой через addTab("Вкладка", icon, component)</p>',
-        'JTabbedPane-addTab-Icon',
+        'JTabbedPane-addTab,add',
         '', 186, 18.0, 0.0, 'JTabbedPane tabbedPane = new JTabbedPane();
 ImageIcon icon = new ImageIcon("icon.png");
 tabbedPane.addTab("Вкладка", icon, new JPanel());
@@ -269,7 +269,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (187, 22, 5, 'Вкладки-мастер: добавь подсказку на вкладку',
         '<p><strong>Задание:</strong><br>Создай панель с вкладками, добавь вкладку, установи подсказку "Первая вкладка" через setToolTipTextAt(0, "Первая вкладка")</p>',
-        'JTabbedPane-setToolTipTextAt',
+        'JTabbedPane-addTab,setToolTipTextAt,add',
         '', 187, 17.0, 0.0, 'JTabbedPane tabbedPane = new JTabbedPane();
 tabbedPane.addTab("Вкладка 1", new JPanel());
 tabbedPane.setToolTipTextAt(0, "Первая вкладка");

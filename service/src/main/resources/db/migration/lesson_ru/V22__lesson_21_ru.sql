@@ -61,7 +61,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (175, 21, 1, 'Разделённая панель-новичок: раздели экран пополам',
         '<p><strong>Задание:</strong><br>Создай горизонтальную разделённую панель с двумя панелями и добавь на форму</p>',
-        'JSplitPane-JPanel-add',
+        'JSplitPane-add',
         '', 175, 18.0, 0.0, 'JPanel leftPanel = new JPanel();
 JPanel rightPanel = new JPanel();
 JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
@@ -111,7 +111,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (176, 21, 2, 'Разделённая панель-мастер: установи ориентацию',
         '<p><strong>Задание:</strong><br>Создай разделённую панель, установи вертикальную ориентацию через setOrientation(JSplitPane.VERTICAL_SPLIT)</p>',
-        'JSplitPane-setOrientation',
+        'JSplitPane-setOrientation,add',
         '', 176, 19.0, 0.0, 'JPanel topPanel = new JPanel();
 JPanel bottomPanel = new JPanel();
 JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, topPanel, bottomPanel);
@@ -164,7 +164,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (177, 21, 3, 'Разделённая панель-мастер: установи позицию разделителя',
         '<p><strong>Задание:</strong><br>Создай разделённую панель, установи позицию разделителя 200 через setDividerLocation(200)</p>',
-        'JSplitPane-setDividerLocation',
+        'JSplitPane-setDividerLocation,add',
         '', 177, 19.0, 0.0, 'JPanel leftPanel = new JPanel();
 JPanel rightPanel = new JPanel();
 JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
@@ -215,7 +215,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (178, 21, 4, 'Разделённая панель-мастер: установи вес изменения размера',
         '<p><strong>Задание:</strong><br>Создай разделённую панель, установи вес 0.3 через setResizeWeight(0.3)</p>',
-        'JSplitPane-setResizeWeight',
+        'JSplitPane-setResizeWeight,add',
         '', 178, 20.0, 0.0, 'JPanel leftPanel = new JPanel();
 JPanel rightPanel = new JPanel();
 JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
@@ -266,7 +266,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (179, 21, 5, 'Разделённая панель-мастер: включи одно касание',
         '<p><strong>Задание:</strong><br>Создай разделённую панель, включи одно касание через setOneTouchExpandable(true)</p>',
-        'JSplitPane-setOneTouchExpandable',
+        'JSplitPane-setOneTouchExpandable,add',
         '', 179, 19.0, 0.0, 'JPanel leftPanel = new JPanel();
 JPanel rightPanel = new JPanel();
 JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);

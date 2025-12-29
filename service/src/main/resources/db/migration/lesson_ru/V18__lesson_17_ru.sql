@@ -219,7 +219,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (144, 17, 2, 'Прогресс-бар-мастер: покажи проценты',
         '<p><strong>Задание:</strong><br>Включи показ текста через setStringPainted(true), установи текст "50%" через setString()</p>',
-        'JProgressBar-setStringPainted-setString',
+        'JProgressBar-setStringPainted,setString,add',
         '', 144, 22.0, 0.0, 'JProgressBar progressBar = new JProgressBar(0, 100);
 progressBar.setStringPainted(true);
 progressBar.setString("50%");
@@ -267,7 +267,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (145, 17, 3, 'Прогресс-бар-мастер: включи неопределённый режим',
         '<p><strong>Задание:</strong><br>Включи неопределённый режим через setIndeterminate(true)</p>',
-        'JProgressBar-setIndeterminate',
+        'JProgressBar-setIndeterminate,add',
         '', 145, 21.0, 0.0, 'JProgressBar progressBar = new JProgressBar(0, 100);
 progressBar.setIndeterminate(true);
 add(progressBar);');
@@ -318,7 +318,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (146, 17, 4, 'Прогресс-бар-мастер: покажи строку',
         '<p><strong>Задание:</strong><br>Включи показ строки через setStringPainted(true), установи строку "Загрузка..." через setString()</p>',
-        'JProgressBar-setStringPainted-setString',
+        'JProgressBar-setStringPainted,setString,add',
         '', 146, 22.0, 0.0, 'JProgressBar progressBar = new JProgressBar(0, 100);
 progressBar.setStringPainted(true);
 progressBar.setString("Загрузка...");
@@ -366,7 +366,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (147, 17, 5, 'Прогресс-бар-мастер: покажи границу',
         '<p><strong>Задание:</strong><br>Включи показ границы через setBorderPainted(true)</p>',
-        'JProgressBar-setBorderPainted',
+        'JProgressBar-setBorderPainted,add',
         '', 147, 21.0, 0.0, 'JProgressBar progressBar = new JProgressBar(0, 100);
 progressBar.setBorderPainted(true);
 add(progressBar);');

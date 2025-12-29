@@ -427,7 +427,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (115, 14, 8, 'Прогресс-бар-мастер: установи размер',
         '<p><strong>Задание:</strong><br>Создай прогресс-бар, установи размер 300x25 через setPreferredSize(new Dimension(300, 25))</p>',
-        'JProgressBar-setPreferredSize-Dimension',
+        'JProgressBar-setPreferredSize,add',
         '', 115, 18.0, 0.0, 'JProgressBar progressBar = new JProgressBar(0, 100);
 progressBar.setPreferredSize(new Dimension(300, 25));
 add(progressBar);');
@@ -576,7 +576,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (118, 14, 11, 'Прогресс-бар-мастер: обрабатывай изменения',
         '<p><strong>Задание:</strong><br>Создай прогресс-бар, добавь ChangeListener, получи значение через getValue(), выведи его</p>',
-        'JProgressBar-addChangeListener-getValue',
+        'JProgressBar-addChangeListener,getValue,add',
         '', 118, 19.0, 0.0, 'JProgressBar progressBar = new JProgressBar(0, 100);
 progressBar.addChangeListener(e -> {
     int value = progressBar.getValue();

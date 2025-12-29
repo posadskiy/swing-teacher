@@ -420,7 +420,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (219, 26, 12, 'Вкладка-мастер: установи мнемоник',
         '<p><strong>Задание:</strong><br>Установи мнемоник VK_T для вкладки 0 через setMnemonicAt()</p>',
-        'JTabbedPane-setMnemonicAt-KeyEvent',
+        'JTabbedPane-setMnemonicAt,add',
         '', 219, 24.0, 0.0, 'JTabbedPane tabbedPane = new JTabbedPane();
 tabbedPane.addTab("Tab", new JPanel());
 tabbedPane.setMnemonicAt(0, KeyEvent.VK_T);

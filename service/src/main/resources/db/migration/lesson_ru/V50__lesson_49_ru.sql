@@ -62,7 +62,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (437, 49, 1, 'ItemListener-новичок: обрабатывай выбор элементов',
         '<p><strong>Задание:</strong><br>Создай чекбокс, добавь ItemListener, проверь getStateChange() == ItemEvent.SELECTED, выведи сообщение</p>',
-        'JCheckBox-addItemListener-ItemEvent',
+        'JCheckBox-addItemListener,add',
         '', 437, 18.0, 0.0, 'JCheckBox checkBox = new JCheckBox("Выбрать");
 checkBox.addItemListener(e -> {
     if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -120,7 +120,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (438, 49, 2, 'ChangeListener-новичок: обрабатывай изменения',
         '<p><strong>Задание:</strong><br>Создай слайдер, добавь ChangeListener, получи значение через getValue(), выведи его</p>',
-        'JSlider-addChangeListener-getValue',
+        'JSlider-addChangeListener,getValue,add',
         '', 438, 18.0, 0.0, 'JSlider slider = new JSlider(0, 100, 50);
 slider.addChangeListener(e -> {
     int value = slider.getValue();
@@ -177,7 +177,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (439, 49, 3, 'ItemListener-мастер: обрабатывай выбор в комбобоксе',
         '<p><strong>Задание:</strong><br>Создай комбобокс с элементами, добавь ItemListener, получи элемент через getItem(), выведи его</p>',
-        'JComboBox-addItemListener-ItemEvent',
+        'JComboBox-addItemListener,add',
         '', 439, 19.0, 0.0, 'JComboBox<String> comboBox = new JComboBox<>(new String[]{"Элемент 1", "Элемент 2"});
 comboBox.addItemListener(e -> {
     if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -234,7 +234,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (440, 49, 4, 'ChangeListener-мастер: обрабатывай изменения в спиннере',
         '<p><strong>Задание:</strong><br>Создай спиннер, добавь ChangeListener, получи значение через getValue(), выведи его</p>',
-        'JSpinner-addChangeListener-getValue',
+        'JSpinner-addChangeListener,getValue,add',
         '', 440, 19.0, 0.0, 'JSpinner spinner = new JSpinner(new SpinnerNumberModel(10, 0, 100, 1));
 spinner.addChangeListener(e -> {
     Object value = spinner.getValue();

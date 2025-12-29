@@ -62,7 +62,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (441, 50, 1, 'Кастомная отрисовка-новичок: переопредели paintComponent',
         '<p><strong>Задание:</strong><br>Создай класс, расширяющий JComponent, переопредели paintComponent(), вызови super.paintComponent(g), нарисуй строку через drawString()</p>',
-        'JComponent-paintComponent-Graphics',
+        'JComponent-paintComponent,drawString,add',
         '', 441, 20.0, 0.0, 'class MyComponent extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
@@ -120,7 +120,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (442, 50, 2, 'Кастомная отрисовка-мастер: используй Graphics2D',
         '<p><strong>Задание:</strong><br>Переопредели paintComponent(), приведи Graphics к Graphics2D, включи антиалиасинг через setRenderingHint()</p>',
-        'Graphics2D-RenderingHints',
+        'Graphics2D-setRenderingHint,add',
         '', 442, 21.0, 0.0, 'class MyComponent extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {

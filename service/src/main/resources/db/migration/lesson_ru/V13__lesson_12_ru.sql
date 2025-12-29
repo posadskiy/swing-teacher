@@ -169,7 +169,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (103, 12, 4, 'Переключатель-мастер: обрабатывай изменение состояния',
         '<p><strong>Задание:</strong><br>Добавь ItemListener, проверь isSelected(), выведи состояние</p>',
-        'JToggleButton-addItemListener-isSelected',
+        'JToggleButton-addItemListener,isSelected,add',
         '', 103, 24.0, 0.0, 'JToggleButton toggleButton = new JToggleButton("Включить");
 toggleButton.addItemListener(e -> {
     boolean selected = toggleButton.isSelected();

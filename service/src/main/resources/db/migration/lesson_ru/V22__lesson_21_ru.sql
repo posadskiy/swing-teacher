@@ -368,7 +368,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (181, 21, 7, 'Разделённая панель-мастер: установи границу',
         '<p><strong>Задание:</strong><br>Создай разделённую панель, установи границу через setBorder(BorderFactory.createEtchedBorder())</p>',
-        'JSplitPane-setBorder-BorderFactory',
+        'JSplitPane-setBorder,add',
         '', 181, 19.0, 0.0, 'JPanel leftPanel = new JPanel();
 JPanel rightPanel = new JPanel();
 JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
@@ -420,7 +420,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (182, 21, 8, 'Разделённая панель-мастер: установи минимальные размеры',
         '<p><strong>Задание:</strong><br>Создай разделённую панель, установи минимальный размер 100x0 для левой панели через setMinimumSize()</p>',
-        'JSplitPane-setMinimumSize-Dimension',
+        'JSplitPane-setMinimumSize,add',
         '', 182, 20.0, 0.0, 'JPanel leftPanel = new JPanel();
 JPanel rightPanel = new JPanel();
 leftPanel.setMinimumSize(new Dimension(100, 0));

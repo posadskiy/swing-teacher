@@ -115,7 +115,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (142, 17, 1, 'Прогресс-бар-новичок: создай прогресс-бар',
         '<p><strong>Задание:</strong><br>Создай JProgressBar с диапазоном 0-100, установи значение 50, добавь на форму</p>',
-        'JProgressBar-setValue-add',
+        'JProgressBar-setValue,add',
         '', 142, 20.0, 0.0, 'JProgressBar progressBar = new JProgressBar(0, 100);
 progressBar.setValue(50);
 add(progressBar);');
@@ -465,7 +465,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (149, 17, 8, 'Прогресс-бар-мастер: установи кастомную строку',
         '<p><strong>Задание:</strong><br>Включи показ строки через setStringPainted(true), установи строку "Загрузка..." через setString()</p>',
-        'JProgressBar-setStringPainted-setString',
+        'JProgressBar-setStringPainted,setString,add',
         '', 149, 22.0, 0.0, 'JProgressBar progressBar = new JProgressBar(0, 100);
 progressBar.setStringPainted(true);
 progressBar.setString("Загрузка...");

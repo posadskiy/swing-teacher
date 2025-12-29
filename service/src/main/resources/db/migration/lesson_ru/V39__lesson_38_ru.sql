@@ -114,7 +114,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (318, 38, 2, 'Пункт меню-мастер: добавь акселератор',
         '<p><strong>Задание:</strong><br>Создай KeyStroke для Ctrl+S через getKeyStroke(), установи акселератор через setAccelerator()</p>',
-        'JMenuItem-KeyStroke-setAccelerator',
+        'JMenuItem-setAccelerator',
         '', 318, 25.0, 0.0, 'JMenuItem menuItem = new JMenuItem("Сохранить");
 KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK);
 menuItem.setAccelerator(stroke);
@@ -330,7 +330,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (321, 38, 5, 'Пункт меню-мастер: добавь акселератор',
         '<p><strong>Задание:</strong><br>Создай KeyStroke для Ctrl+S через getKeyStroke(), установи через setAccelerator()</p>',
-        'JMenuItem-setAccelerator-KeyStroke',
+        'JMenuItem-setAccelerator',
         '', 321, 25.0, 0.0, 'JMenuItem menuItem = new JMenuItem("Сохранить");
 KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK);
 menuItem.setAccelerator(keyStroke);
@@ -383,7 +383,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (322, 38, 6, 'Пункт меню-мастер: добавь иконку',
         '<p><strong>Задание:</strong><br>Установи иконку через setIcon() с ImageIcon</p>',
-        'JMenuItem-setIcon-ImageIcon',
+        'JMenuItem-setIcon',
         '', 322, 22.0, 0.0, 'JMenuItem menuItem = new JMenuItem("Сохранить");
 menuItem.setIcon(new ImageIcon("icon.png"));
 JMenu fileMenu = new JMenu("Файл");
@@ -441,7 +441,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (323, 38, 6, 'Радио-меню-мастер: установи команду действия',
         '<p><strong>Задание:</strong><br>Установи команду "RADIO" через setActionCommand(), получи команду в ActionListener через getActionCommand()</p>',
-        'JRadioButtonMenuItem-setActionCommand-getActionCommand',
+        'JRadioButtonMenuItem-setActionCommand,getActionCommand,add',
         '', 323, 24.0, 0.0, 'JRadioButtonMenuItem radioButtonMenuItem = new JRadioButtonMenuItem("Тема");
 radioButtonMenuItem.setActionCommand("RADIO");
 radioButtonMenuItem.addActionListener(e -> {

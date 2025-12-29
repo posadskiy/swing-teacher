@@ -179,7 +179,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (293, 35, 3, 'Выбор файла-мастер: добавь фильтр файлов',
         '<p><strong>Задание:</strong><br>Создай FileNameExtensionFilter для "txt" и "text", установи фильтр в fileChooser</p>',
-        'JFileChooser-FileNameExtensionFilter-setFileFilter',
+        'JFileChooser-setFileFilter',
         '', 293, 25.0, 0.0, 'JFileChooser fileChooser = new JFileChooser();
 FileNameExtensionFilter filter = new FileNameExtensionFilter(
     "Текстовые файлы",
@@ -242,7 +242,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (294, 35, 4, 'Выбор файла-мастер: разреши множественный выбор',
         '<p><strong>Задание:</strong><br>Разреши множественный выбор через setMultiSelectionEnabled(true), получи файлы через getSelectedFiles()</p>',
-        'JFileChooser-setMultiSelectionEnabled-getSelectedFiles',
+        'JFileChooser-setMultiSelectionEnabled,getSelectedFiles',
         '', 294, 25.0, 0.0, 'JFrame frame = new JFrame();
 JFileChooser fileChooser = new JFileChooser();
 fileChooser.setMultiSelectionEnabled(true);
@@ -300,7 +300,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (295, 35, 5, 'Выбор файла-мастер: добавь фильтр',
         '<p><strong>Задание:</strong><br>Создай FileNameExtensionFilter для "txt", добавь через addChoosableFileFilter()</p>',
-        'JFileChooser-FileNameExtensionFilter-addChoosableFileFilter',
+        'JFileChooser-addChoosableFileFilter',
         '', 295, 26.0, 0.0, 'JFileChooser fileChooser = new JFileChooser();
 FileFilter filter = new FileNameExtensionFilter("Текстовые файлы", "txt");
 fileChooser.addChoosableFileFilter(filter);
@@ -356,7 +356,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (296, 35, 6, 'Выбор файла-мастер: установи текущую директорию',
         '<p><strong>Задание:</strong><br>Создай File для директории, установи через setCurrentDirectory()</p>',
-        'JFileChooser-setCurrentDirectory-File',
+        'JFileChooser-setCurrentDirectory',
         '', 296, 23.0, 0.0, 'JFileChooser fileChooser = new JFileChooser();
 File dir = new File("/path/to/directory");
 fileChooser.setCurrentDirectory(dir);
@@ -466,7 +466,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (298, 35, 8, 'Редактор-мастер: добавь слушатель ссылок',
         '<p><strong>Задание:</strong><br>Добавь HyperlinkListener, проверь EventType.ACTIVATED, выведи URL через getURL()</p>',
-        'JEditorPane-addHyperlinkListener-HyperlinkEvent',
+        'JEditorPane-addHyperlinkListener,add',
         '', 298, 26.0, 0.0, 'JEditorPane editorPane = new JEditorPane();
 editorPane.setContentType("text/html");
 editorPane.setText("<html><body><a href=\"http://example.com\">Ссылка</a></body></html>");
@@ -521,7 +521,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (299, 35, 9, 'Редактор-мастер: установи тип контента',
         '<p><strong>Задание:</strong><br>Установи тип контента "text/html" через setContentType()</p>',
-        'JEditorPane-setContentType',
+        'JEditorPane-setContentType,add',
         '', 299, 23.0, 0.0, 'JEditorPane editorPane = new JEditorPane();
 editorPane.setContentType("text/html");
 editorPane.setText("<html><body><h1>Привет!</h1></body></html>");
@@ -571,7 +571,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (300, 35, 10, 'Редактор-мастер: сделай только для чтения',
         '<p><strong>Задание:</strong><br>Отключи редактирование через setEditable(false)</p>',
-        'JEditorPane-setEditable',
+        'JEditorPane-setEditable,add',
         '', 300, 21.0, 0.0, 'JEditorPane editorPane = new JEditorPane();
 editorPane.setText("Текст для чтения");
 editorPane.setEditable(false);

@@ -63,7 +63,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (383, 44, 1, 'SpringLayout-новичок: создай пружинную компоновку',
         '<p><strong>Задание:</strong><br>Установи SpringLayout, добавь кнопку, установи связи WEST и NORTH с отступом 10 от края контейнера</p>',
-        'SpringLayout-setLayout-putConstraint,add',
+        'SpringLayout-putConstraint,add',
         '', 383, 29.0, 0.0, 'SpringLayout layout = new SpringLayout();
 setLayout(layout);
 JButton button = new JButton("Кнопка");
@@ -122,7 +122,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (384, 44, 2, 'SpringLayout-мастер: связывай компоненты друг с другом',
         '<p><strong>Задание:</strong><br>Добавь две кнопки, свяжи EAST первой кнопки с WEST второй с отступом 10</p>',
-        'SpringLayout-putConstraint-add',
+        'SpringLayout-putConstraint,add,add',
         '', 384, 30.0, 0.0, 'SpringLayout layout = new SpringLayout();
 setLayout(layout);
 JButton button1 = new JButton("Кнопка 1");
@@ -414,7 +414,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (388, 44, 4, 'MouseListener-мастер: определи позицию мыши',
         '<p><strong>Задание:</strong><br>Добавь MouseListener, получи X через getX(), Y через getY(), выведи позицию</p>',
-        'MouseListener-getX-getY',
+        'MouseListener-getX,getY,add',
         '', 388, 23.0, 0.0, 'JPanel component = new JPanel();
 component.addMouseListener(new MouseAdapter() {
     @Override
@@ -579,7 +579,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (396, 44, 5, 'FocusListener-мастер: получи владельца фокуса',
         '<p><strong>Задание:</strong><br>Получи владельца фокуса через KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner()</p>',
-        'FocusListener-KeyboardFocusManager-getFocusOwner',
+        'FocusListener-getFocusOwner',
         '', 396, 25.0, 0.0, 'Component owner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
 if (owner != null) {
     System.out.println("Владелец фокуса: " + owner);
@@ -730,7 +730,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (394, 44, 8, 'SpringLayout-мастер: создай пружину',
         '<p><strong>Задание:</strong><br>Создай пружину 100 через Spring.constant(100)</p>',
-        'SpringLayout-Spring-constant',
+        'SpringLayout-constant,add',
         '', 394, 25.0, 0.0, 'Spring spring = Spring.constant(100);
 SpringLayout layout = new SpringLayout();
 setLayout(layout);

@@ -67,7 +67,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (278, 33, 1, 'JTextPane-новичок: создай расширенный редактор',
         '<p><strong>Задание:</strong><br>Создай JTextPane, создай стиль "bold", установи жирный шрифт, вставь текст со стилем и добавь на форму</p>',
-        'JTextPane-StyledDocument-Style-StyleConstants-add',
+        'JTextPane-add',
         '', 278, 28.0, 0.0, 'JTextPane textPane = new JTextPane();
 StyledDocument doc = textPane.getStyledDocument();
 Style style = textPane.addStyle("bold", null);
@@ -130,7 +130,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (279, 33, 2, 'JTextPane-мастер: выделяй и стилизуй текст',
         '<p><strong>Задание:</strong><br>Получи начало и конец выделения, создай стиль "bold", примени стиль к выделенному тексту</p>',
-        'JTextPane-getSelectionStart-getSelectionEnd-setCharacterAttributes',
+        'JTextPane-getSelectionStart,getSelectionEnd,add',
         '', 279, 29.0, 0.0, 'JTextPane textPane = new JTextPane();
 textPane.setText("Выдели этот текст");
 int start = textPane.getSelectionStart();
@@ -190,7 +190,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (280, 33, 3, 'JTextPane-мастер: настрой шрифт',
         '<p><strong>Задание:</strong><br>Установи шрифт через setFont() с Arial, BOLD, размер 14</p>',
-        'JTextPane-setFont-Font',
+        'JTextPane-setFont,add',
         '', 280, 24.0, 0.0, 'JTextPane textPane = new JTextPane();
 textPane.setFont(new Font("Arial", Font.BOLD, 14));
 JScrollPane scrollPane = new JScrollPane(textPane);
@@ -242,7 +242,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (281, 33, 4, 'JTextPane-мастер: вставь строку',
         '<p><strong>Задание:</strong><br>Получи документ через getStyledDocument(), вставь строку в позицию 0 через insertString()</p>',
-        'JTextPane-getStyledDocument-insertString',
+        'JTextPane-getStyledDocument,add',
         '', 281, 25.0, 0.0, 'JTextPane textPane = new JTextPane();
 StyledDocument doc = textPane.getStyledDocument();
 try {
@@ -303,7 +303,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (282, 33, 5, 'JTextPane-мастер: примени стиль',
         '<p><strong>Задание:</strong><br>Получи документ, создай стиль через addStyle(), установи жирный через StyleConstants.setBold(), примени через setCharacterAttributes()</p>',
-        'JTextPane-Style-StyleConstants-setCharacterAttributes',
+        'JTextPane-setCharacterAttributes,add',
         '', 282, 27.0, 0.0, 'JTextPane textPane = new JTextPane();
 textPane.setText("Текст для стилизации");
 StyledDocument doc = textPane.getStyledDocument();
@@ -356,7 +356,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (283, 33, 6, 'JTextPane-мастер: получи текст',
         '<p><strong>Задание:</strong><br>Получи текст через getText(), выведи его</p>',
-        'JTextPane-getText',
+        'JTextPane-getText,add',
         '', 283, 21.0, 0.0, 'JTextPane textPane = new JTextPane();
 textPane.setText("Текст");
 String text = textPane.getText();
@@ -414,7 +414,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (284, 33, 6, 'MouseListener-мастер: определи кнопку мыши',
         '<p><strong>Задание:</strong><br>Добавь MouseListener, проверь getButton() == BUTTON1, выведи "Левая кнопка"</p>',
-        'MouseListener-getButton-MouseEvent',
+        'MouseListener-getButton,add',
         '', 284, 24.0, 0.0, 'JPanel component = new JPanel();
 component.addMouseListener(new MouseAdapter() {
     @Override
@@ -476,7 +476,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (285, 33, 7, 'MouseListener-мастер: получи координаты мыши',
         '<p><strong>Задание:</strong><br>Добавь MouseListener, переопредели mouseClicked(), получи X и Y через getX(), getY(), выведи</p>',
-        'MouseListener-getX-getY-MouseEvent',
+        'MouseListener-getX,getY,add',
         '', 285, 23.0, 0.0, 'JPanel component = new JPanel();
 component.addMouseListener(new MouseAdapter() {
     @Override
@@ -539,7 +539,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (286, 33, 8, 'MouseListener-мастер: получи количество кликов',
         '<p><strong>Задание:</strong><br>Добавь MouseListener, переопредели mouseClicked(), получи количество через getClickCount(), проверь на 2</p>',
-        'MouseListener-getClickCount-MouseEvent',
+        'MouseListener-getClickCount,add',
         '', 286, 23.0, 0.0, 'JPanel component = new JPanel();
 component.addMouseListener(new MouseAdapter() {
     @Override

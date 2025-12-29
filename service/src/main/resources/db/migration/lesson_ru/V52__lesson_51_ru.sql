@@ -65,7 +65,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (448, 51, 1, 'Кастомный компонент-новичок: создай свой компонент',
         '<p><strong>Задание:</strong><br>Создай класс, расширяющий JComponent, установи предпочтительный размер 200x100, переопредели paintComponent()</p>',
-        'JComponent-setPreferredSize-paintComponent',
+        'JComponent-setPreferredSize,paintComponent,add',
         '', 448, 21.0, 0.0, 'class MyComponent extends JComponent {
     public MyComponent() {
         setPreferredSize(new Dimension(200, 100));
@@ -125,7 +125,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (449, 51, 2, 'Кастомный компонент-мастер: установи предпочтительный размер',
         '<p><strong>Задание:</strong><br>Создай кастомный компонент, установи предпочтительный размер 300x200 через setPreferredSize()</p>',
-        'JComponent-setPreferredSize-Dimension',
+        'JComponent-setPreferredSize,add',
         '', 449, 20.0, 0.0, 'class MyComponent extends JComponent {
     public MyComponent() {
         setPreferredSize(new Dimension(300, 200));
@@ -183,7 +183,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (450, 51, 3, 'Кастомный компонент-мастер: обрабатывай события',
         '<p><strong>Задание:</strong><br>Создай кастомный компонент, добавь MouseListener, обработай mouseClicked(), выведи сообщение</p>',
-        'JComponent-addMouseListener-MouseEvent',
+        'JComponent-addMouseListener,add',
         '', 450, 21.0, 0.0, 'class MyComponent extends JComponent {
     public MyComponent() {
         addMouseListener(new MouseAdapter() {
@@ -245,7 +245,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (451, 51, 4, 'Кастомный компонент-мастер: добавь кастомные свойства',
         '<p><strong>Задание:</strong><br>Создай кастомный компонент, добавь приватное поле text, создай геттер и сеттер, в сеттере вызови repaint()</p>',
-        'JComponent-repaint',
+        'JComponent-repaint,add',
         '', 451, 21.0, 0.0, 'class MyComponent extends JComponent {
     private String text = "Текст";
     
@@ -305,7 +305,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (452, 51, 5, 'Кастомный компонент-мастер: добавь подсказку',
         '<p><strong>Задание:</strong><br>Создай кастомный компонент, установи подсказку "Кастомный компонент" через setToolTipText()</p>',
-        'JComponent-setToolTipText',
+        'JComponent-setToolTipText,add',
         '', 452, 18.0, 0.0, 'class MyComponent extends JComponent {
     public MyComponent() {
         setToolTipText("Кастомный компонент");

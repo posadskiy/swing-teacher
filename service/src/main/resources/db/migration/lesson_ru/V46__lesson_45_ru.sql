@@ -183,7 +183,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (399, 45, 3, 'JEditorPane-мастер: обрабатывай гиперссылки',
         '<p><strong>Задание:</strong><br>Добавь HyperlinkListener, проверь ACTIVATED, получи URL через getURL(), загрузи страницу через setPage()</p>',
-        'JEditorPane-addHyperlinkListener-setPage',
+        'JEditorPane-addHyperlinkListener,setPage,add',
         '', 399, 27.0, 0.0, 'JEditorPane editor = new JEditorPane();
 editor.setContentType("text/html");
 editor.setText("<html><a href=\"https://example.com\">Ссылка</a></html>");
@@ -299,7 +299,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (401, 45, 5, 'JEditorPane-мастер: обрабатывай гиперссылки',
         '<p><strong>Задание:</strong><br>Добавь HyperlinkListener, проверь EventType.ACTIVATED, получи URL через getURL()</p>',
-        'JEditorPane-addHyperlinkListener-HyperlinkEvent',
+        'JEditorPane-addHyperlinkListener,add',
         '', 401, 25.0, 0.0, 'JEditorPane editor = new JEditorPane();
 editor.setContentType("text/html");
 editor.setText("<html><a href=\"https://example.com\">Ссылка</a></html>");
@@ -360,7 +360,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (403, 45, 5, 'ActionListener-мастер: удали слушатель',
         '<p><strong>Задание:</strong><br>Создай ActionListener, добавь через addActionListener(), удали через removeActionListener()</p>',
-        'JButton-addActionListener-removeActionListener',
+        'JButton-addActionListener,removeActionListener,add',
         '', 403, 23.0, 0.0, 'JButton button = new JButton("Кнопка");
 ActionListener listener = e -> System.out.println("Действие");
 button.addActionListener(listener);
@@ -515,7 +515,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (405, 45, 7, 'ActionListener-мастер: получи команду действия',
         '<p><strong>Задание:</strong><br>Добавь ActionListener, получи команду через getActionCommand() в actionPerformed()</p>',
-        'ActionListener-getActionCommand-ActionEvent',
+        'ActionListener-getActionCommand,add',
         '', 405, 23.0, 0.0, 'JButton button = new JButton("Кнопка");
 button.addActionListener(e -> {
     String cmd = e.getActionCommand();

@@ -324,7 +324,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (226, 27, 6, 'Вкладки-мастер: получи индекс вкладки',
         '<p><strong>Задание:</strong><br>Получи индекс через indexOfTab("Вкладка"), получи выбранный через getSelectedIndex()</p>',
-        'JTabbedPane-indexOfTab-getSelectedIndex',
+        'JTabbedPane-indexOfTab,getSelectedIndex,add',
         '', 226, 23.0, 0.0, 'JTabbedPane tabbedPane = new JTabbedPane();
 tabbedPane.addTab("Вкладка", new JPanel());
 int index = tabbedPane.indexOfTab("Вкладка");
@@ -474,7 +474,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (229, 27, 8, 'Панель инструментов-мастер: установи ориентацию',
         '<p><strong>Задание:</strong><br>Установи ориентацию VERTICAL через setOrientation()</p>',
-        'JToolBar-setOrientation-SwingConstants',
+        'JToolBar-setOrientation,add',
         '', 229, 22.0, 0.0, 'JToolBar toolBar = new JToolBar();
 toolBar.add(new JButton("Кнопка"));
 toolBar.setOrientation(SwingConstants.VERTICAL);

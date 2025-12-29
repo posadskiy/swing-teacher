@@ -119,7 +119,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (346, 41, 2, 'BoxLayout-мастер: добавь растягивающийся элемент',
         '<p><strong>Задание:</strong><br>Добавь кнопку, добавь createGlue(), добавь ещё кнопку</p>',
-        'Box-createGlue-add',
+        'Box-createGlue,add,add,add',
         '', 346, 25.0, 0.0, 'setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 JButton button1 = new JButton("Кнопка 1");
 JButton button2 = new JButton("Кнопка 2");
@@ -177,7 +177,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (348, 41, 2, 'GridLayout-мастер: добавь отступы',
         '<p><strong>Задание:</strong><br>Создай GridLayout (2,3), установи горизонтальный и вертикальный отступы по 10</p>',
-        'GridLayout-setHgap-setVgap',
+        'GridLayout-setHgap,setVgap,add',
         '', 348, 24.0, 0.0, 'GridLayout layout = new GridLayout(2, 3);
 layout.setHgap(10);
 layout.setVgap(10);
@@ -338,7 +338,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (352, 41, 7, 'BoxLayout-мастер: добавь клей',
         '<p><strong>Задание:</strong><br>Создай горизонтальный клей через Box.createHorizontalGlue(), добавь в контейнер</p>',
-        'BoxLayout-Box-createHorizontalGlue',
+        'BoxLayout-createHorizontalGlue,add,add,add',
         '', 352, 23.0, 0.0, 'setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 JButton button1 = new JButton("Кнопка 1");
 JButton button2 = new JButton("Кнопка 2");
@@ -393,7 +393,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (350, 41, 8, 'Выбор файлов-мастер: включи множественный выбор',
         '<p><strong>Задание:</strong><br>Включи множественный выбор через setMultiSelectionEnabled(true), получи файлы через getSelectedFiles()</p>',
-        'JFileChooser-setMultiSelectionEnabled-getSelectedFiles',
+        'JFileChooser-setMultiSelectionEnabled,getSelectedFiles',
         '', 350, 24.0, 0.0, 'JFrame frame = new JFrame();
 JFileChooser fileChooser = new JFileChooser();
 fileChooser.setMultiSelectionEnabled(true);
@@ -451,7 +451,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (353, 41, 8, 'BoxLayout-мастер: добавь распорку',
         '<p><strong>Задание:</strong><br>Создай горизонтальную распорку 20 через Box.createHorizontalStrut(20), добавь в контейнер</p>',
-        'BoxLayout-Box-createHorizontalStrut',
+        'BoxLayout-createHorizontalStrut,add,add,add',
         '', 353, 22.0, 0.0, 'setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 JButton button1 = new JButton("Кнопка 1");
 JButton button2 = new JButton("Кнопка 2");
@@ -506,7 +506,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (351, 41, 9, 'Выбор файлов-мастер: добавь фильтр файлов',
         '<p><strong>Задание:</strong><br>Создай FileNameExtensionFilter для "jpg", "png", добавь через addChoosableFileFilter()</p>',
-        'JFileChooser-addChoosableFileFilter-FileNameExtensionFilter',
+        'JFileChooser-addChoosableFileFilter',
         '', 351, 25.0, 0.0, 'JFrame frame = new JFrame();
 JFileChooser fileChooser = new JFileChooser();
 FileNameExtensionFilter filter = new FileNameExtensionFilter("Изображения", "jpg", "png", "gif");
@@ -618,7 +618,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (354, 41, 10, 'Выбор файлов-мастер: установи текущую директорию',
         '<p><strong>Задание:</strong><br>Создай File для директории, установи через setCurrentDirectory()</p>',
-        'JFileChooser-setCurrentDirectory-File',
+        'JFileChooser-setCurrentDirectory',
         '', 354, 23.0, 0.0, 'JFrame frame = new JFrame();
 JFileChooser fileChooser = new JFileChooser();
 File dir = new File("/path/to/directory");

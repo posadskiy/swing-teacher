@@ -67,7 +67,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (429, 48, 1, 'FocusListener-новичок: отслеживай фокус компонента',
         '<p><strong>Задание:</strong><br>Создай FocusListener, обработай получение и потерю фокуса, добавь к текстовому полю</p>',
-        'FocusListener-addFocusListener',
+        'FocusListener-addFocusListener,add',
         '', 429, 23.0, 0.0, 'FocusListener listener = new FocusListener() {
     @Override
     public void focusGained(FocusEvent e) {
@@ -200,7 +200,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (432, 48, 2, 'CardLayout-мастер: навигируй по картам',
         '<p><strong>Задание:</strong><br>Получи CardLayout, покажи карту "card1" через show(), затем переключись на следующую через next()</p>',
-        'CardLayout-show-next',
+        'CardLayout-show,next',
         '', 432, 25.0, 0.0, 'JPanel panel = new JPanel();
 CardLayout layout = new CardLayout();
 panel.setLayout(layout);
@@ -319,7 +319,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (433, 48, 3, 'CardLayout-мастер: переключись на первую и последнюю',
         '<p><strong>Задание:</strong><br>Получи CardLayout, переключись на первую через first(), затем на последнюю через last()</p>',
-        'CardLayout-first-last',
+        'CardLayout-first,last',
         '', 433, 24.0, 0.0, 'JPanel panel = new JPanel();
 CardLayout layout = new CardLayout();
 panel.setLayout(layout);

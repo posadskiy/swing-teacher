@@ -65,7 +65,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (244, 30, 1, 'Таблица-новичок: создай таблицу данных',
         '<p><strong>Задание:</strong><br>Создай таблицу с столбцами "Имя", "Возраст" и двумя строками данных, оберни в JScrollPane и добавь на форму</p>',
-        'JTable-JScrollPane-add',
+        'JScrollPane-add',
         '', 244, 20.0, 0.0, 'String[] columns = {"Имя", "Возраст"};
 String[][] data = {{"Иван", "25"}, {"Мария", "30"}};
 JTable table = new JTable(data, columns);
@@ -120,7 +120,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (245, 28, 2, 'Меню-бар-мастер: добавь меню в окно',
         '<p><strong>Задание:</strong><br>Создай JMenuBar, добавь меню через add(), установи в окно через setJMenuBar()</p>',
-        'JMenuBar-setJMenuBar-add',
+        'JMenuBar-add,setJMenuBar',
         '', 245, 22.0, 0.0, 'JMenuBar menuBar = new JMenuBar();
 JMenu fileMenu = new JMenu("Файл");
 menuBar.add(fileMenu);
@@ -176,7 +176,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (246, 28, 3, 'Меню-бар-мастер: добавь меню помощи',
         '<p><strong>Задание:</strong><br>Создай JMenu "Справка", добавь два пункта меню, добавь в menuBar</p>',
-        'JMenuBar-JMenu-add',
+        'JMenuBar-add,setJMenuBar',
         '', 246, 22.0, 0.0, 'JMenuBar menuBar = new JMenuBar();
 JMenu helpMenu = new JMenu("Справка");
 helpMenu.add(new JMenuItem("Содержание"));
@@ -228,7 +228,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (247, 28, 4, 'Меню-бар-мастер: размести меню помощи справа',
         '<p><strong>Задание:</strong><br>Создай JMenu "Справка", установи через setHelpMenu()</p>',
-        'JMenuBar-setHelpMenu',
+        'JMenuBar-setHelpMenu,setJMenuBar',
         '', 247, 22.0, 0.0, 'JMenuBar menuBar = new JMenuBar();
 JMenu helpMenu = new JMenu("Справка");
 menuBar.setHelpMenu(helpMenu);
@@ -280,7 +280,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (248, 28, 5, 'Меню-бар-мастер: добавь границу',
         '<p><strong>Задание:</strong><br>Создай матовую границу через BorderFactory.createMatteBorder(), установи через setBorder()</p>',
-        'JMenuBar-BorderFactory-setBorder',
+        'JMenuBar-setBorder,setJMenuBar',
         '', 248, 23.0, 0.0, 'JMenuBar menuBar = new JMenuBar();
 Border border = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY);
 menuBar.setBorder(border);
@@ -336,7 +336,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (249, 28, 6, 'Меню-бар-мастер: добавь меню помощи',
         '<p><strong>Задание:</strong><br>Создай JMenu "Справка", добавь два пункта меню, добавь в меню-бар</p>',
-        'JMenuBar-JMenu-JMenuItem',
+        'JMenuBar-add,setJMenuBar',
         '', 249, 23.0, 0.0, 'JMenuBar menuBar = new JMenuBar();
 JMenu helpMenu = new JMenu("Справка");
 helpMenu.add(new JMenuItem("О программе"));
@@ -437,7 +437,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (251, 28, 10, 'Меню-мастер: добавь разделитель',
         '<p><strong>Задание:</strong><br>Добавь разделитель через addSeparator()</p>',
-        'JMenu-addSeparator',
+        'JMenu-add,addSeparator,add',
         '', 251, 20.0, 0.0, 'JMenu menu = new JMenu("Файл");
 menu.add(new JMenuItem("Открыть"));
 menu.addSeparator();

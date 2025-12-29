@@ -67,7 +67,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (458, 53, 1, 'Timer-новичок: создай таймер',
         '<p><strong>Задание:</strong><br>Создай ActionListener, создай Timer с задержкой 1000 мс, запусти таймер</p>',
-        'Timer-ActionListener-start',
+        'Timer-start',
         '', 458, 24.0, 0.0, 'ActionListener task = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -122,7 +122,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (459, 53, 2, 'Timer-мастер: останавливай и перезапускай таймер',
         '<p><strong>Задание:</strong><br>Останови таймер через stop(), затем перезапусти через restart()</p>',
-        'Timer-stop-restart',
+        'Timer-stop,restart',
         '', 459, 25.0, 0.0, 'ActionListener task = e -> System.out.println("Тик!");
 Timer timer = new Timer(1000, task);
 timer.start();
@@ -179,7 +179,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (462, 53, 2, 'KeyListener-мастер: определи код клавиши',
         '<p><strong>Задание:</strong><br>Добавь KeyListener, проверь getKeyCode() == VK_ENTER, выведи сообщение</p>',
-        'KeyListener-getKeyCode-VK_ENTER',
+        'KeyListener-getKeyCode,add',
         '', 462, 24.0, 0.0, 'JTextField component = new JTextField();
 component.setFocusable(true);
 component.addKeyListener(new KeyAdapter() {
@@ -242,7 +242,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (460, 53, 3, 'Timer-мастер: создай одноразовый таймер',
         '<p><strong>Задание:</strong><br>Создай Timer с задержкой 3000 мс, установи setRepeats(false), запусти таймер</p>',
-        'Timer-setRepeats-start',
+        'Timer-setRepeats,start',
         '', 460, 25.0, 0.0, 'Timer timer = new Timer(3000, e -> {
     System.out.println("Прошло 3 секунды!");
 });
@@ -298,7 +298,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (463, 53, 3, 'KeyListener-мастер: определи символ клавиши',
         '<p><strong>Задание:</strong><br>Добавь KeyListener, получи символ через getKeyChar() в keyTyped(), выведи его</p>',
-        'KeyListener-getKeyChar-keyTyped',
+        'KeyListener-getKeyChar,keyTyped,add',
         '', 463, 24.0, 0.0, 'JTextField component = new JTextField();
 component.setFocusable(true);
 component.addKeyListener(new KeyAdapter() {
@@ -360,7 +360,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (461, 53, 4, 'Timer-мастер: установи начальную задержку',
         '<p><strong>Задание:</strong><br>Создай Timer с интервалом 1000 мс, установи setInitialDelay(5000), запусти таймер</p>',
-        'Timer-setInitialDelay-start',
+        'Timer-setInitialDelay,start',
         '', 461, 26.0, 0.0, 'Timer timer = new Timer(1000, e -> {
     System.out.println("Тик!");
 });

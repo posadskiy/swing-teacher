@@ -122,7 +122,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (302, 36, 2, 'Выбор цвета-мастер: создай кастомный диалог',
         '<p><strong>Задание:</strong><br>Создай JColorChooser с начальным цветом WHITE, создай диалог через createDialog, покажи диалог</p>',
-        'JColorChooser-createDialog-setVisible',
+        'JColorChooser-createDialog,setVisible',
         '', 302, 27.0, 0.0, 'JFrame frame = new JFrame();
 JColorChooser colorChooser = new JColorChooser(Color.WHITE);
 JDialog dialog = JColorChooser.createDialog(
@@ -185,7 +185,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (304, 36, 2, 'BorderLayout-мастер: используй все регионы',
         '<p><strong>Задание:</strong><br>Установи BorderLayout, добавь компоненты во все пять регионов (NORTH, SOUTH, EAST, WEST, CENTER)</p>',
-        'BorderLayout-add',
+        'BorderLayout-add,add,add,add,add',
         '', 304, 26.0, 0.0, 'setLayout(new BorderLayout());
 JButton buttonNorth = new JButton("Север");
 JButton buttonSouth = new JButton("Юг");
@@ -243,7 +243,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (303, 36, 3, 'Выбор цвета-мастер: настрой режимы выбора',
         '<p><strong>Задание:</strong><br>Получи стандартные панели через getDefaultChooserPanels(), установи их в colorChooser</p>',
-        'JColorChooser-ColorChooserComponentFactory-setChooserPanels',
+        'JColorChooser-setChooserPanels,setVisible',
         '', 303, 28.0, 0.0, 'JColorChooser colorChooser = new JColorChooser();
 AbstractColorChooserPanel[] panels = ColorChooserComponentFactory.getDefaultChooserPanels();
 colorChooser.setChooserPanels(panels);
@@ -301,7 +301,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (306, 36, 3, 'BorderLayout-мастер: добавь отступы',
         '<p><strong>Задание:</strong><br>Создай BorderLayout, установи горизонтальный и вертикальный отступы по 10</p>',
-        'BorderLayout-setHgap-setVgap',
+        'BorderLayout-setHgap,setVgap,add',
         '', 306, 24.0, 0.0, 'BorderLayout layout = new BorderLayout();
 layout.setHgap(10);
 layout.setVgap(10);
@@ -361,7 +361,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (305, 36, 4, 'Выбор цвета-мастер: добавь панель предпросмотра',
         '<p><strong>Задание:</strong><br>Создай JPanel для предпросмотра, установи через setPreviewPanel(), добавь ChangeListener для обновления цвета</p>',
-        'JColorChooser-setPreviewPanel-addChangeListener',
+        'JColorChooser-setPreviewPanel,addChangeListener,setVisible',
         '', 305, 27.0, 0.0, 'JColorChooser colorChooser = new JColorChooser();
 JPanel previewPanel = new JPanel();
 previewPanel.setPreferredSize(new Dimension(100, 50));
@@ -419,7 +419,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (307, 36, 5, 'Выбор цвета-мастер: работай с моделью',
         '<p><strong>Задание:</strong><br>Получи модель через getSelectionModel(), установи цвет RED через setSelectedColor()</p>',
-        'JColorChooser-getSelectionModel-setSelectedColor',
+        'JColorChooser-getSelectionModel,setSelectedColor,add',
         '', 307, 25.0, 0.0, 'JColorChooser colorChooser = new JColorChooser();
 ColorSelectionModel model = colorChooser.getSelectionModel();
 model.setSelectedColor(Color.RED);
@@ -529,7 +529,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (309, 36, 7, 'Выбор цвета-мастер: настрой модель цвета',
         '<p><strong>Задание:</strong><br>Создай DefaultColorSelectionModel, установи цвет RED, установи модель через setColorSelectionModel()</p>',
-        'JColorChooser-DefaultColorSelectionModel-setColorSelectionModel',
+        'JColorChooser-setColorSelectionModel,add',
         '', 309, 25.0, 0.0, 'JColorChooser colorChooser = new JColorChooser();
 DefaultColorSelectionModel model = new DefaultColorSelectionModel();
 model.setSelectedColor(Color.RED);
@@ -584,7 +584,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (310, 36, 9, 'Текст-панель-мастер: вставь иконку',
         '<p><strong>Задание:</strong><br>Создай ImageIcon "icon.png", вставь через insertIcon()</p>',
-        'JTextPane-insertIcon-ImageIcon',
+        'JTextPane-insertIcon,add',
         '', 310, 24.0, 0.0, 'JTextPane textPane = new JTextPane();
 ImageIcon icon = new ImageIcon("icon.png");
 textPane.insertIcon(icon);

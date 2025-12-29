@@ -64,7 +64,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (238, 29, 1, 'Всплывающее меню-новичок: создай контекстное меню',
         '<p><strong>Задание:</strong><br>Создай JPopupMenu, добавь два пункта меню ("Копировать", "Вставить"), покажи меню через show()</p>',
-        'JPopupMenu-JMenuItem-show',
+        'JPopupMenu-show,add',
         '', 238, 18.0, 0.0, 'JPopupMenu popup = new JPopupMenu();
 popup.add(new JMenuItem("Копировать"));
 popup.add(new JMenuItem("Вставить"));
@@ -259,7 +259,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (241, 29, 4, 'Всплывающее меню-мастер: узнай источник меню',
         '<p><strong>Задание:</strong><br>Создай JPopupMenu, покажи его, получи источник через getInvoker() и выведи тип в консоль</p>',
-        'JPopupMenu-getInvoker-show',
+        'JPopupMenu-getInvoker,show,add',
         '', 241, 21.0, 0.0, 'JPopupMenu popup = new JPopupMenu();
 popup.add(new JMenuItem("Копировать"));
 JPanel panel = new JPanel();
@@ -323,7 +323,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (242, 29, 5, 'Всплывающее меню-мастер: добавь границу',
         '<p><strong>Задание:</strong><br>Создай JPopupMenu, создай границу через BorderFactory.createLineBorder(), установи через setBorder()</p>',
-        'JPopupMenu-BorderFactory-setBorder',
+        'JPopupMenu-setBorder,add',
         '', 242, 21.0, 0.0, 'JPopupMenu popup = new JPopupMenu();
 popup.add(new JMenuItem("Копировать"));
 Border border = BorderFactory.createLineBorder(Color.GRAY);

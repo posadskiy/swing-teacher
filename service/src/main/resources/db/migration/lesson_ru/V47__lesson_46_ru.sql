@@ -66,7 +66,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (406, 46, 1, 'Слушатель мыши-новичок: реагируй на клики мыши',
         '<p><strong>Задание:</strong><br>Создай панель, добавь MouseListener, который выводит "Клик!" при клике, и добавь на форму</p>',
-        'JPanel-addMouseListener-MouseAdapter,add',
+        'JPanel-addMouseListener,add',
         '', 406, 20.0, 0.0, 'JPanel panel = new JPanel();
 panel.addMouseListener(new MouseAdapter() {
     public void mouseClicked(MouseEvent e) {
@@ -127,7 +127,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (407, 46, 1, 'Радио-пункт меню-новичок: создай радио-кнопки в меню',
         '<p><strong>Задание:</strong><br>Создай ButtonGroup, создай два JRadioButtonMenuItem, добавь в группу и меню</p>',
-        'JRadioButtonMenuItem-ButtonGroup-add',
+        'JRadioButtonMenuItem-add',
         '', 407, 23.0, 0.0, 'ButtonGroup group = new ButtonGroup();
 JRadioButtonMenuItem item1 = new JRadioButtonMenuItem("Маленький");
 JRadioButtonMenuItem item2 = new JRadioButtonMenuItem("Средний");
@@ -309,7 +309,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (412, 46, 3, 'Радио-пункт меню-мастер: добавь в группу',
         '<p><strong>Задание:</strong><br>Создай ButtonGroup, добавь два радио-пункта через add()</p>',
-        'JRadioButtonMenuItem-ButtonGroup-add',
+        'JRadioButtonMenuItem-add',
         '', 412, 23.0, 0.0, 'ButtonGroup group = new ButtonGroup();
 JRadioButtonMenuItem item1 = new JRadioButtonMenuItem("Маленький");
 JRadioButtonMenuItem item2 = new JRadioButtonMenuItem("Средний");
@@ -433,7 +433,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (414, 46, 4, 'Радио-пункт меню-мастер: обрабатывай изменение состояния',
         '<p><strong>Задание:</strong><br>Добавь ItemListener, проверь getStateChange() == SELECTED, выведи сообщение</p>',
-        'JRadioButtonMenuItem-addItemListener-getStateChange',
+        'JRadioButtonMenuItem-addItemListener,getStateChange,add',
         '', 414, 24.0, 0.0, 'JRadioButtonMenuItem item = new JRadioButtonMenuItem("Маленький");
 item.addItemListener(e -> {
     if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -561,7 +561,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (416, 46, 5, 'Радио-пункт меню-мастер: добавь иконку',
         '<p><strong>Задание:</strong><br>Установи иконку через setIcon() с ImageIcon</p>',
-        'JRadioButtonMenuItem-setIcon-ImageIcon',
+        'JRadioButtonMenuItem-setIcon,add',
         '', 416, 22.0, 0.0, 'JRadioButtonMenuItem item = new JRadioButtonMenuItem("Маленький");
 item.setIcon(new ImageIcon("icon.png"));
 JMenu sizeMenu = new JMenu("Размер");

@@ -415,7 +415,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (126, 15, 8, 'Скроллбар-мастер: установи размер',
         '<p><strong>Задание:</strong><br>Создай скроллбар, установи размер 20x200 через setPreferredSize(new Dimension(20, 200))</p>',
-        'JScrollBar-setPreferredSize-Dimension',
+        'JScrollBar-setPreferredSize,add',
         '', 126, 18.0, 0.0, 'JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL, 0, 10, 0, 100);
 scrollBar.setPreferredSize(new Dimension(20, 200));
 add(scrollBar);');
@@ -516,7 +516,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (128, 15, 10, 'Скроллбар-мастер: обрабатывай изменения',
         '<p><strong>Задание:</strong><br>Создай скроллбар, добавь AdjustmentListener, получи значение через getValue(), выведи его</p>',
-        'JScrollBar-addAdjustmentListener-getValue',
+        'JScrollBar-addAdjustmentListener,getValue,add',
         '', 128, 19.0, 0.0, 'JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL, 0, 10, 0, 100);
 scrollBar.addAdjustmentListener(e -> {
     int value = scrollBar.getValue();

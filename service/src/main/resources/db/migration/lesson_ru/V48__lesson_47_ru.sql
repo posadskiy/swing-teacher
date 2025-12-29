@@ -69,7 +69,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (421, 47, 1, 'KeyListener-новичок: реагируй на нажатия клавиш',
         '<p><strong>Задание:</strong><br>Создай KeyListener, обработай нажатие Enter и добавь слушатель к компоненту</p>',
-        'KeyListener-addKeyListener',
+        'KeyListener-addKeyListener,requestFocus',
         '', 421, 25.0, 0.0, 'KeyListener listener = new KeyListener() {
     @Override
     public void keyPressed(KeyEvent e) {
@@ -136,7 +136,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (422, 47, 2, 'KeyListener-мастер: обрабатывай комбинации клавиш',
         '<p><strong>Задание:</strong><br>В keyPressed проверь isControlDown() и VK_C, выведи сообщение при нажатии Ctrl+C</p>',
-        'KeyListener-isControlDown-getKeyCode',
+        'KeyListener-isControlDown,getKeyCode,add',
         '', 422, 26.0, 0.0, 'JPanel panel = new JPanel();
 panel.addKeyListener(new KeyListener() {
     @Override
@@ -202,7 +202,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (424, 47, 2, 'BoxLayout-мастер: добавь клей',
         '<p><strong>Задание:</strong><br>Создай горизонтальный клей через createHorizontalGlue(), добавь компоненты и клей</p>',
-        'BoxLayout-Box-createHorizontalGlue',
+        'BoxLayout-createHorizontalGlue,add,add,add',
         '', 424, 24.0, 0.0, 'setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 JButton button1 = new JButton("Кнопка 1");
 JButton button2 = new JButton("Кнопка 2");
@@ -258,7 +258,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (423, 47, 3, 'KeyListener-мастер: обрабатывай отпускание клавиш',
         '<p><strong>Задание:</strong><br>Переопредели keyReleased(), обработай отпускание VK_SPACE, выведи сообщение</p>',
-        'KeyListener-keyReleased-getKeyCode',
+        'KeyListener-keyReleased,getKeyCode,add',
         '', 423, 24.0, 0.0, 'JPanel panel = new JPanel();
 panel.addKeyListener(new KeyListener() {
     @Override
@@ -324,7 +324,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (425, 47, 3, 'BoxLayout-мастер: добавь жёсткую область',
         '<p><strong>Задание:</strong><br>Создай жёсткую область через createRigidArea() с размером 10x10, добавь между компонентами</p>',
-        'BoxLayout-Box-createRigidArea',
+        'BoxLayout-createRigidArea,add,add,add',
         '', 425, 23.0, 0.0, 'setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 JButton button1 = new JButton("Кнопка 1");
 JButton button2 = new JButton("Кнопка 2");
@@ -381,7 +381,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (426, 47, 4, 'BoxLayout-мастер: добавь распорку',
         '<p><strong>Задание:</strong><br>Создай горизонтальную распорку через createHorizontalStrut(20), добавь между компонентами</p>',
-        'BoxLayout-Box-createHorizontalStrut',
+        'BoxLayout-createHorizontalStrut,add,add,add',
         '', 426, 23.0, 0.0, 'setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 JButton button1 = new JButton("Кнопка 1");
 JButton button2 = new JButton("Кнопка 2");
@@ -433,7 +433,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (427, 47, 5, 'BoxLayout-мастер: настрой максимальный размер',
         '<p><strong>Задание:</strong><br>Установи максимальный размер 200x100 через setMaximumSize()</p>',
-        'BoxLayout-setMaximumSize-Dimension',
+        'BoxLayout-setMaximumSize,add',
         '', 427, 23.0, 0.0, 'setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 JButton component = new JButton("Кнопка");
 component.setMaximumSize(new Dimension(200, 100));

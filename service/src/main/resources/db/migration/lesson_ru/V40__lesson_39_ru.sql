@@ -169,7 +169,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (326, 39, 2, 'Мышь-мастер: определи клик мыши',
         '<p><strong>Задание:</strong><br>Переопредели mouseClicked, проверь количество кликов, обработай одиночный и двойной клик</p>',
-        'MouseListener-mouseClicked-getClickCount',
+        'MouseListener-mouseClicked,getClickCount,add',
         '', 326, 24.0, 0.0, 'JPanel panel = new JPanel();
 panel.addMouseListener(new MouseAdapter() {
     @Override
@@ -231,7 +231,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (329, 39, 2, 'Чекбокс-пункт меню-мастер: обрабатывай изменение',
         '<p><strong>Задание:</strong><br>Добавь ActionListener, проверь isSelected(), выведи сообщение в зависимости от состояния</p>',
-        'JCheckBoxMenuItem-addActionListener-isSelected',
+        'JCheckBoxMenuItem-addActionListener,isSelected,add',
         '', 329, 23.0, 0.0, 'JCheckBoxMenuItem item = new JCheckBoxMenuItem("Показывать панель");
 item.addActionListener(e -> {
     if (item.isSelected()) {
@@ -298,7 +298,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (327, 39, 3, 'Мышь-мастер: обрабатывай перетаскивание',
         '<p><strong>Задание:</strong><br>Добавь MouseMotionListener, переопредели mouseDragged(), получи координаты и выведи их</p>',
-        'MouseMotionListener-mouseDragged-getX-getY',
+        'MouseMotionListener-mouseDragged,getX,getY,add',
         '', 327, 26.0, 0.0, 'JPanel component = new JPanel();
 component.addMouseMotionListener(new MouseMotionListener() {
     @Override
@@ -356,7 +356,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (330, 39, 3, 'Чекбокс-пункт меню-мастер: работай с моделью',
         '<p><strong>Задание:</strong><br>Получи модель через getModel(), установи состояние true через setSelected()</p>',
-        'JCheckBoxMenuItem-getModel-setSelected',
+        'JCheckBoxMenuItem-getModel,setSelected,add',
         '', 330, 24.0, 0.0, 'JCheckBoxMenuItem item = new JCheckBoxMenuItem("Показывать панель");
 ButtonModel model = item.getModel();
 model.setSelected(true);
@@ -462,7 +462,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (332, 39, 4, 'Чекбокс-пункт меню-мастер: обрабатывай изменение состояния',
         '<p><strong>Задание:</strong><br>Добавь ItemListener, проверь isSelected(), выведи состояние</p>',
-        'JCheckBoxMenuItem-addItemListener-isSelected',
+        'JCheckBoxMenuItem-addItemListener,isSelected,add',
         '', 332, 24.0, 0.0, 'JCheckBoxMenuItem item = new JCheckBoxMenuItem("Показывать панель");
 item.addItemListener(e -> {
     boolean selected = item.isSelected();
@@ -517,7 +517,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (331, 39, 5, 'Чекбокс-пункт меню-мастер: добавь иконку',
         '<p><strong>Задание:</strong><br>Установи иконку через setIcon() с ImageIcon</p>',
-        'JCheckBoxMenuItem-setIcon-ImageIcon',
+        'JCheckBoxMenuItem-setIcon',
         '', 331, 22.0, 0.0, 'JCheckBoxMenuItem item = new JCheckBoxMenuItem("Показывать панель");
 item.setIcon(new ImageIcon("icon.png"));
 JMenu viewMenu = new JMenu("Вид");
@@ -572,7 +572,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (333, 39, 6, 'Всплывающее меню-мастер: установи границу',
         '<p><strong>Задание:</strong><br>Создай границу через BorderFactory.createLineBorder(Color.BLACK, 2), установи через setBorder()</p>',
-        'JPopupMenu-setBorder-BorderFactory',
+        'JPopupMenu-setBorder,add',
         '', 333, 23.0, 0.0, 'JPopupMenu popupMenu = new JPopupMenu();
 Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
 popupMenu.setBorder(border);

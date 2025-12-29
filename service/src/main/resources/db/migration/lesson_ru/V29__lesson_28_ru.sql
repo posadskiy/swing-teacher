@@ -69,7 +69,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (230, 28, 1, 'Радиокнопка в меню-новичок: создай выбор варианта в меню',
         '<p><strong>Задание:</strong><br>Создай ButtonGroup, создай два JRadioButtonMenuItem, добавь в группу и меню</p>',
-        'JRadioButtonMenuItem-ButtonGroup-add',
+        'JRadioButtonMenuItem-add',
         '', 230, 18.0, 0.0, 'ButtonGroup group = new ButtonGroup();
 JRadioButtonMenuItem item1 = new JRadioButtonMenuItem("Маленький");
 JRadioButtonMenuItem item2 = new JRadioButtonMenuItem("Средний");
@@ -190,7 +190,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (232, 28, 3, 'Радиокнопка в меню-мастер: создай группу выбора',
         '<p><strong>Задание:</strong><br>Создай ButtonGroup, создай три JRadioButtonMenuItem, добавь все в группу и меню</p>',
-        'JRadioButtonMenuItem-ButtonGroup-add',
+        'JRadioButtonMenuItem-add',
         '', 232, 20.0, 0.0, 'ButtonGroup group = new ButtonGroup();
 JRadioButtonMenuItem item1 = new JRadioButtonMenuItem("Маленький");
 JRadioButtonMenuItem item2 = new JRadioButtonMenuItem("Средний");
@@ -254,7 +254,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (233, 28, 4, 'Радиокнопка в меню-мастер: добавь иконку',
         '<p><strong>Задание:</strong><br>Создай JRadioButtonMenuItem, создай ImageIcon и установи через setIcon()</p>',
-        'JRadioButtonMenuItem-ImageIcon-setIcon',
+        'JRadioButtonMenuItem-setIcon,add',
         '', 233, 21.0, 0.0, 'JRadioButtonMenuItem item = new JRadioButtonMenuItem("Маленький");
 ImageIcon icon = new ImageIcon("icon.png");
 item.setIcon(icon);
@@ -308,7 +308,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (234, 28, 5, 'Радиокнопка в меню-мастер: добавь мнемонику',
         '<p><strong>Задание:</strong><br>Создай JRadioButtonMenuItem, установи мнемонику KeyEvent.VK_M через setMnemonic()</p>',
-        'JRadioButtonMenuItem-setMnemonic-KeyEvent',
+        'JRadioButtonMenuItem-setMnemonic,add',
         '', 234, 21.0, 0.0, 'JRadioButtonMenuItem item = new JRadioButtonMenuItem("Маленький");
 item.setMnemonic(KeyEvent.VK_M);
 JMenu menu = new JMenu("Размер");

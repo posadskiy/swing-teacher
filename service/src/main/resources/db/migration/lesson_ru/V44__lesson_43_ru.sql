@@ -71,7 +71,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (370, 43, 1, 'GroupLayout-новичок: создай групповую компоновку',
         '<p><strong>Задание:</strong><br>Создай GroupLayout, создай горизонтальную последовательную группу с двумя кнопками, создай вертикальную параллельную группу</p>',
-        'GroupLayout-setLayout-setHorizontalGroup-setVerticalGroup',
+        'GroupLayout-setHorizontalGroup,setVerticalGroup,add',
         '', 370, 30.0, 0.0, 'JPanel panel = new JPanel();
 GroupLayout layout = new GroupLayout(panel);
 panel.setLayout(layout);
@@ -136,7 +136,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (371, 43, 2, 'GroupLayout-мастер: добавь отступы между компонентами',
         '<p><strong>Задание:</strong><br>В последовательной группе добавь компонент, добавь отступ 10, добавь ещё компонент</p>',
-        'GroupLayout-createSequentialGroup-addComponent-addGap',
+        'GroupLayout-addComponent,addGap,addComponent,add',
         '', 371, 28.0, 0.0, 'JPanel panel = new JPanel();
 GroupLayout layout = new GroupLayout(panel);
 panel.setLayout(layout);
@@ -203,7 +203,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (373, 43, 2, 'ActionListener-мастер: обрабатывай несколько кнопок',
         '<p><strong>Задание:</strong><br>Создай ActionListener, проверь getSource() для двух кнопок, добавь обработчик к обеим кнопкам</p>',
-        'ActionListener-getSource-addActionListener',
+        'ActionListener-getSource,addActionListener,add',
         '', 373, 24.0, 0.0, 'JButton button1 = new JButton("Кнопка 1");
 JButton button2 = new JButton("Кнопка 2");
 ActionListener listener = e -> {
@@ -264,7 +264,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (372, 43, 3, 'GroupLayout-мастер: создай параллельные группы',
         '<p><strong>Задание:</strong><br>Создай горизонтальную параллельную группу с двумя кнопками</p>',
-        'GroupLayout-createParallelGroup-setHorizontalGroup',
+        'GroupLayout-createParallelGroup,setHorizontalGroup,add',
         '', 372, 29.0, 0.0, 'JPanel panel = new JPanel();
 GroupLayout layout = new GroupLayout(panel);
 panel.setLayout(layout);
@@ -328,7 +328,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (374, 43, 3, 'ActionListener-мастер: используй команду действия',
         '<p><strong>Задание:</strong><br>Установи команду "SAVE" через setActionCommand(), получи команду в ActionListener через getActionCommand()</p>',
-        'ActionListener-setActionCommand-getActionCommand',
+        'ActionListener-setActionCommand,getActionCommand,add',
         '', 374, 24.0, 0.0, 'JButton button = new JButton("Сохранить");
 button.setActionCommand("SAVE");
 button.addActionListener(e -> {
@@ -442,7 +442,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (377, 43, 4, 'KeyListener-мастер: получи символ клавиши',
         '<p><strong>Задание:</strong><br>Добавь KeyListener, переопредели keyTyped(), получи символ через getKeyChar(), выведи</p>',
-        'KeyListener-getKeyChar-KeyEvent',
+        'KeyListener-getKeyChar,add',
         '', 377, 23.0, 0.0, 'JTextField component = new JTextField();
 component.setFocusable(true);
 component.addKeyListener(new KeyAdapter() {
@@ -563,7 +563,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (379, 43, 5, 'KeyListener-мастер: получи код клавиши',
         '<p><strong>Задание:</strong><br>Добавь KeyListener, переопредели keyPressed(), получи код через getKeyCode(), проверь VK_ENTER</p>',
-        'KeyListener-getKeyCode-KeyEvent',
+        'KeyListener-getKeyCode,add',
         '', 379, 24.0, 0.0, 'JTextField component = new JTextField();
 component.setFocusable(true);
 component.addKeyListener(new KeyAdapter() {
@@ -626,7 +626,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (382, 43, 6, 'KeyListener-мастер: получи символ клавиши',
         '<p><strong>Задание:</strong><br>Добавь KeyListener, переопредели keyTyped(), получи символ через getKeyChar(), выведи</p>',
-        'KeyListener-getKeyChar-KeyEvent',
+        'KeyListener-getKeyChar,add',
         '', 382, 23.0, 0.0, 'JTextField component = new JTextField();
 component.setFocusable(true);
 component.addKeyListener(new KeyAdapter() {
@@ -684,7 +684,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (378, 43, 7, 'GroupLayout-мастер: создай последовательную группу',
         '<p><strong>Задание:</strong><br>Создай последовательную группу через createSequentialGroup(), добавь компоненты через addComponent()</p>',
-        'GroupLayout-createSequentialGroup-addComponent',
+        'GroupLayout-createSequentialGroup,addComponent,add',
         '', 378, 26.0, 0.0, 'JPanel panel = new JPanel();
 GroupLayout layout = new GroupLayout(panel);
 panel.setLayout(layout);
@@ -741,7 +741,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (380, 43, 8, 'GroupLayout-мастер: создай параллельную группу',
         '<p><strong>Задание:</strong><br>Создай параллельную группу через createParallelGroup(), добавь компоненты через addComponent()</p>',
-        'GroupLayout-createParallelGroup-addComponent',
+        'GroupLayout-createParallelGroup,addComponent,add',
         '', 380, 26.0, 0.0, 'JPanel panel = new JPanel();
 GroupLayout layout = new GroupLayout(panel);
 panel.setLayout(layout);

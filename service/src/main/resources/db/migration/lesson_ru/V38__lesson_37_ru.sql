@@ -62,7 +62,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (313, 37, 1, 'Компоновка-новичок: размести компоненты по краям',
         '<p><strong>Задание:</strong><br>Установи BorderLayout, добавь кнопки в регионы NORTH, SOUTH и CENTER</p>',
-        'BorderLayout-JButton-add',
+        'BorderLayout-add',
         '', 313, 18.0, 0.0, 'setLayout(new BorderLayout());
 add(new JButton("Верх"), BorderLayout.NORTH);
 add(new JButton("Низ"), BorderLayout.SOUTH);
@@ -120,7 +120,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (314, 37, 2, 'Компоновка-мастер: используй все регионы',
         '<p><strong>Задание:</strong><br>Установи BorderLayout, добавь кнопки во все пять регионов: NORTH, SOUTH, EAST, WEST, CENTER</p>',
-        'BorderLayout-JButton-add',
+        'BorderLayout-add',
         '', 314, 20.0, 0.0, 'setLayout(new BorderLayout());
 add(new JButton("Верх"), BorderLayout.NORTH);
 add(new JButton("Низ"), BorderLayout.SOUTH);
@@ -176,7 +176,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (315, 37, 3, 'Компоновка-мастер: добавь отступы между регионами',
         '<p><strong>Задание:</strong><br>Создай BorderLayout с отступами 10 пикселей по горизонтали и вертикали, добавь компоненты в NORTH и CENTER</p>',
-        'BorderLayout-JButton-add',
+        'BorderLayout-add',
         '', 315, 20.0, 0.0, 'setLayout(new BorderLayout(10, 10));
 add(new JButton("Верх"), BorderLayout.NORTH);
 add(new JButton("Центр"), BorderLayout.CENTER);');
@@ -231,7 +231,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (316, 37, 4, 'Компоновка-мастер: учитывай предпочтительные размеры',
         '<p><strong>Задание:</strong><br>Создай кнопку, установи предпочтительный размер 100x30, добавь в регион NORTH</p>',
-        'BorderLayout-JButton-Dimension-setPreferredSize-add',
+        'BorderLayout-JButton-setPreferredSize,add',
         '', 316, 22.0, 0.0, 'JButton button = new JButton("Кнопка");
 button.setPreferredSize(new Dimension(100, 30));
 setLayout(new BorderLayout());

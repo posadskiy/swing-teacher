@@ -211,7 +211,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (272, 30, 3, 'Меню-мастер: добавь разделитель',
         '<p><strong>Задание:</strong><br>Добавь два пункта меню, добавь разделитель через addSeparator(), добавь ещё пункт</p>',
-        'JMenu-add-addSeparator',
+        'JMenu-add,add,addSeparator,add',
         '', 272, 21.0, 0.0, 'JMenu menu = new JMenu("Файл");
 menu.add(new JMenuItem("Открыть"));
 menu.add(new JMenuItem("Сохранить"));
@@ -267,7 +267,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (273, 30, 4, 'Меню-мастер: добавь мнемонику',
         '<p><strong>Задание:</strong><br>Установи мнемонику VK_F через setMnemonic(), добавь &F в текст меню</p>',
-        'JMenu-setMnemonic-KeyEvent',
+        'JMenu-setMnemonic',
         '', 273, 23.0, 0.0, 'JMenu menu = new JMenu("Файл (&F)");
 menu.setMnemonic(KeyEvent.VK_F);
 JMenuBar menuBar = new JMenuBar();
@@ -376,7 +376,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (274, 30, 5, 'Меню-мастер: добавь разделитель',
         '<p><strong>Задание:</strong><br>Добавь два пункта меню, добавь разделитель через addSeparator(), добавь ещё пункт</p>',
-        'JMenu-addSeparator',
+        'JMenu-add,add,addSeparator,add',
         '', 274, 22.0, 0.0, 'JMenu menu = new JMenu("Файл");
 JMenuItem menuItem1 = new JMenuItem("Открыть");
 JMenuItem menuItem2 = new JMenuItem("Сохранить");
@@ -488,7 +488,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (276, 30, 6, 'Чекбокс-меню-мастер: установи команду действия',
         '<p><strong>Задание:</strong><br>Установи команду "CHECK" через setActionCommand(), получи команду в ActionListener через getActionCommand()</p>',
-        'JCheckBoxMenuItem-setActionCommand-getActionCommand',
+        'JCheckBoxMenuItem-setActionCommand,getActionCommand,add',
         '', 276, 24.0, 0.0, 'JCheckBoxMenuItem checkBoxMenuItem = new JCheckBoxMenuItem("Сетка");
 checkBoxMenuItem.setActionCommand("CHECK");
 checkBoxMenuItem.addActionListener(e -> {

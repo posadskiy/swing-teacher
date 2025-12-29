@@ -64,7 +64,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (335, 40, 1, 'GridBagLayout-новичок: создай гибкую сетку',
         '<p><strong>Задание:</strong><br>Установи GridBagLayout, создай ограничения, добавь кнопку в позицию (0,0) с fill=HORIZONTAL</p>',
-        'GridBagLayout-GridBagConstraints-add',
+        'GridBagLayout-add',
         '', 335, 28.0, 0.0, 'setLayout(new GridBagLayout());
 GridBagConstraints gbc = new GridBagConstraints();
 gbc.gridx = 0;
@@ -121,7 +121,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (336, 40, 2, 'GridBagLayout-мастер: настрой растягивание',
         '<p><strong>Задание:</strong><br>Настрой weightx = 1.0 и weighty = 1.0 для ограничений, добавь компонент</p>',
-        'GridBagConstraints-weightx-weighty-add',
+        'GridBagLayout-add',
         '', 336, 29.0, 0.0, 'setLayout(new GridBagLayout());
 GridBagConstraints gbc = new GridBagConstraints();
 gbc.gridx = 0;
@@ -294,7 +294,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (339, 40, 3, 'FlowLayout-мастер: настрой отступы',
         '<p><strong>Задание:</strong><br>Создай FlowLayout, установи горизонтальный и вертикальный отступы по 10</p>',
-        'FlowLayout-setHgap-setVgap',
+        'FlowLayout-setHgap,setVgap,add',
         '', 339, 23.0, 0.0, 'FlowLayout layout = new FlowLayout();
 layout.setHgap(10);
 layout.setVgap(10);
@@ -345,7 +345,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (342, 40, 7, 'GridBagLayout-мастер: установи якорь',
         '<p><strong>Задание:</strong><br>Установи якорь CENTER через constraints.anchor = GridBagConstraints.CENTER</p>',
-        'GridBagLayout-GridBagConstraints-anchor',
+        'GridBagLayout-add',
         '', 342, 25.0, 0.0, 'setLayout(new GridBagLayout());
 GridBagConstraints constraints = new GridBagConstraints();
 constraints.gridx = 0;
@@ -446,7 +446,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (344, 40, 8, 'GridBagLayout-мастер: установи заполнение',
         '<p><strong>Задание:</strong><br>Установи заполнение BOTH через constraints.fill = GridBagConstraints.BOTH</p>',
-        'GridBagLayout-GridBagConstraints-fill',
+        'GridBagLayout-add',
         '', 344, 24.0, 0.0, 'setLayout(new GridBagLayout());
 GridBagConstraints constraints = new GridBagConstraints();
 constraints.gridx = 0;

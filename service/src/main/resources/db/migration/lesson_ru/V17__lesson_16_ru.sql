@@ -449,7 +449,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (136, 16, 6, 'Спиннер-мастер: создай спиннер для дат',
         '<p><strong>Задание:</strong><br>Создай SpinnerDateModel, создай JSpinner с моделью, создай DateEditor с форматом "dd.MM.yyyy", установи через setEditor()</p>',
-        'JSpinner-SpinnerDateModel-DateEditor',
+        'JSpinner-SpinnerDateModel,add',
         '', 136, 27.0, 0.0, 'SpinnerDateModel model = new SpinnerDateModel();
 JSpinner spinner = new JSpinner(model);
 JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner, "dd.MM.yyyy");
@@ -502,7 +502,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (137, 16, 8, 'Спиннер-мастер: создай кастомный форматтер',
         '<p><strong>Задание:</strong><br>Создай NumberEditor с форматом "#,##0.00", установи через setEditor()</p>',
-        'JSpinner-setEditor-NumberEditor',
+        'JSpinner-setEditor,add',
         '', 137, 26.0, 0.0, 'JSpinner spinner = new JSpinner();
 JSpinner.NumberEditor editor = new JSpinner.NumberEditor(spinner, "#,##0.00");
 spinner.setEditor(editor);
@@ -554,7 +554,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (138, 16, 9, 'Спиннер-мастер: установи шаг',
         '<p><strong>Задание:</strong><br>Создай SpinnerNumberModel(0, 0, 100, 5), установи через setModel()</p>',
-        'JSpinner-setModel-SpinnerNumberModel',
+        'JSpinner-setModel,add',
         '', 138, 24.0, 0.0, 'JSpinner spinner = new JSpinner();
 SpinnerNumberModel model = new SpinnerNumberModel(0, 0, 100, 5);
 spinner.setModel(model);
@@ -654,7 +654,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (140, 16, 11, 'Спиннер-мастер: получи редактор',
         '<p><strong>Задание:</strong><br>Получи редактор через getEditor(), приведи к DefaultEditor, получи текстовое поле через getTextField()</p>',
-        'JSpinner-getEditor-DefaultEditor',
+        'JSpinner-getEditor,add',
         '', 140, 25.0, 0.0, 'JSpinner spinner = new JSpinner();
 JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) spinner.getEditor();
 JTextField field = editor.getTextField();

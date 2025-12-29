@@ -375,7 +375,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (189, 22, 7, 'Вкладки-мастер: обрабатывай изменение вкладки',
         '<p><strong>Задание:</strong><br>Создай панель с вкладками, добавь ChangeListener, получи индекс выбранной вкладки через getSelectedIndex(), выведи его</p>',
-        'JTabbedPane-addChangeListener-getSelectedIndex',
+        'JTabbedPane-addChangeListener,getSelectedIndex,add',
         '', 189, 19.0, 0.0, 'JTabbedPane tabbedPane = new JTabbedPane();
 tabbedPane.addTab("Вкладка 1", new JPanel());
 tabbedPane.addTab("Вкладка 2", new JPanel());

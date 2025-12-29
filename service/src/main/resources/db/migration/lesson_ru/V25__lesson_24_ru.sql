@@ -429,7 +429,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (474, 24, 11, 'Прокручиваемая панель-мастер: установи границу viewport',
         '<p><strong>Задание:</strong><br>Создай границу через BorderFactory.createLineBorder(Color.GRAY, 1), установи через setViewportBorder()</p>',
-        'JScrollPane-setViewportBorder-BorderFactory',
+        'JScrollPane-setViewportBorder,add',
         '', 474, 23.0, 0.0, 'JTextArea area = new JTextArea("Длинный текст...");
 JScrollPane scrollPane = new JScrollPane(area);
 Border border = BorderFactory.createLineBorder(Color.GRAY, 1);

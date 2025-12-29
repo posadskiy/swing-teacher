@@ -63,7 +63,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (356, 42, 1, 'CardLayout-новичок: создай переключаемые панели',
         '<p><strong>Задание:</strong><br>Создай CardLayout, добавь две панели с именами "card1" и "card2", покажи "card1"</p>',
-        'CardLayout-add-show',
+        'CardLayout-add,add,show',
         '', 356, 26.0, 0.0, 'CardLayout cardLayout = new CardLayout();
 setLayout(cardLayout);
 JPanel panel1 = new JPanel();
@@ -124,7 +124,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (357, 42, 2, 'CardLayout-мастер: навигация между картами',
         '<p><strong>Задание:</strong><br>Переключись на следующую карту через next(), затем на предыдущую через previous()</p>',
-        'CardLayout-next-previous',
+        'CardLayout-next,previous',
         '', 357, 27.0, 0.0, 'CardLayout cardLayout = new CardLayout();
 setLayout(cardLayout);
 JPanel panel1 = new JPanel();
@@ -435,7 +435,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (362, 42, 5, 'GridBagLayout-мастер: настрой отступы',
         '<p><strong>Задание:</strong><br>Создай GridBagConstraints, установи insets = new Insets(5,5,5,5), добавь компонент</p>',
-        'GridBagLayout-GridBagConstraints-Insets',
+        'GridBagLayout-add',
         '', 362, 24.0, 0.0, 'setLayout(new GridBagLayout());
 GridBagConstraints gbc = new GridBagConstraints();
 gbc.gridx = 0;
@@ -766,7 +766,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
                   solution)
 VALUES (368, 42, 8, 'Выбор цвета-мастер: установи цвет',
         '<p><strong>Задание:</strong><br>Установи цвет RED через setColor(Color.RED)</p>',
-        'JColorChooser-setColor-Color',
+        'JColorChooser-setColor,add',
         '', 368, 22.0, 0.0, 'JColorChooser colorChooser = new JColorChooser();
 colorChooser.setColor(Color.RED);
 JFrame frame = new JFrame();

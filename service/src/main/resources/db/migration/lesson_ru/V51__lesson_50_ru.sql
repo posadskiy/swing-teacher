@@ -67,7 +67,7 @@ VALUES (441, 50, 1, 'Кастомная отрисовка-новичок: пе�
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawString("Привет!", 10, 20);
+        g.drawString("Hello!", 10, 20);
     }
 }
 MyComponent comp = new MyComponent();
@@ -428,7 +428,7 @@ VALUES (447, 50, 7, 'Кастомная отрисовка-мастер: обн�
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawString("Привет!", 10, 20);
+        g.drawString("Hello!", 10, 20);
     }
 }
 MyComponent comp = new MyComponent();

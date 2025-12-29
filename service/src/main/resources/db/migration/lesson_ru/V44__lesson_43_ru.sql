@@ -209,9 +209,9 @@ JButton button2 = new JButton("Button 2");
 JLabel label = new JLabel();
 ActionListener listener = e -> {
     if (e.getSource() == button1) {
-        label.setText("Кнопка 1");
+        label.setText("Button 1");
     } else if (e.getSource() == button2) {
-        label.setText("Кнопка 2");
+        label.setText("Button 2");
     }
 };
 button1.addActionListener(listener);
@@ -337,7 +337,7 @@ JLabel label = new JLabel();
 button.addActionListener(e -> {
     String cmd = e.getActionCommand();
     if ("SAVE".equals(cmd)) {
-        label.setText("Сохранение!");
+        label.setText("Saving!");
     }
 });
 add(button);
@@ -394,7 +394,7 @@ VALUES (375, 43, 4, 'ActionListener-мастер: определи когда',
 JLabel label = new JLabel();
 button.addActionListener(e -> {
     long when = e.getWhen();
-    label.setText("Время: " + new Date(when));
+    label.setText("Time: " + new Date(when));
 });
 add(button);
 add(label);');
@@ -455,7 +455,7 @@ component.addKeyListener(new KeyAdapter() {
     @Override
     public void keyTyped(KeyEvent e) {
         char ch = e.getKeyChar();
-        label.setText("Символ: " + ch);
+        label.setText("Character: " + ch);
     }
 });
 add(component);');
@@ -514,7 +514,7 @@ JLabel label = new JLabel();
 button.addActionListener(e -> {
     int modifiers = e.getModifiers();
     if ((modifiers & ActionEvent.CTRL_MASK) != 0) {
-        label.setText("Ctrl нажат!");
+        label.setText("Ctrl pressed!");
     }
 });
 add(button);
@@ -580,7 +580,7 @@ component.addKeyListener(new KeyAdapter() {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_ENTER) {
-            label.setText("Enter нажат");
+            label.setText("Enter pressed");
         }
     }
 });
@@ -643,7 +643,7 @@ component.addKeyListener(new KeyAdapter() {
     @Override
     public void keyTyped(KeyEvent e) {
         char ch = e.getKeyChar();
-        label.setText("Символ: " + ch);
+        label.setText("Character: " + ch);
     }
 });
 add(component);');

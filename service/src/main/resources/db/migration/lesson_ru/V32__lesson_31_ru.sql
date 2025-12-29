@@ -311,7 +311,7 @@ tree.addTreeSelectionListener(e -> {
     TreePath path = e.getNewLeadSelectionPath();
     if (path != null) {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
-        label.setText("Выбран: " + node.getUserObject());
+        label.setText("Selected: " + node.getUserObject());
     }
 });
 JScrollPane scrollPane = new JScrollPane(tree);

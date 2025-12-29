@@ -59,7 +59,7 @@ VALUES (287, 34, 1, 'Диалог-новичок: покажи сообщени�
         '<p><strong>Задание:</strong><br>Покажи информационное диалоговое окно с текстом "Привет, мир!" и заголовком "Приветствие"</p>',
         'JOptionPane',
         '', 287, 18.0, 0.0,
-        'JOptionPane.showMessageDialog(null, "Привет, мир!", "Приветствие", JOptionPane.INFORMATION_MESSAGE);');
+        'JOptionPane.showMessageDialog(null, "Hello, world!", "Greeting", JOptionPane.INFORMATION_MESSAGE);');
 
 -- Task 2: Confirmation Dialog
 INSERT INTO documentation (id, text)
@@ -114,7 +114,7 @@ VALUES (288, 34, 2, 'Диалог-мастер: спроси подтвержд�
         '', 288, 20.0, 0.0, 'int result = JOptionPane.showConfirmDialog(null, "Are you sure?", "Confirmation", JOptionPane.YES_NO_OPTION);
 JLabel label = new JLabel();
 if (result == JOptionPane.YES_OPTION) {
-    label.setText("Пользователь выбрал Да");
+    label.setText("User selected Yes");
 }
 add(label);');
 
@@ -171,7 +171,7 @@ VALUES (289, 34, 3, 'Диалог-мастер: получи ввод от по�
         '', 289, 20.0, 0.0, 'String name = JOptionPane.showInputDialog(null, "Enter your name:", "Input", JOptionPane.QUESTION_MESSAGE);
 JLabel label = new JLabel();
 if (name != null && !name.isEmpty()) {
-    label.setText("Привет, " + name + "!");
+    label.setText("Hello, " + name + "!");
 }
 add(label);');
 

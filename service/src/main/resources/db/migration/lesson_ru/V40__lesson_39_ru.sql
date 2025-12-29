@@ -471,7 +471,7 @@ VALUES (332, 39, 4, 'Чекбокс-пункт меню-мастер: обраб
 JLabel label = new JLabel();
 item.addItemListener(e -> {
     boolean selected = item.isSelected();
-    label.setText("Выбрано: " + selected);
+    label.setText("Selected: " + selected);
 });
 JMenu viewMenu = new JMenu("View");
 viewMenu.add(item);

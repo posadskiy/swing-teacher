@@ -75,7 +75,7 @@ KeyListener listener = new KeyListener() {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            label.setText("Нажат Enter!");
+            label.setText("Enter pressed!");
         }
     }
     @Override
@@ -144,7 +144,7 @@ panel.addKeyListener(new KeyListener() {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_C) {
-            label.setText("Ctrl+C нажато!");
+            label.setText("Ctrl+C pressed!");
         }
     }
     @Override
@@ -206,8 +206,8 @@ VALUES (424, 47, 2, 'BoxLayout-мастер: добавь клей',
         '<p><strong>Задание:</strong><br>Создай горизонтальный клей через createHorizontalGlue(), добавь компоненты и клей</p>',
         'BoxLayout-createHorizontalGlue,add,add,add',
         '', 424, 24.0, 0.0, 'setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-JButton button1 = new JButton("Кнопка 1");
-JButton button2 = new JButton("Кнопка 2");
+JButton button1 = new JButton("Button 1");
+JButton button2 = new JButton("Button 2");
 Component glue = Box.createHorizontalGlue();
 add(button1);
 add(glue);
@@ -269,7 +269,7 @@ panel.addKeyListener(new KeyListener() {
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            label.setText("Пробел отпущен!");
+            label.setText("Space released!");
         }
     }
     @Override
@@ -330,8 +330,8 @@ VALUES (425, 47, 3, 'BoxLayout-мастер: добавь жёсткую обл�
         '<p><strong>Задание:</strong><br>Создай жёсткую область через createRigidArea() с размером 10x10, добавь между компонентами</p>',
         'BoxLayout-createRigidArea,add,add,add',
         '', 425, 23.0, 0.0, 'setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-JButton button1 = new JButton("Кнопка 1");
-JButton button2 = new JButton("Кнопка 2");
+JButton button1 = new JButton("Button 1");
+JButton button2 = new JButton("Button 2");
 Component area = Box.createRigidArea(new Dimension(10, 10));
 add(button1);
 add(area);
@@ -387,8 +387,8 @@ VALUES (426, 47, 4, 'BoxLayout-мастер: добавь распорку',
         '<p><strong>Задание:</strong><br>Создай горизонтальную распорку через createHorizontalStrut(20), добавь между компонентами</p>',
         'BoxLayout-createHorizontalStrut,add,add,add',
         '', 426, 23.0, 0.0, 'setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-JButton button1 = new JButton("Кнопка 1");
-JButton button2 = new JButton("Кнопка 2");
+JButton button1 = new JButton("Button 1");
+JButton button2 = new JButton("Button 2");
 Component strut = Box.createHorizontalStrut(20);
 add(button1);
 add(strut);
@@ -439,7 +439,7 @@ VALUES (427, 47, 5, 'BoxLayout-мастер: настрой максимальн
         '<p><strong>Задание:</strong><br>Установи максимальный размер 200x100 через setMaximumSize()</p>',
         'BoxLayout-setMaximumSize,add',
         '', 427, 23.0, 0.0, 'setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-JButton component = new JButton("Кнопка");
+JButton component = new JButton("Button");
 component.setMaximumSize(new Dimension(200, 100));
 add(component);');
 INSERT INTO documentation (id, text)
@@ -489,5 +489,5 @@ VALUES (428, 47, 6, 'BorderLayout-мастер: установи отступы'
         'BorderLayout-constructor',
         '', 428, 21.0, 0.0, 'BorderLayout layout = new BorderLayout(10, 10);
 setLayout(layout);
-JButton button = new JButton("Кнопка");
+JButton button = new JButton("Button");
 add(button, BorderLayout.CENTER);');

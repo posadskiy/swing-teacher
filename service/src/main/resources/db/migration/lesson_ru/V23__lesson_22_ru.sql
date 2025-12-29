@@ -382,7 +382,7 @@ tabbedPane.addTab("Вкладка 2", new JPanel());
 JLabel label = new JLabel();
 tabbedPane.addChangeListener(e -> {
     int index = tabbedPane.getSelectedIndex();
-    label.setText("Выбрана вкладка: " + index);
+    label.setText("Selected tab: " + index);
 });
 add(tabbedPane);
 add(label);');

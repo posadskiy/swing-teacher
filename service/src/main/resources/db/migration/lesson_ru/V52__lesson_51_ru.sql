@@ -190,7 +190,7 @@ VALUES (450, 51, 3, 'Кастомный компонент-мастер: обр�
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                label.setText("Клик!");
+                label.setText("Click!");
             }
         });
         add(label);
@@ -249,7 +249,7 @@ VALUES (451, 51, 4, 'Кастомный компонент-мастер: доб�
         '<p><strong>Задание:</strong><br>Создай кастомный компонент, добавь приватное поле text, создай геттер и сеттер, в сеттере вызови repaint()</p>',
         'JComponent-repaint,add',
         '', 451, 21.0, 0.0, 'class MyComponent extends JComponent {
-    private String text = "Текст";
+    private String text = "Text";
     
     public String getText() {
         return text;
@@ -310,7 +310,7 @@ VALUES (452, 51, 5, 'Кастомный компонент-мастер: доб�
         'JComponent-setToolTipText,add',
         '', 452, 18.0, 0.0, 'class MyComponent extends JComponent {
     public MyComponent() {
-        setToolTipText("Кастомный компонент");
+        setToolTipText("Custom component");
     }
 }
 MyComponent comp = new MyComponent();

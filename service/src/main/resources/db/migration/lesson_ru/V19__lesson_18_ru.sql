@@ -62,7 +62,7 @@ VALUES (153, 18, 1, 'Диалог-новичок: создай всплываю�
         '<p><strong>Задание:</strong><br>Создай модальный диалог с заголовком "Диалог", размером 400x300 и сделай видимым</p>',
         'JDialog-setSize,setVisible',
         '', 153, 16.0, 0.0, 'JFrame parent = new JFrame();
-JDialog dialog = new JDialog(parent, "Диалог", true);
+JDialog dialog = new JDialog(parent, "Dialog", true);
 dialog.setSize(400, 300);
 dialog.setVisible(true);');
 INSERT INTO documentation (id, text)
@@ -167,7 +167,7 @@ VALUES (155, 18, 2, 'Скроллбар-мастер: обрабатывай и�
 JLabel label = new JLabel();
 scrollBar.addAdjustmentListener(e -> {
     int value = e.getValue();
-    label.setText("Значение: " + value);
+    label.setText("Value: " + value);
 });
 add(scrollBar);
 add(label);');

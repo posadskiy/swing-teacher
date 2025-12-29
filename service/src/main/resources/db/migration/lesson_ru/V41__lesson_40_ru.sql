@@ -553,4 +553,4 @@ VALUES (343, 40, 10, 'Диалог-мастер: создай диалог со�
         '<p><strong>Задание:</strong><br>Создай диалог сообщения через showMessageDialog() с INFORMATION_MESSAGE</p>',
         'JOptionPane-showMessageDialog',
         '', 343, 23.0, 0.0,
-        'JOptionPane.showMessageDialog(null, "Операция завершена", "Информация", JOptionPane.INFORMATION_MESSAGE);');
+        'JOptionPane.showMessageDialog(null, "Operation completed", "Information", JOptionPane.INFORMATION_MESSAGE);');

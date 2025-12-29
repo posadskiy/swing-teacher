@@ -72,11 +72,11 @@ VALUES (429, 48, 1, 'FocusListener-новичок: отслеживай фоку
 FocusListener listener = new FocusListener() {
     @Override
     public void focusGained(FocusEvent e) {
-        label.setText("Получен фокус!");
+        label.setText("Focus gained!");
     }
     @Override
     public void focusLost(FocusEvent e) {
-        label.setText("Потерян фокус!");
+        label.setText("Focus lost!");
     }
 };
 JTextField field = new JTextField();
@@ -145,7 +145,7 @@ textField.addFocusListener(new FocusListener() {
         String text = textField.getText();
         if (text.isEmpty()) {
             textField.setBackground(Color.RED);
-            label.setText("Поле не может быть пустым!");
+            label.setText("Field cannot be empty!");
         } else {
             textField.setBackground(Color.WHITE);
         }

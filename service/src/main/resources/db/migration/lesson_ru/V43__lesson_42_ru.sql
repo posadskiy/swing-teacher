@@ -67,9 +67,9 @@ VALUES (356, 42, 1, 'CardLayout-новичок: создай переключа�
         '', 356, 26.0, 0.0, 'CardLayout cardLayout = new CardLayout();
 setLayout(cardLayout);
 JPanel panel1 = new JPanel();
-panel1.add(new JLabel("Панель 1"));
+panel1.add(new JLabel("Panel 1"));
 JPanel panel2 = new JPanel();
-panel2.add(new JLabel("Панель 2"));
+panel2.add(new JLabel("Panel 2"));
 add(panel1, "card1");
 add(panel2, "card2");
 cardLayout.show(this, "card1");');
@@ -128,9 +128,9 @@ VALUES (357, 42, 2, 'CardLayout-мастер: навигация между ка
         '', 357, 27.0, 0.0, 'CardLayout cardLayout = new CardLayout();
 setLayout(cardLayout);
 JPanel panel1 = new JPanel();
-panel1.add(new JLabel("Панель 1"));
+panel1.add(new JLabel("Panel 1"));
 JPanel panel2 = new JPanel();
-panel2.add(new JLabel("Панель 2"));
+panel2.add(new JLabel("Panel 2"));
 add(panel1, "card1");
 add(panel2, "card2");
 cardLayout.next(this);
@@ -194,7 +194,7 @@ gbc.gridy = 0;
 gbc.weightx = 1.0;
 gbc.weighty = 1.0;
 gbc.fill = GridBagConstraints.BOTH;
-JButton button = new JButton("Кнопка");
+JButton button = new JButton("Button");
 add(button, gbc);');
 INSERT INTO documentation (id, text)
 VALUES (358, '<h2>🎮 CardLayout-мастер: Узнай текущую карту!</h2>
@@ -257,17 +257,17 @@ VALUES (358, 42, 3, 'CardLayout-мастер: узнай текущую карт
 setLayout(cardLayout);
 JPanel panel1 = new JPanel();
 panel1.setName("card1");
-panel1.add(new JLabel("Панель 1"));
+panel1.add(new JLabel("Panel 1"));
 JPanel panel2 = new JPanel();
 panel2.setName("card2");
-panel2.add(new JLabel("Панель 2"));
+panel2.add(new JLabel("Panel 2"));
 add(panel1, "card1");
 add(panel2, "card2");
 Component[] components = getComponents();
 JLabel label = new JLabel();
 for (Component comp : components) {
     if (comp.isVisible()) {
-        label.setText("Видимая карта: " + comp.getName());
+        label.setText("Visible card: " + comp.getName());
     }
 }
 add(label);');
@@ -327,7 +327,7 @@ GridBagConstraints gbc = new GridBagConstraints();
 gbc.gridx = 0;
 gbc.gridy = 0;
 gbc.fill = GridBagConstraints.BOTH;
-JButton button = new JButton("Кнопка");
+JButton button = new JButton("Button");
 add(button, gbc);');
 INSERT INTO documentation (id, text)
 VALUES (361, '<h2>🎮 GridBagLayout-мастер: Настрой якорь!</h2>
@@ -385,7 +385,7 @@ GridBagConstraints gbc = new GridBagConstraints();
 gbc.gridx = 0;
 gbc.gridy = 0;
 gbc.anchor = GridBagConstraints.NORTH;
-JButton button = new JButton("Кнопка");
+JButton button = new JButton("Button");
 add(button, gbc);');
 INSERT INTO documentation (id, text)
 VALUES (362, '<h2>🎮 GridBagLayout-мастер: Настрой отступы!</h2>
@@ -443,7 +443,7 @@ GridBagConstraints gbc = new GridBagConstraints();
 gbc.gridx = 0;
 gbc.gridy = 0;
 gbc.insets = new Insets(5, 5, 5, 5);
-JButton button = new JButton("Кнопка");
+JButton button = new JButton("Button");
 add(button, gbc);');
 INSERT INTO documentation (id, text)
 VALUES (363, '<h2>🎮 Выбор цвета-мастер: Установи панель предпросмотра!</h2>
@@ -551,9 +551,9 @@ VALUES (364, 42, 6, 'CardLayout-мастер: покажи первую карт
         '', 364, 23.0, 0.0, 'CardLayout cardLayout = new CardLayout();
 setLayout(cardLayout);
 JPanel panel1 = new JPanel();
-panel1.add(new JLabel("Панель 1"));
+panel1.add(new JLabel("Panel 1"));
 JPanel panel2 = new JPanel();
-panel2.add(new JLabel("Панель 2"));
+panel2.add(new JLabel("Panel 2"));
 add(panel1, "card1");
 add(panel2, "card2");
 CardLayout layout = (CardLayout) getLayout();
@@ -659,9 +659,9 @@ VALUES (366, 42, 7, 'CardLayout-мастер: покажи последнюю к
         '', 366, 23.0, 0.0, 'CardLayout cardLayout = new CardLayout();
 setLayout(cardLayout);
 JPanel panel1 = new JPanel();
-panel1.add(new JLabel("Панель 1"));
+panel1.add(new JLabel("Panel 1"));
 JPanel panel2 = new JPanel();
-panel2.add(new JLabel("Панель 2"));
+panel2.add(new JLabel("Panel 2"));
 add(panel1, "card1");
 add(panel2, "card2");
 CardLayout layout = (CardLayout) getLayout();
@@ -717,9 +717,9 @@ VALUES (367, 42, 8, 'CardLayout-мастер: покажи следующую к
         '', 367, 23.0, 0.0, 'CardLayout cardLayout = new CardLayout();
 setLayout(cardLayout);
 JPanel panel1 = new JPanel();
-panel1.add(new JLabel("Панель 1"));
+panel1.add(new JLabel("Panel 1"));
 JPanel panel2 = new JPanel();
-panel2.add(new JLabel("Панель 2"));
+panel2.add(new JLabel("Panel 2"));
 add(panel1, "card1");
 add(panel2, "card2");
 CardLayout layout = (CardLayout) getLayout();
@@ -825,9 +825,9 @@ VALUES (369, 42, 9, 'CardLayout-мастер: покажи предыдущую 
         '', 369, 23.0, 0.0, 'CardLayout cardLayout = new CardLayout();
 setLayout(cardLayout);
 JPanel panel1 = new JPanel();
-panel1.add(new JLabel("Панель 1"));
+panel1.add(new JLabel("Panel 1"));
 JPanel panel2 = new JPanel();
-panel2.add(new JLabel("Панель 2"));
+panel2.add(new JLabel("Panel 2"));
 add(panel1, "card1");
 add(panel2, "card2");
 CardLayout layout = (CardLayout) getLayout();

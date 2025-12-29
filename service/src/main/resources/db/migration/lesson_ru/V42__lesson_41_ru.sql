@@ -62,9 +62,9 @@ VALUES (345, 41, 1, 'BoxLayout-новичок: выстрой компонент
         '<p><strong>Задание:</strong><br>Установи BoxLayout с Y_AXIS и добавь три кнопки</p>',
         'BoxLayout-add',
         '', 345, 24.0, 0.0, 'setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-JButton button1 = new JButton("Кнопка 1");
-JButton button2 = new JButton("Кнопка 2");
-JButton button3 = new JButton("Кнопка 3");
+JButton button1 = new JButton("Button 1");
+JButton button2 = new JButton("Button 2");
+JButton button3 = new JButton("Button 3");
 add(button1);
 add(button2);
 add(button3);');
@@ -121,8 +121,8 @@ VALUES (346, 41, 2, 'BoxLayout-мастер: добавь растягивающ
         '<p><strong>Задание:</strong><br>Добавь кнопку, добавь createGlue(), добавь ещё кнопку</p>',
         'Box-createGlue,add,add,add',
         '', 346, 25.0, 0.0, 'setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-JButton button1 = new JButton("Кнопка 1");
-JButton button2 = new JButton("Кнопка 2");
+JButton button1 = new JButton("Button 1");
+JButton button2 = new JButton("Button 2");
 add(button1);
 add(Box.createGlue());
 add(button2);');
@@ -340,8 +340,8 @@ VALUES (352, 41, 7, 'BoxLayout-мастер: добавь клей',
         '<p><strong>Задание:</strong><br>Создай горизонтальный клей через Box.createHorizontalGlue(), добавь в контейнер</p>',
         'BoxLayout-createHorizontalGlue,add,add,add',
         '', 352, 23.0, 0.0, 'setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-JButton button1 = new JButton("Кнопка 1");
-JButton button2 = new JButton("Кнопка 2");
+JButton button1 = new JButton("Button 1");
+JButton button2 = new JButton("Button 2");
 Component glue = Box.createHorizontalGlue();
 add(button1);
 add(glue);
@@ -402,7 +402,7 @@ JLabel label = new JLabel();
 if (result == JFileChooser.APPROVE_OPTION) {
     File[] files = fileChooser.getSelectedFiles();
     for (File file : files) {
-        label.setText("Выбран: " + file.getName());
+        label.setText("Selected: " + file.getName());
     }
 }
 add(label);');
@@ -455,8 +455,8 @@ VALUES (353, 41, 8, 'BoxLayout-мастер: добавь распорку',
         '<p><strong>Задание:</strong><br>Создай горизонтальную распорку 20 через Box.createHorizontalStrut(20), добавь в контейнер</p>',
         'BoxLayout-createHorizontalStrut,add,add,add',
         '', 353, 22.0, 0.0, 'setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-JButton button1 = new JButton("Кнопка 1");
-JButton button2 = new JButton("Кнопка 2");
+JButton button1 = new JButton("Button 1");
+JButton button2 = new JButton("Button 2");
 Component strut = Box.createHorizontalStrut(20);
 add(button1);
 add(strut);
@@ -517,7 +517,7 @@ int result = fileChooser.showOpenDialog(frame);
 JLabel label = new JLabel();
 if (result == JFileChooser.APPROVE_OPTION) {
     File file = fileChooser.getSelectedFile();
-    label.setText("Выбран файл: " + file.getName());
+    label.setText("Selected file: " + file.getName());
 }
 add(label);');
 INSERT INTO documentation (id, text)
@@ -569,8 +569,8 @@ VALUES (355, 41, 9, 'BoxLayout-мастер: добавь жёсткую обл�
         '<p><strong>Задание:</strong><br>Создай жёсткую область 20x20 через Box.createRigidArea(new Dimension(20, 20)), добавь в контейнер</p>',
         'BoxLayout-Box-createRigidArea-Dimension',
         '', 355, 23.0, 0.0, 'setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-JButton button1 = new JButton("Кнопка 1");
-JButton button2 = new JButton("Кнопка 2");
+JButton button1 = new JButton("Button 1");
+JButton button2 = new JButton("Button 2");
 Component area = Box.createRigidArea(new Dimension(20, 20));
 add(button1);
 add(area);
@@ -631,6 +631,6 @@ int result = fileChooser.showOpenDialog(frame);
 JLabel label = new JLabel();
 if (result == JFileChooser.APPROVE_OPTION) {
     File file = fileChooser.getSelectedFile();
-    label.setText("Выбран файл: " + file.getName());
+    label.setText("Selected file: " + file.getName());
 }
 add(label);');

@@ -178,7 +178,7 @@ JList<String> list = new JList<>(items);
 String selected = list.getSelectedValue();
 JLabel label = new JLabel();
 if (selected != null) {
-    label.setText("Выбрано: " + selected);
+    label.setText("Selected: " + selected);
 }
 add(list);
 add(label);');
@@ -245,7 +245,7 @@ JLabel label = new JLabel();
 list.addListSelectionListener(e -> {
     if (!e.getValueIsAdjusting()) {
         String selected = list.getSelectedValue();
-        label.setText("Выбрано: " + selected);
+        label.setText("Selected: " + selected);
     }
 });
 add(list);
@@ -427,7 +427,7 @@ JList<String> list = new JList<>(items);
 list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 List<String> selected = list.getSelectedValuesList();
 for (String item : selected) {
-    label.setText("Выбрано: " + item);
+    label.setText("Selected: " + item);
 }
 add(list);');
 

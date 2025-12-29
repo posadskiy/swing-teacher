@@ -70,7 +70,7 @@ int result = fileChooser.showOpenDialog(this);
 JLabel label = new JLabel();
 if (result == JFileChooser.APPROVE_OPTION) {
     File file = fileChooser.getSelectedFile();
-    label.setText("Выбран файл: " + file.getName());
+    label.setText("Selected file: " + file.getName());
 }
 add(label);');
 INSERT INTO documentation (id, text)
@@ -192,7 +192,7 @@ int result = fileChooser.showOpenDialog(this);
 JLabel label = new JLabel();
 if (result == JFileChooser.APPROVE_OPTION) {
     File file = fileChooser.getSelectedFile();
-    label.setText("Выбран файл: " + file.getName());
+    label.setText("Selected file: " + file.getName());
 }
 add(label);');
 INSERT INTO documentation (id, text)
@@ -255,7 +255,7 @@ JLabel label = new JLabel();
 if (result == JFileChooser.APPROVE_OPTION) {
     File[] files = fileChooser.getSelectedFiles();
     for (File file : files) {
-        label.setText("Выбран: " + file.getName());
+        label.setText("Selected: " + file.getName());
     }
 }
 add(label);');
@@ -314,7 +314,7 @@ int result = fileChooser.showOpenDialog(this);
 JLabel label = new JLabel();
 if (result == JFileChooser.APPROVE_OPTION) {
     File file = fileChooser.getSelectedFile();
-    label.setText("Выбран файл: " + file.getName());
+    label.setText("Selected file: " + file.getName());
 }
 add(label);');
 INSERT INTO documentation (id, text)
@@ -372,7 +372,7 @@ int result = fileChooser.showOpenDialog(this);
 JLabel label = new JLabel();
 if (result == JFileChooser.APPROVE_OPTION) {
     File file = fileChooser.getSelectedFile();
-    label.setText("Выбран файл: " + file.getName());
+    label.setText("Selected file: " + file.getName());
 }
 add(label);');
 INSERT INTO documentation (id, text)
@@ -427,7 +427,7 @@ int result = fileChooser.showOpenDialog(frame);
 JLabel label = new JLabel();
 if (result == JFileChooser.APPROVE_OPTION) {
     File file = fileChooser.getSelectedFile();
-    label.setText("Выбран файл: " + file.getName());
+    label.setText("Selected file: " + file.getName());
 }
 add(label);');
 INSERT INTO documentation (id, text)

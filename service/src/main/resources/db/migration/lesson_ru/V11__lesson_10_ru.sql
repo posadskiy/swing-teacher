@@ -223,8 +223,8 @@ VALUES (86, 10, 3, 'Радиокнопка-мастер: создай групп
         'JRadioButton-add;JRadioButton-add;JRadioButton-add',
         '', 86, 24.0, 0.0, 'ButtonGroup group = new ButtonGroup();
 JRadioButton radio1 = new JRadioButton("Option 1");
-JRadioButton radio2 = new JRadioButton("Вариант 2");
-JRadioButton radio3 = new JRadioButton("Вариант 3");
+JRadioButton radio2 = new JRadioButton("Option 2");
+JRadioButton radio3 = new JRadioButton("Option 3");
 group.add(radio1);
 group.add(radio2);
 group.add(radio3);
@@ -333,7 +333,7 @@ VALUES (88, 10, 5, 'Радиокнопка-мастер: добавь в гру�
         'JRadioButton-add;JRadioButton-add',
         '', 88, 23.0, 0.0, 'ButtonGroup group = new ButtonGroup();
 JRadioButton radioButton1 = new JRadioButton("Option 1");
-JRadioButton radioButton2 = new JRadioButton("Вариант 2");
+JRadioButton radioButton2 = new JRadioButton("Option 2");
 group.add(radioButton1);
 group.add(radioButton2);
 add(radioButton1);
@@ -442,7 +442,7 @@ VALUES (90, 10, 7, 'Радиокнопка-мастер: обрабатывай 
 JLabel label = new JLabel();
 radioButton.addItemListener(e -> {
     if (e.getStateChange() == ItemEvent.SELECTED) {
-        label.setText("Выбрано!");
+        label.setText("Selected!");
     }
 });
 add(radioButton);
@@ -503,7 +503,7 @@ VALUES (91, 10, 8, 'Радиокнопка-мастер: установи ком
 radioButton.setActionCommand("OPTION1");
 radioButton.addActionListener(e -> {
     String cmd = e.getActionCommand();
-    label.setText("Команда: " + cmd);
+        label.setText("Command: " + cmd);
 });
 add(radioButton);');
 INSERT INTO documentation (id, text)

@@ -66,8 +66,8 @@ VALUES (238, 29, 1, 'Всплывающее меню-новичок: созда�
         '<p><strong>Задание:</strong><br>Создай JPopupMenu, добавь два пункта меню ("Копировать", "Вставить"), покажи меню через show()</p>',
         'JPopupMenu-show,add',
         '', 238, 18.0, 0.0, 'JPopupMenu popup = new JPopupMenu();
-popup.add(new JMenuItem("Копировать"));
-popup.add(new JMenuItem("Вставить"));
+popup.add(new JMenuItem("Copy"));
+popup.add(new JMenuItem("Paste"));
 JPanel panel = new JPanel();
 panel.addMouseListener(new MouseAdapter() {
     @Override
@@ -103,7 +103,7 @@ VALUES (239, '<h2>🎮 Всплывающее меню-мастер: Добав�
 <code>popup.addSeparator();</code></p>
 
 <p><strong>Шаг 3:</strong> Добавь флажок:<br>
-<code>popup.add(new JCheckBoxMenuItem("Показать панель"));</code></p>
+<code>popup.add(new JCheckBoxMenuItem("Show panel"));</code></p>
 
 <h4>🎨 Варианты выполнения:</h4>
 <ul>
@@ -134,7 +134,7 @@ VALUES (239, 29, 2, 'Всплывающее меню-мастер: добавь 
         '', 239, 20.0, 0.0, 'JPopupMenu popup = new JPopupMenu();
 popup.add(new JMenuItem("Копировать"));
 popup.addSeparator();
-popup.add(new JCheckBoxMenuItem("Показать панель"));
+popup.add(new JCheckBoxMenuItem("Show panel"));
 JPanel panel = new JPanel();
 panel.addMouseListener(new MouseAdapter() {
     @Override

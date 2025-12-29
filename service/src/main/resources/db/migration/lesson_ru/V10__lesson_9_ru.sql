@@ -116,9 +116,9 @@ VALUES (75, 9, 3, 'Чекбокс-мастер: обрабатывай клик�
 JLabel label = new JLabel();
 checkBox.addActionListener(e -> {
     if (checkBox.isSelected()) {
-        label.setText("Чекбокс выбран!");
+        label.setText("Checkbox selected!");
     } else {
-        label.setText("Чекбокс снят!");
+        label.setText("Checkbox unchecked!");
     }
 });
 add(checkBox);
@@ -327,7 +327,7 @@ VALUES (79, 9, 7, 'Чекбокс-мастер: обрабатывай изме�
 JLabel label = new JLabel();
 checkBox.addItemListener(e -> {
     boolean selected = checkBox.isSelected();
-    label.setText("Выбрано: " + selected);
+    label.setText("Selected: " + selected);
 });
 add(checkBox);
 add(label);');
@@ -441,11 +441,11 @@ VALUES (81, 9, 9, 'Чекбокс-мастер: группируй чекбок�
         '<p><strong>Задание:</strong><br>Создай список из чекбоксов, добавь ItemListener ко всем через forEach()</p>',
         'JCheckBox-addItemListener,add;JCheckBox-add;JCheckBox-add',
         '', 81, 23.0, 0.0, 'JCheckBox checkBox1 = new JCheckBox("Option 1");
-JCheckBox checkBox2 = new JCheckBox("Опция 2");
-JCheckBox checkBox3 = new JCheckBox("Опция 3");
+JCheckBox checkBox2 = new JCheckBox("Option 2");
+JCheckBox checkBox3 = new JCheckBox("Option 3");
 List<JCheckBox> group = Arrays.asList(checkBox1, checkBox2, checkBox3);
 JLabel label = new JLabel();
-group.forEach(cb -> cb.addItemListener(e -> label.setText("Изменено")));
+group.forEach(cb -> cb.addItemListener(e -> label.setText("Changed")));
 add(checkBox1);
 add(checkBox2);
 add(checkBox3);

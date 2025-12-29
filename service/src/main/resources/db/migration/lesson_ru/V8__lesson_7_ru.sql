@@ -217,7 +217,7 @@ VALUES (65, 7, 4, 'Поле пароля-мастер: проверь надёж
 char[] password = passwordField.getPassword();
 JLabel label = new JLabel();
 if (password.length < 8) {
-    label.setText("Слабый пароль!");
+    label.setText("Weak password!");
 }
 add(passwordField);
 add(label);');

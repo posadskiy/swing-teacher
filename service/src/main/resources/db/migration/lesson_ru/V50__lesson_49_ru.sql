@@ -67,9 +67,9 @@ VALUES (437, 49, 1, 'ItemListener-новичок: обрабатывай выб�
 JLabel label = new JLabel();
 checkBox.addItemListener(e -> {
     if (e.getStateChange() == ItemEvent.SELECTED) {
-        label.setText("Выбрано!");
+        label.setText("Selected!");
     } else {
-        label.setText("Снято!");
+        label.setText("Unchecked!");
     }
 });
 add(checkBox);
@@ -127,7 +127,7 @@ VALUES (438, 49, 2, 'ChangeListener-новичок: обрабатывай из�
 JLabel label = new JLabel();
 slider.addChangeListener(e -> {
     int value = slider.getValue();
-    label.setText("Значение: " + value);
+    label.setText("Value: " + value);
 });
 add(slider);
 add(label);');
@@ -187,7 +187,7 @@ JLabel label = new JLabel();
 comboBox.addItemListener(e -> {
     if (e.getStateChange() == ItemEvent.SELECTED) {
         Object item = e.getItem();
-        label.setText("Выбрано: " + item);
+        label.setText("Selected: " + item);
     }
 });
 add(comboBox);
@@ -244,7 +244,7 @@ VALUES (440, 49, 4, 'ChangeListener-мастер: обрабатывай изм�
         '', 440, 19.0, 0.0, 'JSpinner spinner = new JSpinner(new SpinnerNumberModel(10, 0, 100, 1));
 spinner.addChangeListener(e -> {
     Object value = spinner.getValue();
-    label.setText("Значение: " + value);
+    label.setText("Value: " + value);
 });
 add(spinner);');
 

@@ -81,7 +81,7 @@ VALUES (73, '<h2>🎮 Группа кнопок: Объедини радиокн
 
 <p><strong>Шаг 2:</strong> Создай радиокнопки:<br>
 <code>JRadioButton radio1 = new JRadioButton("Option 1");</code><br>
-<code>JRadioButton radio2 = new JRadioButton("Вариант 2");</code></p>
+<code>JRadioButton radio2 = new JRadioButton("Option 2");</code></p>
 
 <p><strong>Шаг 3:</strong> Добавь в группу:<br>
 <code>group.add(radio1);</code><br>
@@ -118,7 +118,7 @@ VALUES (73, 8, 2, 'Группа кнопок: объедини радиокно�
         'JRadioButton-add;JRadioButton-add',
         '', 73, 18.0, 0.0, 'ButtonGroup group = new ButtonGroup();
 JRadioButton radio1 = new JRadioButton("Option 1");
-JRadioButton radio2 = new JRadioButton("Вариант 2");
+JRadioButton radio2 = new JRadioButton("Option 2");
 group.add(radio1);
 group.add(radio2);
 add(radio1);

@@ -71,7 +71,7 @@ VALUES (406, 46, 1, 'Слушатель мыши-новичок: реагиру�
 JLabel label = new JLabel();
 panel.addMouseListener(new MouseAdapter() {
     public void mouseClicked(MouseEvent e) {
-        label.setText("Клик!");
+        label.setText("Click!");
     }
 });
 add(panel);
@@ -194,7 +194,7 @@ VALUES (408, 46, 2, 'Радио-пункт меню-мастер: обрабат
 JLabel label = new JLabel();
 item.addActionListener(e -> {
     if (item.isSelected()) {
-        label.setText("Выбрано: " + item.getText());
+        label.setText("Selected: " + item.getText());
     }
 });
 JMenu sizeMenu = new JMenu("Размер");
@@ -445,7 +445,7 @@ VALUES (414, 46, 4, 'Радио-пункт меню-мастер: обрабат
 JLabel label = new JLabel();
 item.addItemListener(e -> {
     if (e.getStateChange() == ItemEvent.SELECTED) {
-        label.setText("Выбрано!");
+        label.setText("Selected!");
     }
 });
 JMenu sizeMenu = new JMenu("Размер");
@@ -524,7 +524,7 @@ int result = JOptionPane.showOptionDialog(
 );
 JLabel label = new JLabel();
 if (result >= 0) {
-    label.setText("Выбрано: " + options[result]);
+    label.setText("Selected: " + options[result]);
 }
 add(label);');
 INSERT INTO documentation (id, text)

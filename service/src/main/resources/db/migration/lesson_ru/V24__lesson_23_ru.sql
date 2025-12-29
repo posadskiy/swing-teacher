@@ -65,8 +65,8 @@ VALUES (190, 23, 1, 'Панель инструментов-новичок: со�
         '<p><strong>Задание:</strong><br>Создай панель инструментов, добавь две кнопки и добавь на форму в BorderLayout.NORTH</p>',
         'JToolBar-add',
         '', 190, 16.0, 0.0, 'JToolBar toolbar = new JToolBar();
-toolbar.add(new JButton("Кнопка 1"));
-toolbar.add(new JButton("Кнопка 2"));
+toolbar.add(new JButton("Button 1"));
+toolbar.add(new JButton("Button 2"));
 setLayout(new BorderLayout());
 add(toolbar, BorderLayout.NORTH);');
 
@@ -116,7 +116,7 @@ VALUES (191, 23, 2, 'Панель инструментов-мастер: уст�
         '<p><strong>Задание:</strong><br>Создай панель инструментов, установи вертикальную ориентацию через setOrientation(JToolBar.VERTICAL)</p>',
         'JToolBar-setOrientation,add',
         '', 191, 17.0, 0.0, 'JToolBar toolbar = new JToolBar();
-toolbar.add(new JButton("Кнопка"));
+toolbar.add(new JButton("Button"));
 toolbar.setOrientation(JToolBar.VERTICAL);
 add(toolbar);');
 
@@ -166,7 +166,7 @@ VALUES (192, 23, 3, 'Панель инструментов-мастер: вкл�
         '<p><strong>Задание:</strong><br>Создай панель инструментов, включи плавающую панель через setFloatable(true)</p>',
         'JToolBar-setFloatable,add',
         '', 192, 17.0, 0.0, 'JToolBar toolbar = new JToolBar();
-toolbar.add(new JButton("Кнопка"));
+toolbar.add(new JButton("Button"));
 toolbar.setFloatable(true);
 add(toolbar);');
 
@@ -216,7 +216,7 @@ VALUES (193, 23, 4, 'Панель инструментов-мастер: вкл�
         '<p><strong>Задание:</strong><br>Создай панель инструментов, включи эффект наведения через setRollover(true)</p>',
         'JToolBar-setRollover,add',
         '', 193, 17.0, 0.0, 'JToolBar toolbar = new JToolBar();
-toolbar.add(new JButton("Кнопка"));
+toolbar.add(new JButton("Button"));
 toolbar.setRollover(true);
 add(toolbar);');
 
@@ -317,7 +317,7 @@ VALUES (195, 23, 6, 'Панель инструментов-мастер: уст�
         '<p><strong>Задание:</strong><br>Создай панель инструментов, установи границу через setBorder(BorderFactory.createEtchedBorder())</p>',
         'JToolBar-setBorder,add',
         '', 195, 18.0, 0.0, 'JToolBar toolbar = new JToolBar();
-toolbar.add(new JButton("Кнопка"));
+toolbar.add(new JButton("Button"));
 toolbar.setBorder(BorderFactory.createEtchedBorder());
 add(toolbar);');
 

@@ -1,13 +1,13 @@
 package com.posadskiy.swingteacherdesktop.application.service;
 
+import com.posadskiy.swingteacherdesktop.api.client.LessonApiClient;
+import com.posadskiy.swingteacherdesktop.api.client.TaskApiClient;
 import com.posadskiy.swingteacherdesktop.domain.model.CompletedTask;
 import com.posadskiy.swingteacherdesktop.domain.model.Documentation;
 import com.posadskiy.swingteacherdesktop.domain.model.Lesson;
 import com.posadskiy.swingteacherdesktop.domain.model.Task;
 import com.posadskiy.swingteacherdesktop.domain.repository.CompletedTaskRepository;
 import com.posadskiy.swingteacherdesktop.domain.repository.DocumentationRepository;
-import com.posadskiy.swingteacherdesktop.domain.repository.LessonRepository;
-import com.posadskiy.swingteacherdesktop.domain.repository.TaskRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -22,26 +22,34 @@ import java.util.Optional;
 @Service
 public class LessonService {
     
-    private final LessonRepository lessonRepository;
-    private final TaskRepository taskRepository;
     private final CompletedTaskRepository completedTaskRepository;
     private final DocumentationRepository documentationRepository;
+    private final UserService userService;
+    private final LessonApiClient lessonApiClient;
+    private final TaskApiClient taskApiClient;
     
     public LessonService(
-        LessonRepository lessonRepository,
-        TaskRepository taskRepository,
         CompletedTaskRepository completedTaskRepository,
-        DocumentationRepository documentationRepository
+        DocumentationRepository documentationRepository,
+        UserService userService,
+        LessonApiClient lessonApiClient,
+        TaskApiClient taskApiClient
     ) {
-        this.lessonRepository = lessonRepository;
-        this.taskRepository = taskRepository;
         this.completedTaskRepository = completedTaskRepository;
         this.documentationRepository = documentationRepository;
+        this.userService = userService;
+        this.lessonApiClient = lessonApiClient;
+        this.taskApiClient = taskApiClient;
     }
     
     public List<Lesson> getLessonsByCategory(int categoryId) {
+        return getLessonsByCategory(categoryId, null);
+    }
+
+    public List<Lesson> getLessonsByCategory(int categoryId, String languageCode) {
         try {
-            return lessonRepository.getLessonsByCategory(categoryId);
+            String lang = languageCode != null ? languageCode : userService.getPreferredLanguage();
+            return lessonApiClient.getLessonsByCategory(categoryId, lang);
         } catch (SQLException ex) {
             log.error("Failed to get lessons by category: {}", categoryId, ex);
             return List.of();
@@ -49,8 +57,13 @@ public class LessonService {
     }
     
     public List<Task> getTasksByLesson(int lessonId) {
+        return getTasksByLesson(lessonId, null);
+    }
+
+    public List<Task> getTasksByLesson(int lessonId, String languageCode) {
         try {
-            return taskRepository.getTasksByLesson(lessonId);
+            String lang = languageCode != null ? languageCode : userService.getPreferredLanguage();
+            return taskApiClient.getTasksByLesson(lessonId, lang);
         } catch (SQLException ex) {
             log.error("Failed to get tasks by lesson: {}", lessonId, ex);
             return List.of();

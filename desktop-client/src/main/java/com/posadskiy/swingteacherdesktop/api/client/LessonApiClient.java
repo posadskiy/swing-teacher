@@ -40,10 +40,19 @@ public class LessonApiClient implements LessonRepository {
     
     @Override
     public Optional<Lesson> getLesson(int id) throws SQLException {
+        return getLesson(id, null);
+    }
+
+    public Optional<Lesson> getLesson(int id, String languageCode) throws SQLException {
         try {
+            String uri = "/api/lessons/" + id;
+            if (languageCode != null && !languageCode.isBlank()) {
+                uri += "?lang=" + languageCode;
+            }
+            
             return Optional.ofNullable(
                     client.get()
-                        .uri("/api/lessons/{id}", id)
+                        .uri(uri)
                         .retrieve()
                         .body(LessonDto.class)
                 )
@@ -55,9 +64,18 @@ public class LessonApiClient implements LessonRepository {
     
     @Override
     public List<Lesson> getLessons() throws SQLException {
+        return getLessons(null);
+    }
+
+    public List<Lesson> getLessons(String languageCode) throws SQLException {
         try {
+            String uri = "/api/lessons";
+            if (languageCode != null && !languageCode.isBlank()) {
+                uri += "?lang=" + languageCode;
+            }
+            
             var response = client.get()
-                .uri("/api/lessons")
+                .uri(uri)
                 .retrieve()
                 .body(LessonDto[].class);
             
@@ -69,12 +87,18 @@ public class LessonApiClient implements LessonRepository {
     
     @Override
     public List<Lesson> getLessonsByCategory(int category) throws SQLException {
+        return getLessonsByCategory(category, null);
+    }
+
+    public List<Lesson> getLessonsByCategory(int category, String languageCode) throws SQLException {
         try {
+            String uri = "/api/lessons?categoryId=" + category;
+            if (languageCode != null && !languageCode.isBlank()) {
+                uri += "&lang=" + languageCode;
+            }
+            
             var response = client.get()
-                .uri(uriBuilder -> uriBuilder
-                    .path("/api/lessons")
-                    .queryParam("categoryId", category)
-                    .build())
+                .uri(uri)
                 .retrieve()
                 .body(LessonDto[].class);
             

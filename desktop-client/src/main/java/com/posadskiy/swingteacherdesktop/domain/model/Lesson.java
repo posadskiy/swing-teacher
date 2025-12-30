@@ -12,7 +12,6 @@ import java.util.Optional;
 @Builder(toBuilder = true)
 public record Lesson(
     Integer id,
-    Integer lessonNumber,
     String lessonName,
     Integer idTaskCategory,
     List<Task> tasks

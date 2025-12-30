@@ -2,13 +2,6 @@
 -- This migration contains lesson, tasks, and documentation for lesson 49
 
 -- ============================================================================
--- LESSON
--- ============================================================================
-
-INSERT INTO lesson (id, lesson_number, lesson_name, id_task_category)
-VALUES (49, 49, 'ItemListener и ChangeListener - Обработка выбора и изменений', 1);
-
--- ============================================================================
 -- TASKS AND DOCUMENTATION
 -- ============================================================================
 

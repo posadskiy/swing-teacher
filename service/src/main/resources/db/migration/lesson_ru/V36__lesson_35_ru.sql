@@ -2,13 +2,6 @@
 -- This migration contains lesson, tasks, and documentation for lesson 36
 
 -- ============================================================================
--- LESSON
--- ============================================================================
-
-INSERT INTO lesson (id, lesson_number, lesson_name, id_task_category)
-VALUES (35, 35, 'Выбор файлов (JFileChooser)', 1);
-
--- ============================================================================
 -- TASKS AND DOCUMENTATION
 -- ============================================================================
 
@@ -490,8 +483,7 @@ editorPane.addHyperlinkListener(e -> {
 });
 add(editorPane);
 add(label);');
-JScrollPane scrollPane = new JScrollPane(editorPane);
-add(scrollPane);');
+
 INSERT INTO documentation (id, text)
 VALUES (299, '<h2>🎮 Редактор-мастер: Установи тип контента!</h2>
 

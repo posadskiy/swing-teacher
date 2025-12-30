@@ -1,0 +1,63 @@
+-- Flyway migration: All lessons Spanish translations
+-- This migration contains Spanish translations for all lessons
+-- Based on corrected English translations
+
+-- ============================================================================
+-- LESSON TRANSLATIONS
+-- ============================================================================
+
+INSERT INTO lesson_translation (lesson_id, language_code, lesson_name)
+VALUES (1, 'es', 'Entrenamiento'),
+       (2, 'es', 'Botones (JButton)'),
+       (3, 'es', 'Etiquetas (JLabel)'),
+       (4, 'es', 'Campos de texto (JTextField)'),
+       (5, 'es', 'Áreas de texto (JTextArea)'),
+       (6, 'es', 'Campos de contraseña (JPasswordField)'),
+       (7, 'es', 'Casillas de verificación (JCheckBox)'),
+       (8, 'es', 'Botones de radio (JRadioButton)'),
+       (9, 'es', 'Botones de alternancia (JToggleButton)'),
+       (10, 'es', 'Cajas combinadas (JComboBox)'),
+       (11, 'es', 'Listas (JList)'),
+       (12, 'es', 'Deslizadores (JSlider)'),
+       (13, 'es', 'Spinners (JSpinner)'),
+       (14, 'es', 'Barras de progreso (JProgressBar)'),
+       (15, 'es', 'Barras de desplazamiento (JScrollBar)'),
+       (16, 'es', 'Paneles (JPanel)'),
+       (17, 'es', 'Marcos (JFrame)'),
+       (18, 'es', 'Diálogos (JDialog)'),
+       (19, 'es', 'Ventanas (JWindow)'),
+       (20, 'es', 'Paneles de desplazamiento (JScrollPane)'),
+       (21, 'es', 'Paneles divididos (JSplitPane)'),
+       (22, 'es', 'Paneles con pestañas (JTabbedPane)'),
+       (23, 'es', 'Barras de herramientas (JToolBar)'),
+       (24, 'es', 'Barras de menú (JMenuBar)'),
+       (25, 'es', 'Menús (JMenu)'),
+       (26, 'es', 'Elementos de menú (JMenuItem)'),
+       (27, 'es', 'Elementos de menú con casilla (JCheckBoxMenuItem)'),
+       (28, 'es', 'Elementos de menú con botón de radio (JRadioButtonMenuItem)'),
+       (29, 'es', 'Menús emergentes (JPopupMenu)'),
+       (30, 'es', 'Tablas (JTable)'),
+       (31, 'es', 'Árboles (JTree)'),
+       (32, 'es', 'Editor HTML/RTF (JEditorPane)'),
+       (33, 'es', 'Panel de texto (JTextPane)'),
+       (34, 'es', 'Paneles de opción (JOptionPane)'),
+       (35, 'es', 'Selectores de archivos (JFileChooser)'),
+       (36, 'es', 'Selectores de color (JColorChooser)'),
+       (37, 'es', 'BorderLayout - Diseño en bordes'),
+       (38, 'es', 'FlowLayout - Diseño en fila'),
+       (39, 'es', 'GridLayout - Diseño en cuadrícula'),
+       (40, 'es', 'GridBagLayout - Cuadrícula flexible'),
+       (41, 'es', 'BoxLayout - Diseño vertical/horizontal'),
+       (42, 'es', 'CardLayout - Cambio de paneles'),
+       (43, 'es', 'GroupLayout - Diseño por grupos'),
+       (44, 'es', 'SpringLayout - Diseño con resortes'),
+       (45, 'es', 'ActionListener - Manejo de acciones'),
+       (46, 'es', 'MouseListener - Manejo de eventos de mouse'),
+       (47, 'es', 'KeyListener - Manejo de teclado'),
+       (48, 'es', 'FocusListener - Manejo de foco'),
+       (49, 'es', 'ItemListener y ChangeListener'),
+       (50, 'es', 'Renderizado personalizado (paintComponent)'),
+       (51, 'es', 'Componentes personalizados'),
+       (52, 'es', 'Look and Feel'),
+       (53, 'es', 'Temporizadores')
+ON CONFLICT (lesson_id, language_code) DO NOTHING;

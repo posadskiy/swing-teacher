@@ -2,13 +2,6 @@
 -- This migration contains lesson, tasks, and documentation for lesson 2
 
 -- ============================================================================
--- LESSON
--- ============================================================================
-
-INSERT INTO lesson (id, lesson_number, lesson_name, id_task_category)
-VALUES (2, 2, 'Кнопки (JButton)', 1);
-
--- ============================================================================
 -- TASKS AND DOCUMENTATION
 -- ============================================================================
 
@@ -815,3 +808,13 @@ VALUES (15, 2, 14, 'Кнопка-мастер: добавь иконку при 
 button.setIcon(new ImageIcon("normal.png"));
 button.setDisabledIcon(new ImageIcon("disabled.png"));
 add(button);');
+
+-- ============================================================================
+-- TASK TRANSLATIONS (Russian)
+-- ============================================================================
+
+INSERT INTO task_translation (task_id, language_code, title, question)
+SELECT id, 'ru', title, question
+FROM task
+WHERE id_lesson = 2
+ON CONFLICT (task_id, language_code) DO NOTHING;

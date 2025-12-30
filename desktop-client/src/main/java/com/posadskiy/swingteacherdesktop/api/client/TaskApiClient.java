@@ -40,10 +40,19 @@ public class TaskApiClient implements TaskRepository {
     
     @Override
     public Optional<Task> getTask(int id) throws SQLException {
+        return getTask(id, null);
+    }
+
+    public Optional<Task> getTask(int id, String languageCode) throws SQLException {
         try {
+            String uri = "/api/tasks/" + id;
+            if (languageCode != null && !languageCode.isBlank()) {
+                uri += "?lang=" + languageCode;
+            }
+            
             return Optional.ofNullable(
                     client.get()
-                        .uri("/api/tasks/{id}", id)
+                        .uri(uri)
                         .retrieve()
                         .body(TaskDto.class)
                 )
@@ -55,8 +64,22 @@ public class TaskApiClient implements TaskRepository {
     
     @Override
     public List<Task> getTasks() throws SQLException {
+        return getTasks(null);
+    }
+
+    public List<Task> getTasks(String languageCode) throws SQLException {
         try {
-            return fetchTasks("/api/tasks");
+            String uri = "/api/tasks";
+            if (languageCode != null && !languageCode.isBlank()) {
+                uri += "?lang=" + languageCode;
+            }
+
+            var response = client.get()
+                .uri(uri)
+                .retrieve()
+                .body(TaskDto[].class);
+
+            return mapToTasks(response);
         } catch (RestClientException ex) {
             throw new SQLException("Failed to fetch tasks", ex);
         }
@@ -64,12 +87,18 @@ public class TaskApiClient implements TaskRepository {
     
     @Override
     public List<Task> getTasksByLesson(int lessonId) throws SQLException {
+        return getTasksByLesson(lessonId, null);
+    }
+
+    public List<Task> getTasksByLesson(int lessonId, String languageCode) throws SQLException {
         try {
+            String uri = "/api/tasks?lessonId=" + lessonId;
+            if (languageCode != null && !languageCode.isBlank()) {
+                uri += "&lang=" + languageCode;
+            }
+            
             var response = client.get()
-                .uri(uriBuilder -> uriBuilder
-                    .path("/api/tasks")
-                    .queryParam("lessonId", lessonId)
-                    .build())
+                .uri(uri)
                 .retrieve()
                 .body(TaskDto[].class);
             
@@ -77,15 +106,6 @@ public class TaskApiClient implements TaskRepository {
         } catch (RestClientException ex) {
             throw new SQLException("Failed to fetch tasks by lesson: " + lessonId, ex);
         }
-    }
-    
-    private List<Task> fetchTasks(String uri) {
-        var response = client.get()
-            .uri(uri)
-            .retrieve()
-            .body(TaskDto[].class);
-        
-        return mapToTasks(response);
     }
     
     private List<Task> mapToTasks(TaskDto[] response) {

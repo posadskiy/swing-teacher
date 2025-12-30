@@ -2,13 +2,6 @@
 -- This migration contains lesson, tasks, and documentation for lesson 28
 
 -- ============================================================================
--- LESSON
--- ============================================================================
-
-INSERT INTO lesson (id, lesson_number, lesson_name, id_task_category)
-VALUES (28, 28, 'Swing: Радиокнопки в меню (JRadioButtonMenuItem)', 1);
-
--- ============================================================================
 -- TASKS AND DOCUMENTATION
 -- ============================================================================
 

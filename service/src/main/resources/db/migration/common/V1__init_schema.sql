@@ -64,8 +64,6 @@ CREATE TABLE IF NOT EXISTS task
     id               BIGSERIAL PRIMARY KEY,
     id_lesson        BIGINT REFERENCES lesson (id) ON DELETE SET NULL,
     task_number      INT,
-    title            VARCHAR(255),
-    question         TEXT,
     answer           TEXT,
     imports          TEXT,
     id_documentation BIGINT REFERENCES documentation (id) ON DELETE SET NULL,
@@ -227,3 +225,93 @@ SELECT setval(pg_get_serial_sequence('task', 'id'), GREATEST((SELECT COALESCE(MA
 SELECT setval(pg_get_serial_sequence('users', 'id'), (SELECT COALESCE(MAX(id), 1) FROM users));
 SELECT setval(pg_get_serial_sequence('refresh_tokens', 'id'), (SELECT COALESCE(MAX(id), 1) FROM refresh_tokens));
 SELECT setval(pg_get_serial_sequence('completed_task', 'id'), (SELECT COALESCE(MAX(id), 1) FROM completed_task));
+
+
+CREATE TABLE IF NOT EXISTS language
+(
+    id   BIGSERIAL PRIMARY KEY,
+    code VARCHAR(10)  NOT NULL UNIQUE,
+    name VARCHAR(100) NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_language_code ON language (code);
+
+-- Insert supported languages
+INSERT INTO language (id, code, name)
+VALUES (1, 'ru', 'Russian'),
+       (2, 'en', 'English'),
+       (3, 'it', 'Italian'),
+       (4, 'es', 'Spanish')
+ON CONFLICT (code) DO NOTHING;
+
+-- ============================================================================
+-- LESSON TRANSLATION TABLE
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS lesson_translation
+(
+    id            BIGSERIAL PRIMARY KEY,
+    lesson_id     BIGINT      NOT NULL REFERENCES lesson (id) ON DELETE CASCADE,
+    language_code VARCHAR(10) NOT NULL REFERENCES language (code),
+    lesson_name   VARCHAR(255),
+    CONSTRAINT uq_lesson_translation UNIQUE (lesson_id, language_code)
+);
+
+CREATE INDEX IF NOT EXISTS idx_lesson_translation_lesson ON lesson_translation (lesson_id);
+CREATE INDEX IF NOT EXISTS idx_lesson_translation_language ON lesson_translation (language_code);
+
+-- ============================================================================
+-- TASK TRANSLATION TABLE
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS task_translation
+(
+    id            BIGSERIAL PRIMARY KEY,
+    task_id       BIGINT      NOT NULL REFERENCES task (id) ON DELETE CASCADE,
+    language_code VARCHAR(10) NOT NULL REFERENCES language (code),
+    title         VARCHAR(255),
+    question      TEXT,
+    CONSTRAINT uq_task_translation UNIQUE (task_id, language_code)
+);
+
+CREATE INDEX IF NOT EXISTS idx_task_translation_task ON task_translation (task_id);
+CREATE INDEX IF NOT EXISTS idx_task_translation_language ON task_translation (language_code);
+
+-- ============================================================================
+-- ADD PREFERRED LANGUAGE TO USERS TABLE
+-- ============================================================================
+
+ALTER TABLE users
+    ADD COLUMN IF NOT EXISTS preferred_language VARCHAR(10) REFERENCES language (code) DEFAULT 'en';
+
+CREATE INDEX IF NOT EXISTS idx_users_preferred_language ON users (preferred_language);
+
+-- ============================================================================
+-- MIGRATE EXISTING RUSSIAN DATA TO TRANSLATION TABLES
+-- ============================================================================
+
+-- Migrate lesson names to lesson_translation (Russian)
+INSERT INTO lesson_translation (lesson_id, language_code, lesson_name)
+SELECT id, 'ru', lesson_name
+FROM lesson
+WHERE lesson_name IS NOT NULL
+ON CONFLICT (lesson_id, language_code) DO NOTHING;
+
+-- Migrate task titles and questions to task_translation (Russian)
+INSERT INTO task_translation (task_id, language_code, title, question)
+SELECT id, 'ru', title, question
+FROM task
+WHERE title IS NOT NULL
+   OR question IS NOT NULL
+ON CONFLICT (task_id, language_code) DO NOTHING;
+
+-- ============================================================================
+-- UPDATE SEQUENCES
+-- ============================================================================
+
+SELECT setval(pg_get_serial_sequence('language', 'id'),
+              GREATEST((SELECT COALESCE(MAX(id), 0) FROM language), 1));
+SELECT setval(pg_get_serial_sequence('lesson_translation', 'id'),
+              GREATEST((SELECT COALESCE(MAX(id), 0) FROM lesson_translation), 1));
+SELECT setval(pg_get_serial_sequence('task_translation', 'id'),
+              GREATEST((SELECT COALESCE(MAX(id), 0) FROM task_translation), 1));

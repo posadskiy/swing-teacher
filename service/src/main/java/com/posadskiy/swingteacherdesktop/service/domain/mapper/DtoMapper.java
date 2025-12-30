@@ -4,6 +4,7 @@ import com.posadskiy.swingteacherdesktop.domain.dto.*;
 import com.posadskiy.swingteacherdesktop.service.domain.entity.*;
 
 import java.util.List;
+import java.util.function.Function;
 
 public final class DtoMapper {
     private DtoMapper() {
@@ -16,33 +17,59 @@ public final class DtoMapper {
             entity.getLogin(),
             entity.getLogins(),
             entity.getLastLogin(),
-            entity.getCompleteTraining()
+            entity.getCompleteTraining(),
+            entity.getPreferredLanguage()
         );
     }
 
     public static LessonDto toDto(LessonEntity entity) {
+        return toDto(entity, "en");
+    }
+
+    public static LessonDto toDto(LessonEntity entity, String languageCode) {
+        return toDto(entity, languageCode, null, null);
+    }
+
+    public static LessonDto toDto(
+        LessonEntity entity,
+        String languageCode,
+        String lessonName,
+        Function<TaskEntity, TaskDto> taskMapper
+    ) {
         List<TaskDto> tasks = entity.getTasks() != null
             ? entity.getTasks().stream()
-                .map(DtoMapper::toDto)
+            .map(task -> taskMapper != null ? taskMapper.apply(task) : toDto(task, languageCode))
                 .toList()
             : List.of();
         
         return new LessonDto(
             entity.getId(),
-            entity.getLessonNumber(),
-            entity.getLessonName(),
+            lessonName,
             entity.getTaskCategoryId(),
             tasks
         );
     }
 
     public static TaskDto toDto(TaskEntity entity) {
+        return toDto(entity, "en");
+    }
+
+    public static TaskDto toDto(TaskEntity entity, String languageCode) {
+        return toDto(entity, languageCode, null, null);
+    }
+
+    public static TaskDto toDto(
+        TaskEntity entity,
+        String languageCode,
+        String title,
+        String question
+    ) {
         return new TaskDto(
             entity.getId(),
             entity.getLessonId(),
             entity.getTaskNumber(),
-            entity.getTitle(),
-            entity.getQuestion(),
+            title,
+            question,
             entity.getAnswer(),
             entity.getImports(),
             entity.getSolution(),

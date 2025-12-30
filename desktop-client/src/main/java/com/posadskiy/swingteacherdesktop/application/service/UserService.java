@@ -1,5 +1,6 @@
 package com.posadskiy.swingteacherdesktop.application.service;
 
+import com.posadskiy.swingteacherdesktop.api.client.UserApiClient;
 import com.posadskiy.swingteacherdesktop.domain.model.User;
 import com.posadskiy.swingteacherdesktop.domain.repository.UserRepository;
 import com.posadskiy.swingteacherdesktop.infrastructure.state.AppState;
@@ -18,10 +19,12 @@ public class UserService {
     
     private final UserRepository userRepository;
     private final AppState appState;
-    
-    public UserService(UserRepository userRepository, AppState appState) {
+    private final UserApiClient userApiClient;
+
+    public UserService(UserRepository userRepository, AppState appState, UserApiClient userApiClient) {
         this.userRepository = userRepository;
         this.appState = appState;
+        this.userApiClient = userApiClient;
     }
     
     /**
@@ -77,6 +80,43 @@ public class UserService {
      */
     public boolean isAuthenticated() {
         return appState.isAuthenticated();
+    }
+
+    /**
+     * Gets the preferred language for the current user, or default to "en".
+     */
+    public String getPreferredLanguage() {
+        return getCurrentUser()
+            .map(User::getPreferredLanguageOrDefault)
+            .orElse("en");
+    }
+
+    /**
+     * Updates the preferred language for the current user.
+     */
+    public boolean setPreferredLanguage(String languageCode) {
+        if (!isAuthenticated()) {
+            log.warn("Cannot update language preference: user not authenticated");
+            return false;
+        }
+
+        try {
+            userApiClient.updatePreferredLanguage(languageCode);
+
+            // Update the user in app state
+            getCurrentUser().ifPresent(user -> {
+                User updatedUser = user.toBuilder()
+                    .preferredLanguage(languageCode)
+                    .build();
+                appState.setCurrentUser(updatedUser);
+            });
+
+            log.debug("Updated preferred language to: {}", languageCode);
+            return true;
+        } catch (SQLException ex) {
+            log.error("Failed to update preferred language: {}", languageCode, ex);
+            return false;
+        }
     }
 }
 

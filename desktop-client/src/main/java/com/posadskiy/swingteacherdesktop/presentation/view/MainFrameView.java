@@ -39,6 +39,7 @@ public class MainFrameView extends JFrame {
     // UI Components
     private ModernComboBox<Lesson> lessonComboBox;
     private ModernComboBox<Task> taskComboBox;
+    private LanguageSelector languageSelector;
     private ModernEditorPane questionPane;
     private ModernEditorPane documentationPane;
     private CodeEditorPanel codeEditorPanel;
@@ -73,11 +74,25 @@ public class MainFrameView extends JFrame {
 
     public void initComponents() {
         currentUser = appState.getCurrentUser();
+
+        // Initialize language selector with user's preference
+        String initialLanguage = currentUser != null && currentUser.preferredLanguage() != null
+            ? currentUser.getPreferredLanguageOrDefault()
+            : appState.getCurrentLanguage();
+        appState.setCurrentLanguage(initialLanguage);
+        
         loadInitialData();
         
         configureFrame();
         setJMenuBar(createMenuBar());
         setContentPane(createMainContent());
+
+        // Set language selector after UI is created
+        SwingUtilities.invokeLater(() -> {
+            if (languageSelector != null) {
+                languageSelector.setSelectedLanguage(appState.getCurrentLanguage());
+            }
+        });
     }
 
     private void configureFrame() {
@@ -97,7 +112,8 @@ public class MainFrameView extends JFrame {
         }
         
         try {
-            lessons = Optional.ofNullable(controller.getLessonsByCategory(taskCategory))
+            String languageCode = appState.getCurrentLanguage();
+            lessons = Optional.ofNullable(controller.getLessonsByCategory(taskCategory, languageCode))
                 .orElse(List.of());
             
             if (!lessons.isEmpty() && lessons.getFirst().id() != null) {
@@ -111,6 +127,50 @@ public class MainFrameView extends JFrame {
                 .forEach(completedTaskIds::add);
         } catch (Exception e) {
             log.warn("Failed to load initial data", e);
+        }
+    }
+
+    private void onLanguageChanged(String languageCode) {
+        log.debug("Language changed to: {}", languageCode);
+        appState.setCurrentLanguage(languageCode);
+        controller.setPreferredLanguage(languageCode);
+
+        // Reload lessons and tasks with new language
+        reloadLessonsAndTasks();
+    }
+
+    private void reloadLessonsAndTasks() {
+        if (currentUser == null || currentUser.id() == null) {
+            return;
+        }
+
+        try {
+            String languageCode = appState.getCurrentLanguage();
+            lessons = Optional.ofNullable(controller.getLessonsByCategory(taskCategory, languageCode))
+                .orElse(List.of());
+
+            // Update lesson combo box
+            lessonComboBox.removeAllItems();
+            lessons.forEach(lessonComboBox::addItem);
+
+            // Update tasks if a lesson is selected
+            int selectedIndex = lessonComboBox.getSelectedIndex();
+            if (selectedIndex >= 0 && selectedIndex < lessons.size()) {
+                tasks = Optional.ofNullable(lessons.get(selectedIndex).tasks()).orElse(List.of());
+                taskComboBox.removeAllItems();
+                tasks.forEach(taskComboBox::addItem);
+            } else {
+                tasks = List.of();
+                taskComboBox.removeAllItems();
+            }
+
+            updateQuestion();
+            updateDocumentation();
+            updateTaskCounter();
+            updateProgress();
+            updateNavigationButtons();
+        } catch (Exception e) {
+            log.warn("Failed to reload lessons and tasks", e);
         }
     }
 
@@ -221,6 +281,15 @@ public class MainFrameView extends JFrame {
         progressBar.setPreferredSize(new Dimension(0, 6));
         updateProgress();
         toolbar.add(progressBar, gbc);
+
+        // Language selector
+        gbc.gridx = 6;
+        gbc.weightx = 0;
+        gbc.insets = new Insets(0, 16, 0, 0);
+        languageSelector = new LanguageSelector(appState.getCurrentLanguage());
+        languageSelector.setPreferredSize(new Dimension(120, 40));
+        languageSelector.setOnLanguageChanged(this::onLanguageChanged);
+        toolbar.add(languageSelector, gbc);
 
         return toolbar;
     }
@@ -706,6 +775,13 @@ public class MainFrameView extends JFrame {
 
     public void setUser(User user) {
         this.currentUser = user;
+        if (user != null && user.preferredLanguage() != null) {
+            String lang = user.getPreferredLanguageOrDefault();
+            appState.setCurrentLanguage(lang);
+            if (languageSelector != null) {
+                languageSelector.setSelectedLanguage(lang);
+            }
+        }
     }
 
     public CodeEditorPanel getCodeEditorPanel() {

@@ -1,9 +1,6 @@
 package com.posadskiy.swingteacherdesktop.presentation.controller;
 
-import com.posadskiy.swingteacherdesktop.application.service.AuthenticationService;
-import com.posadskiy.swingteacherdesktop.application.service.CodeCompletionService;
-import com.posadskiy.swingteacherdesktop.application.service.LessonService;
-import com.posadskiy.swingteacherdesktop.application.service.TaskCheckingService;
+import com.posadskiy.swingteacherdesktop.application.service.*;
 import com.posadskiy.swingteacherdesktop.domain.model.CompletedTask;
 import com.posadskiy.swingteacherdesktop.domain.model.Documentation;
 import com.posadskiy.swingteacherdesktop.domain.model.Lesson;
@@ -30,21 +27,28 @@ public class MainFrameController {
     private final TaskCheckingService taskCheckingService;
     private final CodeCompletionService codeCompletionService;
     private final AuthenticationService authenticationService;
+    private final UserService userService;
 
     public MainFrameController(
         LessonService lessonService,
         TaskCheckingService taskCheckingService,
         CodeCompletionService codeCompletionService,
-        AuthenticationService authenticationService
+        AuthenticationService authenticationService,
+        UserService userService
     ) {
         this.lessonService = lessonService;
         this.taskCheckingService = taskCheckingService;
         this.codeCompletionService = codeCompletionService;
         this.authenticationService = authenticationService;
+        this.userService = userService;
     }
 
     public List<Lesson> getLessonsByCategory(int categoryId) {
         return lessonService.getLessonsByCategory(categoryId);
+    }
+
+    public List<Lesson> getLessonsByCategory(int categoryId, String languageCode) {
+        return lessonService.getLessonsByCategory(categoryId, languageCode);
     }
 
     public List<Task> getTasksByLesson(int lessonId) {
@@ -134,6 +138,20 @@ public class MainFrameController {
      */
     public void logout() {
         authenticationService.logout();
+    }
+
+    /**
+     * Gets the current preferred language.
+     */
+    public String getPreferredLanguage() {
+        return userService.getPreferredLanguage();
+    }
+
+    /**
+     * Updates the preferred language.
+     */
+    public boolean setPreferredLanguage(String languageCode) {
+        return userService.setPreferredLanguage(languageCode);
     }
 }
 

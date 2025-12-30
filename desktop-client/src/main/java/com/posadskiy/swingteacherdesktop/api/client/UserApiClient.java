@@ -93,5 +93,19 @@ public class UserApiClient implements UserRepository {
             throw new SQLException("Authentication failed for user: " + login, ex);
         }
     }
+
+    public void updatePreferredLanguage(String languageCode) throws SQLException {
+        try {
+            client.put()
+                .uri(uriBuilder -> uriBuilder
+                    .path("/api/users/me/language")
+                    .queryParam("lang", languageCode)
+                    .build())
+                .retrieve()
+                .toBodilessEntity();
+        } catch (RestClientException ex) {
+            throw new SQLException("Failed to update preferred language: " + languageCode, ex);
+        }
+    }
 }
 

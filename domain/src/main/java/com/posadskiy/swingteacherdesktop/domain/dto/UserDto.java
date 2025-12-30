@@ -6,7 +6,8 @@ public record UserDto(
     String login,
     Integer logins,
     Integer lastLogin,
-    Boolean completeTraining
+    Boolean completeTraining,
+    String preferredLanguage
 ) {
 }
 

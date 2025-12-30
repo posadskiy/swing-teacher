@@ -2,13 +2,6 @@
 -- This migration contains lesson, tasks, and documentation for lesson 1
 
 -- ============================================================================
--- LESSON
--- ============================================================================
-
-INSERT INTO lesson (id, lesson_number, lesson_name, id_task_category)
-VALUES (1, 1, 'Обучение', 1);
-
--- ============================================================================
 -- TASKS AND DOCUMENTATION
 -- ============================================================================
 
@@ -32,7 +25,11 @@ VALUES (1, '<h2>Привет!</h2>
 <strong>«Проверить»</strong>. Если это сделать, первое задание сразу засчитается. Это небольшая
 благодарность за прочтение данного текста. <em>Итак, приступай, я жду!</em></p>');
 
-INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, id_documentation, difficult, rating)
-VALUES (1, 1, 0, 'Вступление', '<p>Нажми на кнопку <strong>"Проверить"</strong>',
+INSERT INTO task (id, id_lesson, task_number, answer, imports, id_documentation, difficult, rating)
+VALUES (1, 1, 0,
         '', '', 1, 0.0, 0.0);
 
+-- Insert into translation table
+INSERT INTO task_translation (task_id, language_code, title, question)
+VALUES (1, 'ru', 'Вступление', '<p>Нажми на кнопку <strong>"Проверить"</strong>')
+ON CONFLICT (task_id, language_code) DO NOTHING;

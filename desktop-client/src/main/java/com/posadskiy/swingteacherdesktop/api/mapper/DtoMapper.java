@@ -26,6 +26,7 @@ public final class DtoMapper {
                 .logins(d.logins())
                 .lastLogin(d.lastLogin())
                 .completeTraining(d.completeTraining())
+                .preferredLanguage(d.preferredLanguage())
                 .build())
             .orElse(null);
     }
@@ -43,7 +44,6 @@ public final class DtoMapper {
                     
                 return Lesson.builder()
                     .id(toInt(d.id()))
-                    .lessonNumber(d.lessonNumber())
                     .lessonName(d.lessonName())
                     .idTaskCategory(toInt(d.taskCategoryId()))
                     .tasks(tasks)

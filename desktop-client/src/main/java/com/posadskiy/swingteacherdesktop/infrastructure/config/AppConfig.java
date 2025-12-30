@@ -100,6 +100,18 @@ public class AppConfig {
     public CodeCheckingApiClient codeCheckingApiClient(RestClient restClient) {
         return new CodeCheckingApiClient(restClient);
     }
+
+    // API Client beans (for direct injection)
+
+    @Bean
+    public LessonApiClient lessonApiClient(RestClient restClient) {
+        return new LessonApiClient(restClient);
+    }
+
+    @Bean
+    public TaskApiClient taskApiClient(RestClient restClient) {
+        return new TaskApiClient(restClient);
+    }
 }
 
 

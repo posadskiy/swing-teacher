@@ -25,5 +25,8 @@ public class UserEntity {
 
     @Column(name = "complete_training")
     private Boolean completeTraining;
+
+    @Column(name = "preferred_language", length = 10)
+    private String preferredLanguage;
 }
 

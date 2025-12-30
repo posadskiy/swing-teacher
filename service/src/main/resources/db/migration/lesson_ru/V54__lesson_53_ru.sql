@@ -2,13 +2,6 @@
 -- This migration contains lesson, tasks, and documentation for lesson 53
 
 -- ============================================================================
--- LESSON
--- ============================================================================
-
-INSERT INTO lesson (id, lesson_number, lesson_name, id_task_category)
-VALUES (53, 53, 'Timer - Таймеры', 1);
-
--- ============================================================================
 -- TASKS AND DOCUMENTATION
 -- ============================================================================
 
@@ -443,7 +436,7 @@ component.addKeyListener(new KeyAdapter() {
 });
 add(component);
 add(label);');
-add(component);');
+
 INSERT INTO documentation (id, text)
 VALUES (465, '<h2>🎮 KeyListener-мастер: Определи расположение клавиши!</h2>
 
@@ -512,4 +505,3 @@ add
 add
     (label);
 ');
-add(component);');

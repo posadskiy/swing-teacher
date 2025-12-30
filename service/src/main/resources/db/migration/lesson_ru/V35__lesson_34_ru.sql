@@ -2,13 +2,6 @@
 -- This migration contains lesson, tasks, and documentation for lesson 34
 
 -- ============================================================================
--- LESSON
--- ============================================================================
-
-INSERT INTO lesson (id, lesson_number, lesson_name, id_task_category)
-VALUES (34, 34, 'Диалоговые окна (JOptionPane)', 1);
-
--- ============================================================================
 -- TASKS AND DOCUMENTATION
 -- ============================================================================
 
@@ -193,7 +186,7 @@ VALUES (290, '<h2>🎮 Диалог-мастер: Создай кастомны�
 
 <h3>⚔️ Как достичь цели:</h3>
 <p><strong>Шаг 1:</strong> Создай массив опций:<br>
-<code>String[] options = {"Save", "Cancel", "Don't save"};</code></p>
+<code>String[] options = {"Save", "Cancel", "Don''t save"};</code></p>
 
 <p><strong>Шаг 2:</strong> Покажи диалог:<br>
 <code>int choice = JOptionPane.showOptionDialog(null, "Что делать?", "Выбор", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);</code></p>
@@ -223,7 +216,7 @@ INSERT INTO task (id, id_lesson, task_number, title, question, answer, imports, 
 VALUES (290, 34, 4, 'Диалог-мастер: создай кастомные кнопки',
         'Создай диалог с тремя опциями: "Сохранить", "Отменить", "Не сохранять" и выведи индекс выбранной опции',
         'JOptionPane',
-        '', 290, 22.0, 0.0,         'String[] options = {"Save", "Cancel", "Don't save"};
+        '', 290, 22.0, 0.0, 'String[] options = {"Save", "Cancel", "Don''t save"};
 int choice = JOptionPane.showOptionDialog(null, "Что делать?", "Выбор", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 JLabel label = new JLabel("Выбрано: " + choice);
 add(label);');

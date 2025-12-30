@@ -2,13 +2,6 @@
 -- This migration contains lesson, tasks, and documentation for lesson 3
 
 -- ============================================================================
--- LESSON
--- ============================================================================
-
-INSERT INTO lesson (id, lesson_number, lesson_name, id_task_category)
-VALUES (3, 3, 'Метки (JLabel)', 1);
-
--- ============================================================================
 -- TASKS AND DOCUMENTATION
 -- ============================================================================
 
@@ -982,3 +975,13 @@ VALUES (34, 3, 19, 'Метка-мастер: установи расстояни
 label.setIcon(new ImageIcon("icon.png"));
 label.setIconTextGap(10);
 add(label);');
+
+-- ============================================================================
+-- TASK TRANSLATIONS (Russian)
+-- ============================================================================
+
+INSERT INTO task_translation (task_id, language_code, title, question)
+SELECT id, 'ru', title, question
+FROM task
+WHERE id_lesson = 3
+ON CONFLICT (task_id, language_code) DO NOTHING;

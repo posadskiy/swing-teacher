@@ -25,8 +25,6 @@ public class TaskEntity {
     @Column(name = "task_number")
     private Integer taskNumber;
 
-    private String title;
-    private String question;
     private String answer;
     private String imports;
     private String solution;
@@ -36,5 +34,8 @@ public class TaskEntity {
 
     private Double difficult;
     private Double rating;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
+    private java.util.List<TaskTranslationEntity> translations = new java.util.ArrayList<>();
 }
 

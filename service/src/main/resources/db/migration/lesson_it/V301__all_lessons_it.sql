@@ -1,0 +1,63 @@
+-- Flyway migration: All lessons Italian translations
+-- This migration contains Italian translations for all lessons
+-- Based on corrected English translations
+
+-- ============================================================================
+-- LESSON TRANSLATIONS
+-- ============================================================================
+
+INSERT INTO lesson_translation (lesson_id, language_code, lesson_name)
+VALUES (1, 'it', 'Formazione'),
+       (2, 'it', 'Pulsanti (JButton)'),
+       (3, 'it', 'Etichette (JLabel)'),
+       (4, 'it', 'Campi di testo (JTextField)'),
+       (5, 'it', 'Aree di testo (JTextArea)'),
+       (6, 'it', 'Campi password (JPasswordField)'),
+       (7, 'it', 'Caselle di controllo (JCheckBox)'),
+       (8, 'it', 'Pulsanti radio (JRadioButton)'),
+       (9, 'it', 'Pulsanti toggle (JToggleButton)'),
+       (10, 'it', 'Menu a tendina (JComboBox)'),
+       (11, 'it', 'Elenchi (JList)'),
+       (12, 'it', 'Cursori (JSlider)'),
+       (13, 'it', 'Spinner (JSpinner)'),
+       (14, 'it', 'Barre di avanzamento (JProgressBar)'),
+       (15, 'it', 'Barre di scorrimento (JScrollBar)'),
+       (16, 'it', 'Pannelli (JPanel)'),
+       (17, 'it', 'Cornici (JFrame)'),
+       (18, 'it', 'Finestre di dialogo (JDialog)'),
+       (19, 'it', 'Finestre (JWindow)'),
+       (20, 'it', 'Pannelli di scorrimento (JScrollPane)'),
+       (21, 'it', 'Pannelli divisi (JSplitPane)'),
+       (22, 'it', 'Pannelli a schede (JTabbedPane)'),
+       (23, 'it', 'Barre degli strumenti (JToolBar)'),
+       (24, 'it', 'Barre dei menu (JMenuBar)'),
+       (25, 'it', 'Menu (JMenu)'),
+       (26, 'it', 'Voci di menu (JMenuItem)'),
+       (27, 'it', 'Voci di menu con casella (JCheckBoxMenuItem)'),
+       (28, 'it', 'Voci di menu con pulsante radio (JRadioButtonMenuItem)'),
+       (29, 'it', 'Menu contestuali (JPopupMenu)'),
+       (30, 'it', 'Tabelle (JTable)'),
+       (31, 'it', 'Alberi (JTree)'),
+       (32, 'it', 'Editor HTML/RTF (JEditorPane)'),
+       (33, 'it', 'Pannello di testo (JTextPane)'),
+       (34, 'it', 'Pannelli opzione (JOptionPane)'),
+       (35, 'it', 'Selettori di file (JFileChooser)'),
+       (36, 'it', 'Selettori di colore (JColorChooser)'),
+       (37, 'it', 'BorderLayout - Layout ai bordi'),
+       (38, 'it', 'FlowLayout - Layout in fila'),
+       (39, 'it', 'GridLayout - Layout a griglia'),
+       (40, 'it', 'GridBagLayout - Griglia flessibile'),
+       (41, 'it', 'BoxLayout - Layout verticale/orizzontale'),
+       (42, 'it', 'CardLayout - Cambio pannelli'),
+       (43, 'it', 'GroupLayout - Layout a gruppi'),
+       (44, 'it', 'SpringLayout - Layout a molle'),
+       (45, 'it', 'ActionListener - Gestione azioni'),
+       (46, 'it', 'MouseListener - Gestione eventi mouse'),
+       (47, 'it', 'KeyListener - Gestione tastiera'),
+       (48, 'it', 'FocusListener - Gestione focus'),
+       (49, 'it', 'ItemListener e ChangeListener'),
+       (50, 'it', 'Rendering personalizzato (paintComponent)'),
+       (51, 'it', 'Componenti personalizzati'),
+       (52, 'it', 'Look and Feel'),
+       (53, 'it', 'Timer')
+ON CONFLICT (lesson_id, language_code) DO NOTHING;

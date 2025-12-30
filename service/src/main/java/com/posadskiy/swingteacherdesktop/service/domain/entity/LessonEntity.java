@@ -18,12 +18,6 @@ public class LessonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "lesson_number")
-    private Integer lessonNumber;
-
-    @Column(name = "lesson_name")
-    private String lessonName;
-
     @Column(name = "id_task_category")
     private Long taskCategoryId;
 
@@ -31,5 +25,8 @@ public class LessonEntity {
     @JoinColumn(name = "id_lesson")
     @OrderBy("taskNumber ASC")
     private List<TaskEntity> tasks = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lesson")
+    private List<LessonTranslationEntity> translations = new ArrayList<>();
 }
 

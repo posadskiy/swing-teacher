@@ -32,6 +32,7 @@ public class UserService {
         user.setLogins(0);
         user.setLastLogin(0);
         user.setCompleteTraining(Boolean.FALSE);
+        user.setPreferredLanguage("en"); // Default to English
 
         try {
             return DtoMapper.toDto(userRepository.save(user));
@@ -54,6 +55,21 @@ public class UserService {
 
     public Optional<UserDto> findById(Long id) {
         return userRepository.findById(id).map(DtoMapper::toDto);
+    }
+
+    @Transactional
+    public Optional<String> getPreferredLanguage(Long userId) {
+        return userRepository.findById(userId)
+            .map(UserEntity::getPreferredLanguage)
+            .or(() -> Optional.of("en")); // Default to English if not set
+    }
+
+    @Transactional
+    public void setPreferredLanguage(Long userId, String languageCode) {
+        userRepository.findById(userId).ifPresent(user -> {
+            user.setPreferredLanguage(languageCode);
+            userRepository.save(user);
+        });
     }
 }
 

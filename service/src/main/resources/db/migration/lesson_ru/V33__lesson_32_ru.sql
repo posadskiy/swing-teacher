@@ -2,13 +2,6 @@
 -- This migration contains lesson, tasks, and documentation for lesson 32
 
 -- ============================================================================
--- LESSON
--- ============================================================================
-
-INSERT INTO lesson (id, lesson_number, lesson_name, id_task_category)
-VALUES (32, 32, 'Редактор HTML/RTF (JEditorPane)', 1);
-
--- ============================================================================
 -- TASKS AND DOCUMENTATION
 -- ============================================================================
 

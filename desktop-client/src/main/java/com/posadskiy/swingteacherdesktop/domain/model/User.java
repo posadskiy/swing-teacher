@@ -16,7 +16,8 @@ public record User(
     String password,
     Integer logins,
     Integer lastLogin,
-    Boolean completeTraining
+    Boolean completeTraining,
+    String preferredLanguage
 ) implements Serializable {
     
     private static final long serialVersionUID = -5527566248002496042L;
@@ -25,7 +26,7 @@ public record User(
      * Creates an empty user (for compatibility with legacy code).
      */
     public User() {
-        this(null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null);
     }
     
     public boolean hasCompletedTraining() {
@@ -38,6 +39,10 @@ public record User(
     
     public boolean isAuthenticated() {
         return id != null && login != null;
+    }
+
+    public String getPreferredLanguageOrDefault() {
+        return preferredLanguage != null && !preferredLanguage.isBlank() ? preferredLanguage : "en";
     }
 }
 

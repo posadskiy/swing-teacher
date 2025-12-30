@@ -42,5 +42,22 @@ public class UserController {
             .map(ResponseEntity::ok)
             .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @org.springframework.web.bind.annotation.PutMapping("/me/language")
+    public ResponseEntity<Void> updatePreferredLanguage(
+        @org.springframework.web.bind.annotation.RequestParam("lang") String languageCode,
+        Authentication authentication
+    ) {
+        if (authentication == null || authentication.getPrincipal() == null) {
+            return ResponseEntity.status(401).build();
+        }
+        try {
+            Long userId = Long.parseLong(authentication.getPrincipal().toString());
+            userService.setPreferredLanguage(userId, languageCode);
+            return ResponseEntity.ok().build();
+        } catch (NumberFormatException e) {
+            return ResponseEntity.status(401).build();
+        }
+    }
 }
 

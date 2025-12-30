@@ -19,7 +19,7 @@ class Lesson40Test {
     @Test
     void testTask1() {
         String expectedSolution = "GridBagLayout-add";
-        String userSolution = "setLayout(new GridBagLayout());\nGridBagConstraints gbc = new GridBagConstraints();\ngbc.gridx = 0;\ngbc.gridy = 0;\ngbc.fill = GridBagConstraints.HORIZONTAL;\nJButton button = new JButton(\"Кнопка\");\nadd(button, gbc);";
+        String userSolution = "setLayout(new GridBagLayout());\nGridBagConstraints gbc = new GridBagConstraints();\ngbc.gridx = 0;\ngbc.gridy = 0;\ngbc.fill = GridBagConstraints.HORIZONTAL;\nJButton button = new JButton(\"Button\");\nadd(button, gbc);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -27,7 +27,7 @@ class Lesson40Test {
     @Test
     void testTask2() {
         String expectedSolution = "GridBagLayout-add";
-        String userSolution = "setLayout(new GridBagLayout());\nGridBagConstraints gbc = new GridBagConstraints();\ngbc.gridx = 0;\ngbc.gridy = 0;\ngbc.weightx = 1.0;\ngbc.weighty = 1.0;\ngbc.fill = GridBagConstraints.BOTH;\nJButton button = new JButton(\"Кнопка\");\nadd(button, gbc);";
+        String userSolution = "setLayout(new GridBagLayout());\nGridBagConstraints gbc = new GridBagConstraints();\ngbc.gridx = 0;\ngbc.gridy = 0;\ngbc.weightx = 1.0;\ngbc.weighty = 1.0;\ngbc.fill = GridBagConstraints.BOTH;\nJButton button = new JButton(\"Button\");\nadd(button, gbc);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -35,15 +35,15 @@ class Lesson40Test {
     @Test
     void testTask2_2() {
         String expectedSolution = "FlowLayout-setLayout";
-        String userSolution = "FlowLayout layout = new FlowLayout(FlowLayout.CENTER);\nsetLayout(layout);\nJButton button = new JButton(\"Кнопка\");\nadd(button);";
+        String userSolution = "FlowLayout layout = new FlowLayout(FlowLayout.CENTER);\nsetLayout(layout);\nJButton button = new JButton(\"Button\");\nadd(button);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
 
     @Test
     void testTask3() {
-        String expectedSolution = "GridBagConstraints-gridwidth-gridheight-add";
-        String userSolution = "setLayout(new GridBagLayout());\nGridBagConstraints gbc = new GridBagConstraints();\ngbc.gridx = 0;\ngbc.gridy = 0;\ngbc.gridwidth = 2;\ngbc.gridheight = 2;\ngbc.fill = GridBagConstraints.BOTH;\nJButton button = new JButton(\"Кнопка\");\nadd(button, gbc);";
+        String expectedSolution = "GridBagConstraints-gridx,gridy,gridwidth,gridheight,fill";
+        String userSolution = "setLayout(new GridBagLayout());\nGridBagConstraints gbc = new GridBagConstraints();\ngbc.gridx = 0;\ngbc.gridy = 0;\ngbc.gridwidth = 2;\ngbc.gridheight = 2;\ngbc.fill = GridBagConstraints.BOTH;\nJButton button = new JButton(\"Button\");\nadd(button, gbc);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -51,7 +51,7 @@ class Lesson40Test {
     @Test
     void testTask3_2() {
         String expectedSolution = "FlowLayout-setHgap,setVgap,add";
-        String userSolution = "FlowLayout layout = new FlowLayout();\nlayout.setHgap(10);\nlayout.setVgap(10);\nsetLayout(layout);\nJButton button = new JButton(\"Кнопка\");\nadd(button);";
+        String userSolution = "FlowLayout layout = new FlowLayout();\nlayout.setHgap(10);\nlayout.setVgap(10);\nsetLayout(layout);\nJButton button = new JButton(\"Button\");\nadd(button);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -59,7 +59,7 @@ class Lesson40Test {
     @Test
     void testTask7() {
         String expectedSolution = "GridBagLayout-add";
-        String userSolution = "setLayout(new GridBagLayout());\nGridBagConstraints constraints = new GridBagConstraints();\nconstraints.gridx = 0;\nconstraints.gridy = 0;\nconstraints.anchor = GridBagConstraints.CENTER;\nJButton button = new JButton(\"Кнопка\");\nadd(button, constraints);";
+        String userSolution = "setLayout(new GridBagLayout());\nGridBagConstraints constraints = new GridBagConstraints();\nconstraints.gridx = 0;\nconstraints.gridy = 0;\nconstraints.anchor = GridBagConstraints.CENTER;\nJButton button = new JButton(\"Button\");\nadd(button, constraints);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -75,7 +75,7 @@ class Lesson40Test {
     @Test
     void testTask8_2() {
         String expectedSolution = "GridBagLayout-add";
-        String userSolution = "setLayout(new GridBagLayout());\nGridBagConstraints constraints = new GridBagConstraints();\nconstraints.gridx = 0;\nconstraints.gridy = 0;\nconstraints.fill = GridBagConstraints.BOTH;\nJButton button = new JButton(\"Кнопка\");\nadd(button, constraints);";
+        String userSolution = "setLayout(new GridBagLayout());\nGridBagConstraints constraints = new GridBagConstraints();\nconstraints.gridx = 0;\nconstraints.gridy = 0;\nconstraints.fill = GridBagConstraints.BOTH;\nJButton button = new JButton(\"Button\");\nadd(button, constraints);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

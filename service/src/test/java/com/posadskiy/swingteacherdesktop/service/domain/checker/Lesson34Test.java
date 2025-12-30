@@ -43,7 +43,7 @@ class Lesson34Test {
     @Test
     void testTask4() {
         String expectedSolution = "JOptionPane";
-        String userSolution = "String[] options = {\"Save\", \"Cancel\", \"Don't save\"};\nint choice = JOptionPane.showOptionDialog(null, \"Что делать?\", \"Выбор\", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);\nJLabel label = new JLabel(\"Выбрано: \" + choice);\nadd(label);";
+        String userSolution = "String[] options = {\"Save\", \"Cancel\", \"Don't save\"};\nint choice = JOptionPane.showOptionDialog(null, \"What to do?\", \"Choice\", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);\nJLabel label = new JLabel(\"Selected: \" + choice);\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

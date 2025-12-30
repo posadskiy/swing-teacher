@@ -19,7 +19,7 @@ class Lesson16Test {
     @Test
     void testTask1() {
         String expectedSolution = "JPanel-add";
-        String userSolution = "JPanel panel = new JPanel();\nJButton button = new JButton(\"Кнопка\");\npanel.add(button);\nadd(panel);";
+        String userSolution = "JPanel panel = new JPanel();\nJButton button = new JButton(\"Button\");\npanel.add(button);\nadd(panel);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -27,7 +27,7 @@ class Lesson16Test {
     @Test
     void testTask2() {
         String expectedSolution = "JPanel-setLayout,add;JButton-add;JButton-add";
-        String userSolution = "JPanel panel = new JPanel();\npanel.setLayout(new FlowLayout());\nJButton button1 = new JButton(\"Кнопка 1\");\nJButton button2 = new JButton(\"Кнопка 2\");\npanel.add(button1);\npanel.add(button2);\nadd(panel);";
+        String userSolution = "JPanel panel = new JPanel();\npanel.setLayout(new FlowLayout());\nJButton button1 = new JButton(\"Button 1\");\nJButton button2 = new JButton(\"Button 2\");\npanel.add(button1);\npanel.add(button2);\nadd(panel);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -51,7 +51,7 @@ class Lesson16Test {
     @Test
     void testTask5() {
         String expectedSolution = "JSpinner-addChangeListener,getValue,add";
-        String userSolution = "JSpinner spinner = new JSpinner();\nJLabel label = new JLabel();\nspinner.addChangeListener(e -> {\n    Object value = spinner.getValue();\n    label.setText(\"Значение: \" + value);\n});\nadd(spinner);\nadd(label);";
+        String userSolution = "JSpinner spinner = new JSpinner();\nJLabel label = new JLabel();\nspinner.addChangeListener(e -> {\n    Object value = spinner.getValue();\n    label.setText(\"Value: \" + value);\n});\nadd(spinner);\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

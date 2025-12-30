@@ -19,7 +19,7 @@ class Lesson22Test {
     @Test
     void testTask1() {
         String expectedSolution = "JTabbedPane-addTab,add";
-        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\ntabbedPane.addTab(\"Вкладка 1\", new JPanel());\ntabbedPane.addTab(\"Вкладка 2\", new JPanel());\nadd(tabbedPane);";
+        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\ntabbedPane.addTab(\"Tab 1\", new JPanel());\ntabbedPane.addTab(\"Tab 2\", new JPanel());\nadd(tabbedPane);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -27,7 +27,7 @@ class Lesson22Test {
     @Test
     void testTask2() {
         String expectedSolution = "JTabbedPane-addTab,setTabPlacement,add";
-        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\ntabbedPane.addTab(\"Вкладка 1\", new JPanel());\ntabbedPane.setTabPlacement(JTabbedPane.BOTTOM);\nadd(tabbedPane);";
+        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\ntabbedPane.addTab(\"Tab 1\", new JPanel());\ntabbedPane.setTabPlacement(JTabbedPane.BOTTOM);\nadd(tabbedPane);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -35,7 +35,7 @@ class Lesson22Test {
     @Test
     void testTask3() {
         String expectedSolution = "JTabbedPane-addTab,addTab,setSelectedIndex,add";
-        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\ntabbedPane.addTab(\"Вкладка 1\", new JPanel());\ntabbedPane.addTab(\"Вкладка 2\", new JPanel());\ntabbedPane.setSelectedIndex(1);\nadd(tabbedPane);";
+        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\ntabbedPane.addTab(\"Tab 1\", new JPanel());\ntabbedPane.addTab(\"Tab 2\", new JPanel());\ntabbedPane.setSelectedIndex(1);\nadd(tabbedPane);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -43,7 +43,7 @@ class Lesson22Test {
     @Test
     void testTask4() {
         String expectedSolution = "JTabbedPane-addTab,add";
-        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\nImageIcon icon = new ImageIcon(\"icon.png\");\ntabbedPane.addTab(\"Вкладка\", icon, new JPanel());\nadd(tabbedPane);";
+        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\nImageIcon icon = new ImageIcon(\"icon.png\");\ntabbedPane.addTab(\"Tab\", icon, new JPanel());\nadd(tabbedPane);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -51,7 +51,7 @@ class Lesson22Test {
     @Test
     void testTask5() {
         String expectedSolution = "JTabbedPane-addTab,setToolTipTextAt,add";
-        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\ntabbedPane.addTab(\"Вкладка 1\", new JPanel());\ntabbedPane.setToolTipTextAt(0, \"Первая вкладка\");\nadd(tabbedPane);";
+        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\ntabbedPane.addTab(\"Tab 1\", new JPanel());\ntabbedPane.setToolTipTextAt(0, \"First tab\");\nadd(tabbedPane);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -59,7 +59,7 @@ class Lesson22Test {
     @Test
     void testTask6() {
         String expectedSolution = "JTabbedPane-setEnabledAt";
-        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\ntabbedPane.addTab(\"Вкладка 1\", new JPanel());\ntabbedPane.setEnabledAt(0, false);\nadd(tabbedPane);";
+        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\ntabbedPane.addTab(\"Tab 1\", new JPanel());\ntabbedPane.setEnabledAt(0, false);\nadd(tabbedPane);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -67,7 +67,7 @@ class Lesson22Test {
     @Test
     void testTask7() {
         String expectedSolution = "JTabbedPane-addChangeListener,getSelectedIndex,add";
-        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\ntabbedPane.addTab(\"Вкладка 1\", new JPanel());\ntabbedPane.addTab(\"Вкладка 2\", new JPanel());\nJLabel label = new JLabel();\ntabbedPane.addChangeListener(e -> {\n    int index = tabbedPane.getSelectedIndex();\n    label.setText(\"Selected tab: \" + index);\n});\nadd(tabbedPane);\nadd(label);";
+        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\ntabbedPane.addTab(\"Tab 1\", new JPanel());\ntabbedPane.addTab(\"Tab 2\", new JPanel());\nJLabel label = new JLabel();\ntabbedPane.addChangeListener(e -> {\n    int index = tabbedPane.getSelectedIndex();\n    label.setText(\"Selected tab: \" + index);\n});\nadd(tabbedPane);\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

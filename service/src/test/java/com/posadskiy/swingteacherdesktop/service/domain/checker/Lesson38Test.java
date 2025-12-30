@@ -19,7 +19,7 @@ class Lesson38Test {
     @Test
     void testTask1() {
         String expectedSolution = "FlowLayout-add";
-        String userSolution = "setLayout(new FlowLayout());\nJButton button1 = new JButton(\"Кнопка 1\");\nJButton button2 = new JButton(\"Кнопка 2\");\nJButton button3 = new JButton(\"Кнопка 3\");\nadd(button1);\nadd(button2);\nadd(button3);";
+        String userSolution = "setLayout(new FlowLayout());\nJButton button1 = new JButton(\"Button 1\");\nJButton button2 = new JButton(\"Button 2\");\nJButton button3 = new JButton(\"Button 3\");\nadd(button1);\nadd(button2);\nadd(button3);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -75,7 +75,7 @@ class Lesson38Test {
     @Test
     void testTask6_2() {
         String expectedSolution = "JRadioButtonMenuItem-setActionCommand,getActionCommand,add";
-        String userSolution = "JRadioButtonMenuItem radioButtonMenuItem = new JRadioButtonMenuItem(\"Theme\");\nradioButtonMenuItem.setActionCommand(\"RADIO\");\nJLabel label = new JLabel();\nradioButtonMenuItem.addActionListener(e -> {\n    String cmd = e.getActionCommand();\n    label.setText(\"Команда: \" + cmd);\n});\nJMenu viewMenu = new JMenu(\"View\");\nviewMenu.add(radioButtonMenuItem);\nJMenuBar menuBar = new JMenuBar();\nmenuBar.add(viewMenu);\nsetJMenuBar(menuBar);";
+        String userSolution = "JRadioButtonMenuItem radioButtonMenuItem = new JRadioButtonMenuItem(\"Theme\");\nradioButtonMenuItem.setActionCommand(\"RADIO\");\nJLabel label = new JLabel();\nradioButtonMenuItem.addActionListener(e -> {\n    String cmd = e.getActionCommand();\n    label.setText(\"Command: \" + cmd);\n});\nJMenu viewMenu = new JMenu(\"View\");\nviewMenu.add(radioButtonMenuItem);\nJMenuBar menuBar = new JMenuBar();\nmenuBar.add(viewMenu);\nsetJMenuBar(menuBar);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

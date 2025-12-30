@@ -19,7 +19,7 @@ class Lesson24Test {
     @Test
     void testTask1() {
         String expectedSolution = "JMenuBar-add,setJMenuBar";
-        String userSolution = "JMenuBar menuBar = new JMenuBar();\nJMenu fileMenu = new JMenu(\"Файл\");\nmenuBar.add(fileMenu);\nsetJMenuBar(menuBar);";
+        String userSolution = "JMenuBar menuBar = new JMenuBar();\nJMenu fileMenu = new JMenu(\"File\");\nmenuBar.add(fileMenu);\nsetJMenuBar(menuBar);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

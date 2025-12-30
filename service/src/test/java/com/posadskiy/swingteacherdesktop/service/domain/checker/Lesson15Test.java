@@ -83,7 +83,7 @@ class Lesson15Test {
     @Test
     void testTask9() {
         String expectedSolution = "JScrollBar-setToolTipText";
-        String userSolution = "JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL, 0, 10, 0, 100);\nscrollBar.setToolTipText(\"Прокрутка контента\");\nadd(scrollBar);";
+        String userSolution = "JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL, 0, 10, 0, 100);\nscrollBar.setToolTipText(\"Scroll content\");\nadd(scrollBar);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -91,7 +91,7 @@ class Lesson15Test {
     @Test
     void testTask10() {
         String expectedSolution = "JScrollBar-addAdjustmentListener,getValue,add";
-        String userSolution = "JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL, 0, 10, 0, 100);\nJLabel label = new JLabel();\nscrollBar.addAdjustmentListener(e -> {\n    int value = scrollBar.getValue();\n    label.setText(\"Позиция: \" + value);\n});\nadd(scrollBar);\nadd(label);";
+        String userSolution = "JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL, 0, 10, 0, 100);\nJLabel label = new JLabel();\nscrollBar.addAdjustmentListener(e -> {\n    int value = scrollBar.getValue();\n    label.setText(\"Position: \" + value);\n});\nadd(scrollBar);\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

@@ -19,7 +19,7 @@ class Lesson28Test {
     @Test
     void testTask1() {
         String expectedSolution = "JRadioButtonMenuItem-add";
-        String userSolution = "ButtonGroup group = new ButtonGroup();\nJRadioButtonMenuItem item1 = new JRadioButtonMenuItem(\"Маленький\");\nJRadioButtonMenuItem item2 = new JRadioButtonMenuItem(\"Средний\");\ngroup.add(item1);\ngroup.add(item2);\nJMenu menu = new JMenu(\"Размер\");\nmenu.add(item1);\nmenu.add(item2);\nJMenuBar menuBar = new JMenuBar();\nmenuBar.add(menu);\nsetJMenuBar(menuBar);";
+        String userSolution = "ButtonGroup group = new ButtonGroup();\nJRadioButtonMenuItem item1 = new JRadioButtonMenuItem(\"Small\");\nJRadioButtonMenuItem item2 = new JRadioButtonMenuItem(\"Medium\");\ngroup.add(item1);\ngroup.add(item2);\nJMenu menu = new JMenu(\"Size\");\nmenu.add(item1);\nmenu.add(item2);\nJMenuBar menuBar = new JMenuBar();\nmenuBar.add(menu);\nsetJMenuBar(menuBar);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -35,7 +35,7 @@ class Lesson28Test {
     @Test
     void testTask3() {
         String expectedSolution = "JRadioButtonMenuItem-add";
-        String userSolution = "ButtonGroup group = new ButtonGroup();\nJRadioButtonMenuItem item1 = new JRadioButtonMenuItem(\"Маленький\");\nJRadioButtonMenuItem item2 = new JRadioButtonMenuItem(\"Средний\");\nJRadioButtonMenuItem item3 = new JRadioButtonMenuItem(\"Большой\");\ngroup.add(item1);\ngroup.add(item2);\ngroup.add(item3);\nJMenu menu = new JMenu(\"Размер\");\nmenu.add(item1);\nmenu.add(item2);\nmenu.add(item3);\nJMenuBar menuBar = new JMenuBar();\nmenuBar.add(menu);\nsetJMenuBar(menuBar);";
+        String userSolution = "ButtonGroup group = new ButtonGroup();\nJRadioButtonMenuItem item1 = new JRadioButtonMenuItem(\"Small\");\nJRadioButtonMenuItem item2 = new JRadioButtonMenuItem(\"Medium\");\nJRadioButtonMenuItem item3 = new JRadioButtonMenuItem(\"Large\");\ngroup.add(item1);\ngroup.add(item2);\ngroup.add(item3);\nJMenu menu = new JMenu(\"Size\");\nmenu.add(item1);\nmenu.add(item2);\nmenu.add(item3);\nJMenuBar menuBar = new JMenuBar();\nmenuBar.add(menu);\nsetJMenuBar(menuBar);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -75,7 +75,7 @@ class Lesson28Test {
     @Test
     void testTask8() {
         String expectedSolution = "JRadioButtonMenuItem-addActionListener";
-        String userSolution = "JRadioButtonMenuItem item = new JRadioButtonMenuItem(\"Small\");\nJLabel label = new JLabel();\nitem.addActionListener(e -> {\n    label.setText(\"Selected option: \" + item.getText());\n});\nJMenu menu = new JMenu(\"Размер\");\nmenu.add(item);\nJMenuBar menuBar = new JMenuBar();\nmenuBar.add(menu);\nsetJMenuBar(menuBar);";
+        String userSolution = "JRadioButtonMenuItem item = new JRadioButtonMenuItem(\"Small\");\nJLabel label = new JLabel();\nitem.addActionListener(e -> {\n    label.setText(\"Selected option: \" + item.getText());\n});\nJMenu menu = new JMenu(\"Size\");\nmenu.add(item);\nJMenuBar menuBar = new JMenuBar();\nmenuBar.add(menu);\nsetJMenuBar(menuBar);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

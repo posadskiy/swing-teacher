@@ -69,7 +69,7 @@ class Lesson6Test {
     @Test
     void testLesson6Task6() {
         String expectedSolution = "JTextArea-append,add";
-        String userSolution = "JTextArea textArea = new JTextArea();\ntextArea.append(\"Новая строка\\n\");\nadd(textArea);";
+        String userSolution = "JTextArea textArea = new JTextArea();\ntextArea.append(\"New line\\n\");\nadd(textArea);";
 
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
 
@@ -79,7 +79,7 @@ class Lesson6Test {
     @Test
     void testLesson6Task7() {
         String expectedSolution = "JTextArea-insert,add";
-        String userSolution = "JTextArea textArea = new JTextArea(\"Text\");\ntextArea.insert(\"Вставленный текст\", 0);\nadd(textArea);";
+        String userSolution = "JTextArea textArea = new JTextArea(\"Text\");\ntextArea.insert(\"Inserted text\", 0);\nadd(textArea);";
 
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
 
@@ -89,7 +89,7 @@ class Lesson6Test {
     @Test
     void testLesson6Task8() {
         String expectedSolution = "JTextArea-replaceRange,add";
-        String userSolution = "JTextArea textArea = new JTextArea(\"Old text\");\ntextArea.replaceRange(\"Новый текст\", 0, 5);\nadd(textArea);";
+        String userSolution = "JTextArea textArea = new JTextArea(\"Old text\");\ntextArea.replaceRange(\"New text\", 0, 5);\nadd(textArea);";
 
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
 
@@ -99,7 +99,7 @@ class Lesson6Test {
     @Test
     void testLesson6Task9() {
         String expectedSolution = "JTextArea-getLineCount,add";
-        String userSolution = "JTextArea textArea = new JTextArea(\"Line 1\\nLine 2\");\nint lines = textArea.getLineCount();\nJLabel label = new JLabel(\"Количество строк: \" + lines);\nadd(label);\nadd(textArea);";
+        String userSolution = "JTextArea textArea = new JTextArea(\"Line 1\\nLine 2\");\nint lines = textArea.getLineCount();\nJLabel label = new JLabel(\"Line count: \" + lines);\nadd(label);\nadd(textArea);";
 
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
 

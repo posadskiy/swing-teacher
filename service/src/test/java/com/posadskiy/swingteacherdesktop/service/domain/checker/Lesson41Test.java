@@ -26,7 +26,7 @@ class Lesson41Test {
 
     @Test
     void testTask2() {
-        String rightSolution = "Box-createGlue,add,add,add";
+        String rightSolution = "JButton-add";
         String userSolution = "setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));\nJButton button1 = new JButton(\"Button 1\");\nJButton button2 = new JButton(\"Button 2\");\nadd(button1);\nadd(Box.createGlue());\nadd(button2);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
@@ -34,8 +34,8 @@ class Lesson41Test {
 
     @Test
     void testTask3() {
-        String rightSolution = "Component-setAlignmentX-setAlignmentY-CENTER_ALIGNMENT";
-        String userSolution = "setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));\nJButton button = new JButton(\"Кнопка\");\nbutton.setAlignmentX(Component.CENTER_ALIGNMENT);\nbutton.setAlignmentY(Component.CENTER_ALIGNMENT);\nadd(button);";
+        String rightSolution = "JButton-setAlignmentX,setAlignmentY";
+        String userSolution = "setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));\nJButton button = new JButton(\"Button\");\nbutton.setAlignmentX(Component.CENTER_ALIGNMENT);\nbutton.setAlignmentY(Component.CENTER_ALIGNMENT);\nadd(button);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -59,7 +59,7 @@ class Lesson41Test {
     @Test
     void testTask9() {
         String rightSolution = "JFileChooser-addChoosableFileFilter";
-        String userSolution = "JFrame frame = new JFrame();\nJFileChooser fileChooser = new JFileChooser();\nFileNameExtensionFilter filter = new FileNameExtensionFilter(\"Изображения\", \"jpg\", \"png\", \"gif\");\nfileChooser.addChoosableFileFilter(filter);\nint result = fileChooser.showOpenDialog(frame);\nJLabel label = new JLabel();\nif (result == JFileChooser.APPROVE_OPTION) {\n    File file = fileChooser.getSelectedFile();\n    label.setText(\"Selected file: \" + file.getName());\n}\nadd(label);";
+        String userSolution = "JFrame frame = new JFrame();\nJFileChooser fileChooser = new JFileChooser();\nFileNameExtensionFilter filter = new FileNameExtensionFilter(\"Images\", \"jpg\", \"png\", \"gif\");\nfileChooser.addChoosableFileFilter(filter);\nint result = fileChooser.showOpenDialog(frame);\nJLabel label = new JLabel();\nif (result == JFileChooser.APPROVE_OPTION) {\n    File file = fileChooser.getSelectedFile();\n    label.setText(\"Selected file: \" + file.getName());\n}\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
     }

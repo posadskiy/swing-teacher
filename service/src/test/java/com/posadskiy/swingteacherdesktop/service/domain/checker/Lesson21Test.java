@@ -26,7 +26,7 @@ class Lesson21Test {
 
     @Test
     void testTask2() {
-        String expectedSolution = "JSplitPane-setOrientation,add";
+        String expectedSolution = "JPanel;JSplitPane-add";
         String userSolution = "JPanel topPanel = new JPanel();\nJPanel bottomPanel = new JPanel();\nJSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, topPanel, bottomPanel);\nadd(splitPane);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());

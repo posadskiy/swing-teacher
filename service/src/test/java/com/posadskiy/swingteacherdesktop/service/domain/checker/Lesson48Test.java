@@ -26,7 +26,7 @@ class Lesson48Test {
 
     @Test
     void testTask2() {
-        String rightSolution = "FocusListener-focusLost-getText-setBackground";
+        String rightSolution = "JTextField-addFocusListener,add";
         String userSolution = "JTextField textField = new JTextField();\nJLabel label = new JLabel();\ntextField.addFocusListener(new FocusListener() {\n    @Override\n    public void focusGained(FocusEvent e) {}\n    @Override\n    public void focusLost(FocusEvent e) {\n        String text = textField.getText();\n        if (text.isEmpty()) {\n            textField.setBackground(Color.RED);\n            label.setText(\"Field cannot be empty!\");\n        } else {\n            textField.setBackground(Color.WHITE);\n        }\n    }\n});\nadd(textField);\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
@@ -34,7 +34,7 @@ class Lesson48Test {
 
     @Test
     void testTask3() {
-        String rightSolution = "Component-setFocusable-setFocusTraversalKeysEnabled-requestFocus";
+        String rightSolution = "JTextField-setFocusable,setFocusTraversalKeysEnabled,requestFocus";
         String userSolution = "JTextField component = new JTextField();\ncomponent.setFocusable(true);\ncomponent.setFocusTraversalKeysEnabled(true);\ncomponent.requestFocus();\nadd(component);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());

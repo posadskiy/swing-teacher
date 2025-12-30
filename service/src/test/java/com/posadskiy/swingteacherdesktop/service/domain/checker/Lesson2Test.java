@@ -69,7 +69,7 @@ class Lesson2Test {
     @Test
     void testLesson2Task6() {
         String expectedSolution = "JButton-setMnemonic,setText,add";
-        String userSolution = "JButton button = new JButton();\nbutton.setMnemonic(KeyEvent.VK_O);\nbutton.setText(\"<html>Кн<u>о</u>пка</html>\");\nadd(button);";
+        String userSolution = "JButton button = new JButton();\nbutton.setMnemonic(KeyEvent.VK_O);\nbutton.setText(\"<html>B<u>o</u>tton</html>\");\nadd(button);";
 
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
 
@@ -89,7 +89,7 @@ class Lesson2Test {
     @Test
     void testLesson2Task8() {
         String expectedSolution = "JButton-setMnemonic,setText,add";
-        String userSolution = "JButton button = new JButton();\nbutton.setMnemonic(KeyEvent.VK_S);\nbutton.setText(\"Кнопка &S\");\nadd(button);";
+        String userSolution = "JButton button = new JButton();\nbutton.setMnemonic(KeyEvent.VK_S);\nbutton.setText(\"Button &S\");\nadd(button);";
 
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
 

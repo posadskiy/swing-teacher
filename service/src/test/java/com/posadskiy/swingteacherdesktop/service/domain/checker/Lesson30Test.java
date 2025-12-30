@@ -19,7 +19,7 @@ class Lesson30Test {
     @Test
     void testTask1() {
         String expectedSolution = "JScrollPane-add";
-        String userSolution = "String[] columns = {\"Name\", \"Age\"};\nString[][] data = {{\"Иван\", \"25\"}, {\"Мария\", \"30\"}};\nJTable table = new JTable(data, columns);\nJScrollPane scrollPane = new JScrollPane(table);\nadd(scrollPane);";
+        String userSolution = "String[] columns = {\"Name\", \"Age\"};\nString[][] data = {{\"John\", \"25\"}, {\"Mary\", \"30\"}};\nJTable table = new JTable(data, columns);\nJScrollPane scrollPane = new JScrollPane(table);\nadd(scrollPane);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

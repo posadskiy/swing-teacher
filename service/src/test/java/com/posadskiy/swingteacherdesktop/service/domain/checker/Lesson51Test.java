@@ -18,7 +18,7 @@ class Lesson51Test {
 
     @Test
     void testTask1() {
-        String rightSolution = "JComponent-setPreferredSize,paintComponent,add";
+        String rightSolution = "MyComponent-setPreferredSize,paintComponent,add";
         String userSolution = "class MyComponent extends JComponent {\n    public MyComponent() {\n        setPreferredSize(new Dimension(200, 100));\n    }\n    @Override\n    protected void paintComponent(Graphics g) {\n        super.paintComponent(g);\n    }\n}\nMyComponent comp = new MyComponent();\nadd(comp);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
@@ -26,7 +26,7 @@ class Lesson51Test {
 
     @Test
     void testTask2() {
-        String rightSolution = "JComponent-setPreferredSize,add";
+        String rightSolution = "MyComponent-setPreferredSize,add";
         String userSolution = "class MyComponent extends JComponent {\n    public MyComponent() {\n        setPreferredSize(new Dimension(300, 200));\n    }\n}\nMyComponent comp = new MyComponent();\nadd(comp);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
@@ -34,7 +34,7 @@ class Lesson51Test {
 
     @Test
     void testTask3() {
-        String rightSolution = "JComponent-addMouseListener,add";
+        String rightSolution = "MyComponent-addMouseListener,add";
         String userSolution = "class MyComponent extends JComponent {\n    public MyComponent() {\n        JLabel label = new JLabel();\n        addMouseListener(new MouseAdapter() {\n            @Override\n            public void mouseClicked(MouseEvent e) {\n                label.setText(\"Click!\");\n            }\n        });\n        add(label);\n    }\n}\nMyComponent comp = new MyComponent();\nadd(comp);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());

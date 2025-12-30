@@ -18,7 +18,7 @@ class Lesson50Test {
 
     @Test
     void testTask1() {
-        String rightSolution = "JComponent-paintComponent,drawString,add";
+        String rightSolution = "MyComponent-paintComponent,drawString,add";
         String userSolution = "class MyComponent extends JComponent {\n    @Override\n    protected void paintComponent(Graphics g) {\n        super.paintComponent(g);\n        g.drawString(\"Hello!\", 10, 20);\n    }\n}\nMyComponent comp = new MyComponent();\nadd(comp);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
@@ -42,7 +42,7 @@ class Lesson50Test {
 
     @Test
     void testTask4() {
-        String rightSolution = "Graphics2D-setColor-Color";
+        String rightSolution = "JComponent-paintComponent";
         String userSolution = "class MyComponent extends JComponent {\n    @Override\n    protected void paintComponent(Graphics g) {\n        super.paintComponent(g);\n        Graphics2D g2d = (Graphics2D) g;\n        g2d.setColor(Color.RED);\n        g2d.fillRect(10, 10, 100, 50);\n    }\n}\nMyComponent comp = new MyComponent();\nadd(comp);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
@@ -50,7 +50,7 @@ class Lesson50Test {
 
     @Test
     void testTask5() {
-        String rightSolution = "Graphics2D-GradientPaint-setPaint";
+        String rightSolution = "JComponent-paintComponent";
         String userSolution = "class MyComponent extends JComponent {\n    @Override\n    protected void paintComponent(Graphics g) {\n        super.paintComponent(g);\n        Graphics2D g2d = (Graphics2D) g;\n        GradientPaint gradient = new GradientPaint(0, 0, Color.RED, 100, 0, Color.BLUE);\n        g2d.setPaint(gradient);\n        g2d.fillRect(0, 0, 100, 50);\n    }\n}\nMyComponent comp = new MyComponent();\nadd(comp);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
@@ -58,7 +58,7 @@ class Lesson50Test {
 
     @Test
     void testTask6() {
-        String rightSolution = "Graphics2D-drawImage-ImageIO";
+        String rightSolution = "JComponent-paintComponent";
         String userSolution = "class MyComponent extends JComponent {\n    @Override\n    protected void paintComponent(Graphics g) {\n        super.paintComponent(g);\n        Graphics2D g2d = (Graphics2D) g;\n        try {\n            Image image = ImageIO.read(new File(\"image.png\"));\n            g2d.drawImage(image, 10, 10, this);\n        } catch (IOException e) {\n            e.printStackTrace();\n        }\n    }\n}\nMyComponent comp = new MyComponent();\nadd(comp);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());

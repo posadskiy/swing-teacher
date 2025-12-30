@@ -27,7 +27,7 @@ class Lesson46Test {
     @Test
     void testTask3() {
         String rightSolution = "JOptionPane-showConfirmDialog";
-        String userSolution = "JFrame frame = new JFrame();\nint result = JOptionPane.showConfirmDialog(\n    frame,\n    \"Ты уверен?\",\n    \"Подтверждение\",\n    JOptionPane.YES_NO_OPTION\n);\nJLabel label = new JLabel();\nif (result == JOptionPane.YES_OPTION) {\n    label.setText(\"Пользователь согласился!\");\n}\nadd(label);";
+        String userSolution = "JFrame frame = new JFrame();\nint result = JOptionPane.showConfirmDialog(\n    frame,\n    \"Are you sure?\",\n    \"Confirmation\",\n    JOptionPane.YES_NO_OPTION\n);\nJLabel label = new JLabel();\nif (result == JOptionPane.YES_OPTION) {\n    label.setText(\"User agreed!\");\n}\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -35,7 +35,7 @@ class Lesson46Test {
     @Test
     void testTask4() {
         String rightSolution = "JOptionPane-showInputDialog";
-        String userSolution = "JFrame frame = new JFrame();\nString input = JOptionPane.showInputDialog(\n    frame,\n    \"Введи своё имя:\",\n    \"Ввод\",\n    JOptionPane.QUESTION_MESSAGE\n);\nJLabel label = new JLabel();\nif (input != null && !input.isEmpty()) {\n    label.setText(\"Введено: \" + input);\n}\nadd(label);";
+        String userSolution = "JFrame frame = new JFrame();\nString input = JOptionPane.showInputDialog(\n    frame,\n    \"Enter your name:\",\n    \"Input\",\n    JOptionPane.QUESTION_MESSAGE\n);\nJLabel label = new JLabel();\nif (input != null && !input.isEmpty()) {\n    label.setText(\"Entered: \" + input);\n}\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -43,7 +43,7 @@ class Lesson46Test {
     @Test
     void testTask5() {
         String rightSolution = "JOptionPane-showOptionDialog";
-        String userSolution = "JFrame frame = new JFrame();\nString[] options = {\"Да\", \"Нет\", \"Отмена\"};\nint result = JOptionPane.showOptionDialog(\n    frame,\n    \"Выбери действие\",\n    \"Вопрос\",\n    JOptionPane.YES_NO_CANCEL_OPTION,\n    JOptionPane.QUESTION_MESSAGE,\n    null,\n    options,\n    options[0]\n);\nJLabel label = new JLabel();\nif (result >= 0) {\n    label.setText(\"Selected: \" + options[result]);\n}\nadd(label);";
+        String userSolution = "JFrame frame = new JFrame();\nString[] options = {\"Yes\", \"No\", \"Cancel\"};\nint result = JOptionPane.showOptionDialog(\n    frame,\n    \"Choose action\",\n    \"Question\",\n    JOptionPane.YES_NO_CANCEL_OPTION,\n    JOptionPane.QUESTION_MESSAGE,\n    null,\n    options,\n    options[0]\n);\nJLabel label = new JLabel();\nif (result >= 0) {\n    label.setText(\"Selected: \" + options[result]);\n}\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -51,30 +51,30 @@ class Lesson46Test {
     @Test
     void testTask6() {
         String rightSolution = "JOptionPane-showInputDialog";
-        String userSolution = "JFrame frame = new JFrame();\nString input = JOptionPane.showInputDialog(frame, \"Введите имя:\");\nJLabel label = new JLabel();\nif (input != null) {\n    label.setText(\"Имя: \" + input);\n}\nadd(label);";
+        String userSolution = "JFrame frame = new JFrame();\nString input = JOptionPane.showInputDialog(frame, \"Enter name:\");\nJLabel label = new JLabel();\nif (input != null) {\n    label.setText(\"Name: \" + input);\n}\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
     }
 
     @Test
     void testTask7() {
-        String rightSolution = "JOptionPane-showConfirmDialog-YES_NO_OPTION";
-        String userSolution = "JFrame frame = new JFrame();\nint result = JOptionPane.showConfirmDialog(frame, \"Удалить?\", \"Подтверждение\", JOptionPane.YES_NO_OPTION);\nJLabel label = new JLabel();\nif (result == JOptionPane.YES_OPTION) {\n    label.setText(\"Да!\");\n}\nadd(label);";
+        String rightSolution = "JFrame;JLabel-add";
+        String userSolution = "JFrame frame = new JFrame();\nint result = JOptionPane.showConfirmDialog(frame, \"Delete?\", \"Confirmation\", JOptionPane.YES_NO_OPTION);\nJLabel label = new JLabel();\nif (result == JOptionPane.YES_OPTION) {\n    label.setText(\"Yes!\");\n}\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
     }
 
     @Test
     void testTask8() {
-        String rightSolution = "JOptionPane-showMessageDialog-INFORMATION_MESSAGE";
-        String userSolution = "JFrame frame = new JFrame();\nJOptionPane.showMessageDialog(frame, \"Сообщение\", \"Заголовок\", JOptionPane.INFORMATION_MESSAGE);";
+        String rightSolution = "JFrame";
+        String userSolution = "JFrame frame = new JFrame();\nJOptionPane.showMessageDialog(frame, \"Message\", \"Title\", JOptionPane.INFORMATION_MESSAGE);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
     }
 
     @Test
     void testTask12() {
-        String rightSolution = "JTable-getColumnModel-TableColumn-setPreferredWidth";
+        String rightSolution = "JTable-getColumnModel;JScrollPane-add";
         String userSolution = "String[] columns = {\"Name\", \"Age\"};\nString[][] data = {{\"John\", \"25\"}, {\"Mary\", \"30\"}};\nJTable table = new JTable(data, columns);\nTableColumnModel columnModel = table.getColumnModel();\nTableColumn column = columnModel.getColumn(0);\ncolumn.setPreferredWidth(200);\nJScrollPane scrollPane = new JScrollPane(table);\nadd(scrollPane);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());

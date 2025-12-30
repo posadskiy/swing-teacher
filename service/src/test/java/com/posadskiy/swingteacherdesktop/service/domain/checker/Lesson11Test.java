@@ -51,7 +51,7 @@ class Lesson11Test {
     @Test
     void testTask5() {
         String expectedSolution = "JList-add";
-        String userSolution = "DefaultListModel<String> model = new DefaultListModel<>();\nmodel.addElement(\"Элемент 1\");\nmodel.addElement(\"Элемент 2\");\nmodel.addElement(\"Элемент 3\");\nJList<String> list = new JList<>(model);\nadd(list);";
+        String userSolution = "DefaultListModel<String> model = new DefaultListModel<>();\nmodel.addElement(\"Item 1\");\nmodel.addElement(\"Item 2\");\nmodel.addElement(\"Item 3\");\nJList<String> list = new JList<>(model);\nadd(list);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

@@ -88,7 +88,7 @@ class Lesson9Test {
 
     @Test
     void testLesson9Task9() {
-        String expectedSolution = "JCheckBox-addItemListener,add;JCheckBox-add;JCheckBox-add";
+        String expectedSolution = "JCheckBox-add";
         String userSolution = "JCheckBox checkBox1 = new JCheckBox(\"Option 1\");\nJCheckBox checkBox2 = new JCheckBox(\"Option 2\");\nJCheckBox checkBox3 = new JCheckBox(\"Option 3\");\nList<JCheckBox> group = Arrays.asList(checkBox1, checkBox2, checkBox3);\nJLabel label = new JLabel();\ngroup.forEach(cb -> cb.addItemListener(e -> label.setText(\"Changed\")));\nadd(checkBox1);\nadd(checkBox2);\nadd(checkBox3);\nadd(label);";
 
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);

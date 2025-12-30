@@ -51,7 +51,7 @@ class Lesson23Test {
     @Test
     void testTask5() {
         String expectedSolution = "JToolBar-addSeparator,add";
-        String userSolution = "JToolBar toolbar = new JToolBar();\ntoolbar.add(new JButton(\"Кнопка 1\"));\ntoolbar.addSeparator();\ntoolbar.add(new JButton(\"Кнопка 2\"));\nadd(toolbar);";
+        String userSolution = "JToolBar toolbar = new JToolBar();\ntoolbar.add(new JButton(\"Button 1\"));\ntoolbar.addSeparator();\ntoolbar.add(new JButton(\"Button 2\"));\nadd(toolbar);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

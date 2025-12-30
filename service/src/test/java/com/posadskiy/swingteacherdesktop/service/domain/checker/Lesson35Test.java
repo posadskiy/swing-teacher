@@ -27,7 +27,7 @@ class Lesson35Test {
     @Test
     void testTask2() {
         String expectedSolution = "JFileChooser-showSaveDialog";
-        String userSolution = "JFrame frame = new JFrame();\nJFileChooser fileChooser = new JFileChooser();\nint result = fileChooser.showSaveDialog(frame);\nif (result == JFileChooser.APPROVE_OPTION) {\n    File file = fileChooser.getSelectedFile();\n    label.setText(\"Сохранить в: \" + file.getPath());\n}";
+        String userSolution = "JFrame frame = new JFrame();\nJFileChooser fileChooser = new JFileChooser();\nint result = fileChooser.showSaveDialog(frame);\nif (result == JFileChooser.APPROVE_OPTION) {\n    File file = fileChooser.getSelectedFile();\n    label.setText(\"Save to: \" + file.getPath());\n}";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -35,7 +35,7 @@ class Lesson35Test {
     @Test
     void testTask3() {
         String expectedSolution = "JFileChooser-setFileFilter";
-        String userSolution = "JFileChooser fileChooser = new JFileChooser();\nFileNameExtensionFilter filter = new FileNameExtensionFilter(\n    \"Текстовые файлы\",\n    \"txt\", \"text\"\n);\nfileChooser.setFileFilter(filter);\nint result = fileChooser.showOpenDialog(this);\nJLabel label = new JLabel();\nif (result == JFileChooser.APPROVE_OPTION) {\n    File file = fileChooser.getSelectedFile();\n    label.setText(\"Selected file: \" + file.getName());\n}\nadd(label);";
+        String userSolution = "JFileChooser fileChooser = new JFileChooser();\nFileNameExtensionFilter filter = new FileNameExtensionFilter(\n    \"Text files\",\n    \"txt\", \"text\"\n);\nfileChooser.setFileFilter(filter);\nint result = fileChooser.showOpenDialog(this);\nJLabel label = new JLabel();\nif (result == JFileChooser.APPROVE_OPTION) {\n    File file = fileChooser.getSelectedFile();\n    label.setText(\"Selected file: \" + file.getName());\n}\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -51,7 +51,7 @@ class Lesson35Test {
     @Test
     void testTask5() {
         String expectedSolution = "JFileChooser-addChoosableFileFilter";
-        String userSolution = "JFileChooser fileChooser = new JFileChooser();\nFileFilter filter = new FileNameExtensionFilter(\"Текстовые файлы\", \"txt\");\nfileChooser.addChoosableFileFilter(filter);\nint result = fileChooser.showOpenDialog(this);\nJLabel label = new JLabel();\nif (result == JFileChooser.APPROVE_OPTION) {\n    File file = fileChooser.getSelectedFile();\n    label.setText(\"Selected file: \" + file.getName());\n}\nadd(label);";
+        String userSolution = "JFileChooser fileChooser = new JFileChooser();\nFileFilter filter = new FileNameExtensionFilter(\"Text files\", \"txt\");\nfileChooser.addChoosableFileFilter(filter);\nint result = fileChooser.showOpenDialog(this);\nJLabel label = new JLabel();\nif (result == JFileChooser.APPROVE_OPTION) {\n    File file = fileChooser.getSelectedFile();\n    label.setText(\"Selected file: \" + file.getName());\n}\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -67,7 +67,7 @@ class Lesson35Test {
     @Test
     void testTask7() {
         String expectedSolution = "JFileChooser-setDialogTitle";
-        String userSolution = "JFrame frame = new JFrame();\nJFileChooser fileChooser = new JFileChooser();\nfileChooser.setDialogTitle(\"Выбери файл\");\nint result = fileChooser.showOpenDialog(frame);\nJLabel label = new JLabel();\nif (result == JFileChooser.APPROVE_OPTION) {\n    File file = fileChooser.getSelectedFile();\n    label.setText(\"Selected file: \" + file.getName());\n}\nadd(label);";
+        String userSolution = "JFrame frame = new JFrame();\nJFileChooser fileChooser = new JFileChooser();\nfileChooser.setDialogTitle(\"Choose file\");\nint result = fileChooser.showOpenDialog(frame);\nJLabel label = new JLabel();\nif (result == JFileChooser.APPROVE_OPTION) {\n    File file = fileChooser.getSelectedFile();\n    label.setText(\"Selected file: \" + file.getName());\n}\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -75,7 +75,7 @@ class Lesson35Test {
     @Test
     void testTask8() {
         String expectedSolution = "JEditorPane-addHyperlinkListener,add";
-        String userSolution = "JEditorPane editorPane = new JEditorPane();\neditorPane.setContentType(\"text/html\");\neditorPane.setText(\"<html><body><a href=\\\"http://example.com\\\">Ссылка</a></body></html>\");\nJLabel label = new JLabel();\neditorPane.addHyperlinkListener(e -> {\n    if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {\n        label.setText(\"Ссылка: \" + e.getURL());\n    }\n});\nadd(editorPane);\nadd(label);";
+        String userSolution = "JEditorPane editorPane = new JEditorPane();\neditorPane.setContentType(\"text/html\");\neditorPane.setText(\"<html><body><a href=\\\"http://example.com\\\">Link</a></body></html>\");\nJLabel label = new JLabel();\neditorPane.addHyperlinkListener(e -> {\n    if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {\n        label.setText(\"Link: \" + e.getURL());\n    }\n});\nadd(editorPane);\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -83,7 +83,7 @@ class Lesson35Test {
     @Test
     void testTask9() {
         String expectedSolution = "JEditorPane-setContentType,add";
-        String userSolution = "JEditorPane editorPane = new JEditorPane();\neditorPane.setContentType(\"text/html\");\neditorPane.setText(\"<html><body><h1>Привет!</h1></body></html>\");\nJScrollPane scrollPane = new JScrollPane(editorPane);\nadd(scrollPane);";
+        String userSolution = "JEditorPane editorPane = new JEditorPane();\neditorPane.setContentType(\"text/html\");\neditorPane.setText(\"<html><body><h1>Hello!</h1></body></html>\");\nJScrollPane scrollPane = new JScrollPane(editorPane);\nadd(scrollPane);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -91,7 +91,7 @@ class Lesson35Test {
     @Test
     void testTask10() {
         String expectedSolution = "JEditorPane-setEditable,add";
-        String userSolution = "JEditorPane editorPane = new JEditorPane();\neditorPane.setText(\"Текст для чтения\");\neditorPane.setEditable(false);\nJScrollPane scrollPane = new JScrollPane(editorPane);\nadd(scrollPane);";
+        String userSolution = "JEditorPane editorPane = new JEditorPane();\neditorPane.setText(\"Read-only text\");\neditorPane.setEditable(false);\nJScrollPane scrollPane = new JScrollPane(editorPane);\nadd(scrollPane);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

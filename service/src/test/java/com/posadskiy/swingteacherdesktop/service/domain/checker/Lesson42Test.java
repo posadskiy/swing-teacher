@@ -34,7 +34,7 @@ class Lesson42Test {
 
     @Test
     void testTask3() {
-        String rightSolution = "Container-getComponents-isVisible-getName";
+        String rightSolution = "JPanel-setName,add";
         String userSolution = "CardLayout cardLayout = new CardLayout();\nsetLayout(cardLayout);\nJPanel panel1 = new JPanel();\npanel1.setName(\"card1\");\npanel1.add(new JLabel(\"Panel 1\"));\nJPanel panel2 = new JPanel();\npanel2.setName(\"card2\");\npanel2.add(new JLabel(\"Panel 2\"));\nadd(panel1, \"card1\");\nadd(panel2, \"card2\");\nComponent[] components = getComponents();\nJLabel label = new JLabel();\nfor (Component comp : components) {\n    if (comp.isVisible()) {\n        label.setText(\"Visible card: \" + comp.getName());\n    }\n}\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());

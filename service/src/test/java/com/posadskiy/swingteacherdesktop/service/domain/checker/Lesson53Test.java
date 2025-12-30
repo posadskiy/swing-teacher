@@ -19,7 +19,7 @@ class Lesson53Test {
     @Test
     void testTask1() {
         String rightSolution = "Timer-start";
-        String userSolution = "JLabel label = new JLabel();\nActionListener task = new ActionListener() {\n    @Override\n    public void actionPerformed(ActionEvent e) {\n        label.setText(\"Таймер сработал!\");\n    }\n};\nTimer timer = new Timer(1000, task);\ntimer.start();\nadd(label);";
+        String userSolution = "JLabel label = new JLabel();\nActionListener task = new ActionListener() {\n    @Override\n    public void actionPerformed(ActionEvent e) {\n        label.setText(\"Timer fired!\");\n    }\n};\nTimer timer = new Timer(1000, task);\ntimer.start();\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -35,7 +35,7 @@ class Lesson53Test {
     @Test
     void testTask3() {
         String rightSolution = "Timer-setRepeats,start";
-        String userSolution = "JLabel label = new JLabel();\nTimer timer = new Timer(3000, e -> {\n    label.setText(\"Прошло 3 секунды!\");\n});\ntimer.setRepeats(false);\ntimer.start();\nadd(label);";
+        String userSolution = "JLabel label = new JLabel();\nTimer timer = new Timer(3000, e -> {\n    label.setText(\"3 seconds passed!\");\n});\ntimer.setRepeats(false);\ntimer.start();\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(rightSolution, userSolution);
         assertTrue(results.isEmpty());
     }

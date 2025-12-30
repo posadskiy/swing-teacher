@@ -59,7 +59,7 @@ class Lesson7Test {
     @Test
     void testLesson7Task5() {
         String expectedSolution = "JPasswordField-add";
-        String userSolution = "JPasswordField passwordField = new JPasswordField();\nAbstractDocument doc = (AbstractDocument) passwordField.getDocument();\ndoc.setDocumentFilter(new DocumentFilter() {\n    @Override\n    public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {\n        // Запретить удаление\n    }\n});\nadd(passwordField);";
+        String userSolution = "JPasswordField passwordField = new JPasswordField();\nAbstractDocument doc = (AbstractDocument) passwordField.getDocument();\ndoc.setDocumentFilter(new DocumentFilter() {\n    @Override\n    public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {\n        // Prevent deletion\n    }\n});\nadd(passwordField);";
 
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
 
@@ -79,7 +79,7 @@ class Lesson7Test {
     @Test
     void testLesson7Task7() {
         String expectedSolution = "JPasswordField-getEchoChar,setEchoChar,add";
-        String userSolution = "JPasswordField passwordField = new JPasswordField();\nchar echoChar = passwordField.getEchoChar();\npasswordField.setEchoChar((char) 0);\n// Показать пароль, затем восстановить:\n// passwordField.setEchoChar(echoChar);\nadd(passwordField);";
+        String userSolution = "JPasswordField passwordField = new JPasswordField();\nchar echoChar = passwordField.getEchoChar();\npasswordField.setEchoChar((char) 0);\n// Show password, then restore:\n// passwordField.setEchoChar(echoChar);\nadd(passwordField);";
 
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
 

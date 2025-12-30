@@ -109,7 +109,7 @@ class Lesson3Test {
     @Test
     void testLesson3Task10() {
         String expectedSolution = "JLabel-setText,add";
-        String userSolution = "JLabel label = new JLabel();\nlabel.setText(\"<html><b>Жирный</b></html>\");\nadd(label);";
+        String userSolution = "JLabel label = new JLabel();\nlabel.setText(\"<html><b>Bold</b></html>\");\nadd(label);";
 
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
 
@@ -139,7 +139,7 @@ class Lesson3Test {
     @Test
     void testLesson3Task13() {
         String expectedSolution = "JLabel-setText,add";
-        String userSolution = "JLabel label = new JLabel();\nlabel.setText(\"<html><b>Жирный</b> и <i>Курсив</i></html>\");\nadd(label);";
+        String userSolution = "JLabel label = new JLabel();\nlabel.setText(\"<html><b>Bold</b> and <i>Italic</i></html>\");\nadd(label);";
 
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
 

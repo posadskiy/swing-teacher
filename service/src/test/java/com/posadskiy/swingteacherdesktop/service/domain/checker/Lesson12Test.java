@@ -19,7 +19,7 @@ class Lesson12Test {
     @Test
     void testTask2() {
         String expectedSolution = "JToggleButton-addActionListener,isSelected,add";
-        String userSolution = "JToggleButton toggleButton = new JToggleButton(\"Enable\");\nJLabel label = new JLabel();\ntoggleButton.addActionListener(e -> {\n    if (toggleButton.isSelected()) {\n        label.setText(\"Enabled!\");\n    } else {\n        label.setText(\"Выключено!\");\n    }\n});\nadd(toggleButton);\nadd(label);";
+        String userSolution = "JToggleButton toggleButton = new JToggleButton(\"Enable\");\nJLabel label = new JLabel();\ntoggleButton.addActionListener(e -> {\n    if (toggleButton.isSelected()) {\n        label.setText(\"Enabled!\");\n    } else {\n        label.setText(\"Disabled!\");\n    }\n});\nadd(toggleButton);\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -43,7 +43,7 @@ class Lesson12Test {
     @Test
     void testTask5() {
         String expectedSolution = "JToggleButton-setActionCommand,addActionListener,add";
-        String userSolution = "JToggleButton toggleButton = new JToggleButton(\"Enable\");\ntoggleButton.setActionCommand(\"TOGGLE\");\ntoggleButton.addActionListener(e -> {\n    String cmd = e.getActionCommand();\n    label.setText(\"Команда: \" + cmd);\n});\nadd(toggleButton);";
+        String userSolution = "JToggleButton toggleButton = new JToggleButton(\"Enable\");\ntoggleButton.setActionCommand(\"TOGGLE\");\ntoggleButton.addActionListener(e -> {\n    String cmd = e.getActionCommand();\n    label.setText(\"Command: \" + cmd);\n});\nadd(toggleButton);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

@@ -83,7 +83,7 @@ class Lesson14Test {
     @Test
     void testTask9() {
         String expectedSolution = "JProgressBar-setToolTipText";
-        String userSolution = "JProgressBar progressBar = new JProgressBar(0, 100);\nprogressBar.setToolTipText(\"Прогресс загрузки\");\nadd(progressBar);";
+        String userSolution = "JProgressBar progressBar = new JProgressBar(0, 100);\nprogressBar.setToolTipText(\"Loading progress\");\nadd(progressBar);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -99,7 +99,7 @@ class Lesson14Test {
     @Test
     void testTask11() {
         String expectedSolution = "JProgressBar-addChangeListener,getValue,add";
-        String userSolution = "JProgressBar progressBar = new JProgressBar(0, 100);\nJLabel label = new JLabel();\nprogressBar.addChangeListener(e -> {\n    int value = progressBar.getValue();\n    label.setText(\"Прогресс: \" + value + \"%\");\n});\nadd(progressBar);\nadd(label);";
+        String userSolution = "JProgressBar progressBar = new JProgressBar(0, 100);\nJLabel label = new JLabel();\nprogressBar.addChangeListener(e -> {\n    int value = progressBar.getValue();\n    label.setText(\"Progress: \" + value + \"%\");\n});\nadd(progressBar);\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

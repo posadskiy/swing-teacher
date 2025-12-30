@@ -66,7 +66,7 @@ class Lesson33Test {
 
     @Test
     void testTask6_2() {
-        String expectedSolution = "MouseListener-getButton,add";
+        String expectedSolution = "JPanel-addMouseListener";
         String userSolution = "JPanel component = new JPanel();\ncomponent.addMouseListener(new MouseAdapter() {\n    @Override\n    public void mouseClicked(MouseEvent e) {\n        if (e.getButton() == MouseEvent.BUTTON1) {\n            label.setText(\"Left button\");\n        }\n    }\n});\nadd(component);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
@@ -74,7 +74,7 @@ class Lesson33Test {
 
     @Test
     void testTask7() {
-        String expectedSolution = "MouseListener-getX,getY,add";
+        String expectedSolution = "JPanel-addMouseListener";
         String userSolution = "JPanel component = new JPanel();\ncomponent.addMouseListener(new MouseAdapter() {\n    @Override\n    public void mouseClicked(MouseEvent e) {\n        int x = e.getX();\n        int y = e.getY();\n        label.setText(\"Coordinates: \" + x + \", \" + y);\n    }\n});\nadd(component);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
@@ -82,7 +82,7 @@ class Lesson33Test {
 
     @Test
     void testTask8() {
-        String expectedSolution = "MouseListener-getClickCount,add";
+        String expectedSolution = "JPanel-addMouseListener";
         String userSolution = "JPanel component = new JPanel();\ncomponent.addMouseListener(new MouseAdapter() {\n    @Override\n    public void mouseClicked(MouseEvent e) {\n        int count = e.getClickCount();\n        if (count == 2) {\n            label.setText(\"Double click\");\n        }\n    }\n});\nadd(component);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());

@@ -67,7 +67,7 @@ class Lesson26Test {
     @Test
     void testTask11() {
         String expectedSolution = "JTabbedPane-setEnabledAt";
-        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\ntabbedPane.addTab(\"Вкладка 1\", new JPanel());\ntabbedPane.setEnabledAt(0, false);\ntabbedPane.setEnabledAt(0, true);\nadd(tabbedPane);";
+        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\ntabbedPane.addTab(\"Tab 1\", new JPanel());\ntabbedPane.setEnabledAt(0, false);\ntabbedPane.setEnabledAt(0, true);\nadd(tabbedPane);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -83,7 +83,7 @@ class Lesson26Test {
     @Test
     void testTask13() {
         String expectedSolution = "JTabbedPane-setTabPlacement";
-        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\ntabbedPane.addTab(\"Вкладка 1\", new JPanel());\ntabbedPane.setTabPlacement(JTabbedPane.BOTTOM);\nadd(tabbedPane);";
+        String userSolution = "JTabbedPane tabbedPane = new JTabbedPane();\ntabbedPane.addTab(\"Tab 1\", new JPanel());\ntabbedPane.setTabPlacement(JTabbedPane.BOTTOM);\nadd(tabbedPane);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

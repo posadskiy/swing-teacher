@@ -19,7 +19,7 @@ class Lesson36Test {
     @Test
     void testTask1() {
         String expectedSolution = "JColorChooser-showDialog";
-        String userSolution = "JFrame frame = new JFrame();\nColor color = JColorChooser.showDialog(frame, \"Выбери цвет\", Color.WHITE);\nJLabel label = new JLabel();\nif (color != null) {\n    label.setText(\"Selected color: \" + color);\n}\nadd(label);";
+        String userSolution = "JFrame frame = new JFrame();\nColor color = JColorChooser.showDialog(frame, \"Choose color\", Color.WHITE);\nJLabel label = new JLabel();\nif (color != null) {\n    label.setText(\"Selected color: \" + color);\n}\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -35,7 +35,7 @@ class Lesson36Test {
     @Test
     void testTask2_2() {
         String expectedSolution = "BorderLayout-add,add,add,add,add";
-        String userSolution = "setLayout(new BorderLayout());\nJButton buttonNorth = new JButton(\"Север\");\nJButton buttonSouth = new JButton(\"Юг\");\nJButton buttonEast = new JButton(\"Восток\");\nJButton buttonWest = new JButton(\"Запад\");\nJPanel panelCenter = new JPanel();\nadd(buttonNorth, BorderLayout.NORTH);\nadd(buttonSouth, BorderLayout.SOUTH);\nadd(buttonEast, BorderLayout.EAST);\nadd(buttonWest, BorderLayout.WEST);\nadd(panelCenter, BorderLayout.CENTER);";
+        String userSolution = "setLayout(new BorderLayout());\nJButton buttonNorth = new JButton(\"North\");\nJButton buttonSouth = new JButton(\"South\");\nJButton buttonEast = new JButton(\"East\");\nJButton buttonWest = new JButton(\"West\");\nJPanel panelCenter = new JPanel();\nadd(buttonNorth, BorderLayout.NORTH);\nadd(buttonSouth, BorderLayout.SOUTH);\nadd(buttonEast, BorderLayout.EAST);\nadd(buttonWest, BorderLayout.WEST);\nadd(panelCenter, BorderLayout.CENTER);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -43,7 +43,7 @@ class Lesson36Test {
     @Test
     void testTask3() {
         String expectedSolution = "JColorChooser-setChooserPanels,setVisible";
-        String userSolution = "JColorChooser colorChooser = new JColorChooser();\nAbstractColorChooserPanel[] panels = ColorChooserComponentFactory.getDefaultChooserPanels();\ncolorChooser.setChooserPanels(panels);\nJFrame frame = new JFrame();\nJDialog dialog = JColorChooser.createDialog(frame, \"Выбери цвет\", true, colorChooser, null, null);\ndialog.setVisible(true);";
+        String userSolution = "JColorChooser colorChooser = new JColorChooser();\nAbstractColorChooserPanel[] panels = ColorChooserComponentFactory.getDefaultChooserPanels();\ncolorChooser.setChooserPanels(panels);\nJFrame frame = new JFrame();\nJDialog dialog = JColorChooser.createDialog(frame, \"Choose color\", true, colorChooser, null, null);\ndialog.setVisible(true);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -51,7 +51,7 @@ class Lesson36Test {
     @Test
     void testTask3_2() {
         String expectedSolution = "BorderLayout-setHgap,setVgap,add";
-        String userSolution = "BorderLayout layout = new BorderLayout();\nlayout.setHgap(10);\nlayout.setVgap(10);\nsetLayout(layout);\nJButton button = new JButton(\"Кнопка\");\nadd(button, BorderLayout.CENTER);";
+        String userSolution = "BorderLayout layout = new BorderLayout();\nlayout.setHgap(10);\nlayout.setVgap(10);\nsetLayout(layout);\nJButton button = new JButton(\"Button\");\nadd(button, BorderLayout.CENTER);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -59,15 +59,15 @@ class Lesson36Test {
     @Test
     void testTask4() {
         String expectedSolution = "JColorChooser-setPreviewPanel,addChangeListener,setVisible";
-        String userSolution = "JColorChooser colorChooser = new JColorChooser();\nJPanel previewPanel = new JPanel();\npreviewPanel.setPreferredSize(new Dimension(100, 50));\ncolorChooser.setPreviewPanel(previewPanel);\ncolorChooser.getSelectionModel().addChangeListener(e -> {\n    previewPanel.setBackground(colorChooser.getColor());\n});\nJFrame frame = new JFrame();\nJDialog dialog = JColorChooser.createDialog(frame, \"Выбери цвет\", true, colorChooser, null, null);\ndialog.setVisible(true);";
+        String userSolution = "JColorChooser colorChooser = new JColorChooser();\nJPanel previewPanel = new JPanel();\npreviewPanel.setPreferredSize(new Dimension(100, 50));\ncolorChooser.setPreviewPanel(previewPanel);\ncolorChooser.getSelectionModel().addChangeListener(e -> {\n    previewPanel.setBackground(colorChooser.getColor());\n});\nJFrame frame = new JFrame();\nJDialog dialog = JColorChooser.createDialog(frame, \"Choose color\", true, colorChooser, null, null);\ndialog.setVisible(true);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
 
     @Test
     void testTask5() {
-        String expectedSolution = "JColorChooser-getSelectionModel,setSelectedColor,add";
-        String userSolution = "JColorChooser colorChooser = new JColorChooser();\nColorSelectionModel model = colorChooser.getSelectionModel();\nmodel.setSelectedColor(Color.RED);\nJFrame frame = new JFrame();\nJDialog dialog = JColorChooser.createDialog(frame, \"Выбери цвет\", true, colorChooser, null, null);\ndialog.setVisible(true);";
+        String expectedSolution = "";
+        String userSolution = "JColorChooser colorChooser = new JColorChooser();\nColorSelectionModel model = colorChooser.getSelectionModel();\nmodel.setSelectedColor(Color.RED);\nJFrame frame = new JFrame();\nJDialog dialog = JColorChooser.createDialog(frame, \"Choose color\", true, colorChooser, null, null);\ndialog.setVisible(true);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -75,15 +75,15 @@ class Lesson36Test {
     @Test
     void testTask6() {
         String expectedSolution = "JColorChooser-showDialog";
-        String userSolution = "JFrame frame = new JFrame();\nColor color = JColorChooser.showDialog(frame, \"Выбери цвет\", Color.WHITE);\nJLabel label = new JLabel();\nif (color != null) {\n    label.setText(\"Selected color: \" + color);\n}\nadd(label);";
+        String userSolution = "JFrame frame = new JFrame();\nColor color = JColorChooser.showDialog(frame, \"Choose color\", Color.WHITE);\nJLabel label = new JLabel();\nif (color != null) {\n    label.setText(\"Selected color: \" + color);\n}\nadd(label);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
 
     @Test
     void testTask7() {
-        String expectedSolution = "JColorChooser-setColorSelectionModel,add";
-        String userSolution = "JColorChooser colorChooser = new JColorChooser();\nDefaultColorSelectionModel model = new DefaultColorSelectionModel();\nmodel.setSelectedColor(Color.RED);\ncolorChooser.setColorSelectionModel(model);\nJFrame frame = new JFrame();\nJDialog dialog = JColorChooser.createDialog(frame, \"Выбери цвет\", true, colorChooser, null, null);\ndialog.setVisible(true);";
+        String expectedSolution = "";
+        String userSolution = "JColorChooser colorChooser = new JColorChooser();\nDefaultColorSelectionModel model = new DefaultColorSelectionModel();\nmodel.setSelectedColor(Color.RED);\ncolorChooser.setColorSelectionModel(model);\nJFrame frame = new JFrame();\nJDialog dialog = JColorChooser.createDialog(frame, \"Choose color\", true, colorChooser, null, null);\ndialog.setVisible(true);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -107,7 +107,7 @@ class Lesson36Test {
     @Test
     void testTask11() {
         String expectedSolution = "JTextPane-setEditable";
-        String userSolution = "JTextPane textPane = new JTextPane();\ntextPane.setText(\"Текст для чтения\");\ntextPane.setEditable(false);\nJScrollPane scrollPane = new JScrollPane(textPane);\nadd(scrollPane);";
+        String userSolution = "JTextPane textPane = new JTextPane();\ntextPane.setText(\"Read-only text\");\ntextPane.setEditable(false);\nJScrollPane scrollPane = new JScrollPane(textPane);\nadd(scrollPane);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

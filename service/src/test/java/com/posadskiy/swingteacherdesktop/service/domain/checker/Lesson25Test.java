@@ -19,7 +19,7 @@ class Lesson25Test {
     @Test
     void testTask1() {
         String expectedSolution = "JMenu-add";
-        String userSolution = "JMenu fileMenu = new JMenu(\"File\");\nJMenuItem openItem = new JMenuItem(\"Открыть\");\nfileMenu.add(openItem);\nJMenuBar menuBar = new JMenuBar();\nmenuBar.add(fileMenu);\nsetJMenuBar(menuBar);";
+        String userSolution = "JMenu fileMenu = new JMenu(\"File\");\nJMenuItem openItem = new JMenuItem(\"Open\");\nfileMenu.add(openItem);\nJMenuBar menuBar = new JMenuBar();\nmenuBar.add(fileMenu);\nsetJMenuBar(menuBar);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }
@@ -27,7 +27,7 @@ class Lesson25Test {
     @Test
     void testTask1_2() {
         String expectedSolution = "JWindow-add,pack,setVisible";
-        String userSolution = "JFrame parent = new JFrame();\nJWindow window = new JWindow(parent);\nwindow.add(new JLabel(\"Всплывающее окно\"));\nwindow.pack();\nwindow.setVisible(true);";
+        String userSolution = "JFrame parent = new JFrame();\nJWindow window = new JWindow(parent);\nwindow.add(new JLabel(\"Popup window\"));\nwindow.pack();\nwindow.setVisible(true);";
         ArrayList<CheckerResult> results = checker.check(expectedSolution, userSolution);
         assertTrue(results.isEmpty());
     }

@@ -2,6 +2,7 @@ package com.posadskiy.swingteacherdesktop.presentation.view;
 
 import com.posadskiy.swingteacherdesktop.application.service.AuthenticationService;
 import com.posadskiy.swingteacherdesktop.domain.model.*;
+import com.posadskiy.swingteacherdesktop.infrastructure.i18n.I18nService;
 import com.posadskiy.swingteacherdesktop.infrastructure.state.AppState;
 import com.posadskiy.swingteacherdesktop.presentation.component.*;
 import com.posadskiy.swingteacherdesktop.presentation.controller.MainFrameController;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Component;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.*;
 import java.util.List;
 
@@ -26,13 +29,14 @@ import java.util.List;
 @Slf4j
 @Lazy
 @Component
-public class MainFrameView extends JFrame {
+public class MainFrameView extends JFrame implements PropertyChangeListener {
 
     private final AppState appState;
     private final MainFrameController controller;
     private final PopupController popupController;
     private final AppNavigator navigator;
     private final AuthenticationService authService;
+    private final I18nService i18n;
     
     private int taskCategory = 1;
     
@@ -50,6 +54,17 @@ public class MainFrameView extends JFrame {
     private ModernButton nextTaskButton;
     private ProgressBar progressBar;
     private JLabel taskCounterLabel;
+    private JLabel lessonLabel;
+    private JLabel taskLabel;
+    private SectionTitle documentationTitle;
+    private SectionTitle taskTitle;
+    private SectionTitle solutionTitle;
+    private JMenu settingsMenu;
+    private JMenu helpMenu;
+    private JMenuItem logoutItem;
+    private JMenuItem exitItem;
+    private JMenuItem docsItem;
+    private JMenuItem aboutItem;
     
     // Data
     private User currentUser;
@@ -62,13 +77,17 @@ public class MainFrameView extends JFrame {
         PopupController popupController,
         AppState appState,
         AppNavigator navigator,
-        AuthenticationService authService
+        AuthenticationService authService,
+        I18nService i18n
     ) {
         this.controller = controller;
         this.popupController = popupController;
         this.appState = appState;
         this.navigator = navigator;
         this.authService = authService;
+        this.i18n = i18n;
+        i18n.addPropertyChangeListener(this);
+        appState.addPropertyChangeListener(this);
         initComponents();
     }
 
@@ -80,6 +99,7 @@ public class MainFrameView extends JFrame {
             ? currentUser.getPreferredLanguageOrDefault()
             : appState.getCurrentLanguage();
         appState.setCurrentLanguage(initialLanguage);
+        i18n.setLocale(initialLanguage);
         
         loadInitialData();
         
@@ -96,7 +116,7 @@ public class MainFrameView extends JFrame {
     }
 
     private void configureFrame() {
-        setTitle("SwingTeacher Desktop");
+        setTitle(i18n.getString("main.title"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(1200, 700));
         setLocationRelativeTo(null);
@@ -133,10 +153,12 @@ public class MainFrameView extends JFrame {
     private void onLanguageChanged(String languageCode) {
         log.debug("Language changed to: {}", languageCode);
         appState.setCurrentLanguage(languageCode);
+        i18n.setLocale(languageCode);
         controller.setPreferredLanguage(languageCode);
 
         // Reload lessons and tasks with new language
         reloadLessonsAndTasks();
+        updateUITexts();
     }
 
     private void reloadLessonsAndTasks() {
@@ -180,28 +202,28 @@ public class MainFrameView extends JFrame {
         ModernMenuBar menuBar = new ModernMenuBar();
 
         // Settings menu
-        JMenu settingsMenu = ModernMenuBar.createMenu("Settings");
+        settingsMenu = ModernMenuBar.createMenu(i18n.getString("menu.settings"));
 
-        JMenuItem logoutItem = ModernMenuBar.createMenuItem("Logout");
+        logoutItem = ModernMenuBar.createMenuItem(i18n.getString("menu.logout"));
         logoutItem.addActionListener(e -> logout());
         settingsMenu.add(logoutItem);
 
         settingsMenu.add(ModernMenuBar.createSeparator());
 
-        JMenuItem exitItem = ModernMenuBar.createMenuItem("Exit");
+        exitItem = ModernMenuBar.createMenuItem(i18n.getString("menu.exit"));
         exitItem.addActionListener(e -> System.exit(0));
         settingsMenu.add(exitItem);
 
         menuBar.add(settingsMenu);
 
         // Help menu
-        JMenu helpMenu = ModernMenuBar.createMenu("Help");
-        
-        JMenuItem docsItem = ModernMenuBar.createMenuItem("Documentation");
+        helpMenu = ModernMenuBar.createMenu(i18n.getString("menu.help"));
+
+        docsItem = ModernMenuBar.createMenuItem(i18n.getString("menu.documentation"));
         docsItem.addActionListener(e -> showDocumentation());
         helpMenu.add(docsItem);
-        
-        JMenuItem aboutItem = ModernMenuBar.createMenuItem("About");
+
+        aboutItem = ModernMenuBar.createMenuItem(i18n.getString("menu.about"));
         aboutItem.addActionListener(e -> showAbout());
         helpMenu.add(aboutItem);
 
@@ -237,7 +259,8 @@ public class MainFrameView extends JFrame {
         // Lesson label
         gbc.gridx = 0;
         gbc.weightx = 0;
-        toolbar.add(createLabel("Lesson:"), gbc);
+        lessonLabel = createLabel(i18n.getString("main.lessonLabel"));
+        toolbar.add(lessonLabel, gbc);
 
         // Lesson combo - 40%
         gbc.gridx = 1;
@@ -251,7 +274,8 @@ public class MainFrameView extends JFrame {
         gbc.gridx = 2;
         gbc.weightx = 0;
         gbc.insets = new Insets(0, 16, 0, 8);
-        toolbar.add(createLabel("Task:"), gbc);
+        taskLabel = createLabel(i18n.getString("main.taskLabel"));
+        toolbar.add(taskLabel, gbc);
 
         // Task combo - 40%
         gbc.gridx = 3;
@@ -329,8 +353,8 @@ public class MainFrameView extends JFrame {
         JPanel panel = new JPanel(new BorderLayout(0, 12));
         panel.setOpaque(false);
 
-        SectionTitle title = new SectionTitle("Documentation", "📚");
-        panel.add(title, BorderLayout.NORTH);
+        documentationTitle = new SectionTitle(i18n.getString("main.documentationTitle"), "📚");
+        panel.add(documentationTitle, BorderLayout.NORTH);
 
         documentationPane = new ModernEditorPane();
         updateDocumentation();
@@ -348,7 +372,8 @@ public class MainFrameView extends JFrame {
         // Question section
         JPanel questionSection = new JPanel(new BorderLayout(0, 8));
         questionSection.setOpaque(false);
-        questionSection.add(new SectionTitle("Task", "📝"), BorderLayout.NORTH);
+        taskTitle = new SectionTitle(i18n.getString("main.taskTitle"), "📝");
+        questionSection.add(taskTitle, BorderLayout.NORTH);
         questionSection.add(new Divider(), BorderLayout.SOUTH);
         
         questionPane = new ModernEditorPane();
@@ -361,7 +386,8 @@ public class MainFrameView extends JFrame {
         JPanel answerSection = new JPanel(new BorderLayout(0, 12));
         answerSection.setOpaque(false);
         answerSection.setBorder(new EmptyBorder(8, 0, 0, 0));
-        answerSection.add(new SectionTitle("Solution", "💻"), BorderLayout.NORTH);
+        solutionTitle = new SectionTitle(i18n.getString("main.solutionTitle"), "💻");
+        answerSection.add(solutionTitle, BorderLayout.NORTH);
 
         codeEditorPanel = new CodeEditorPanel();
         setupAutoCompletion();
@@ -388,15 +414,15 @@ public class MainFrameView extends JFrame {
         JPanel navPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
         navPanel.setOpaque(false);
 
-        prevTaskButton = ModernButton.secondary("◀ Previous");
+        prevTaskButton = ModernButton.secondary(i18n.getString("button.previous"));
         prevTaskButton.setPreferredSize(new Dimension(120, 44));
-        prevTaskButton.setToolTipText("Previous task (Ctrl+Left)");
+        prevTaskButton.setToolTipText(i18n.getString("tooltip.previousTask"));
         prevTaskButton.addActionListener(e -> onPreviousTask());
         navPanel.add(prevTaskButton);
 
-        nextTaskButton = ModernButton.secondary("Next ▶");
+        nextTaskButton = ModernButton.secondary(i18n.getString("button.next"));
         nextTaskButton.setPreferredSize(new Dimension(120, 44));
-        nextTaskButton.setToolTipText("Next task (Ctrl+Right)");
+        nextTaskButton.setToolTipText(i18n.getString("tooltip.nextTask"));
         nextTaskButton.addActionListener(e -> onNextTask());
         navPanel.add(nextTaskButton);
 
@@ -404,21 +430,21 @@ public class MainFrameView extends JFrame {
         JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 12, 0));
         actionPanel.setOpaque(false);
 
-        showSolutionButton = ModernButton.secondary("Show Solution");
+        showSolutionButton = ModernButton.secondary(i18n.getString("button.showSolution"));
         showSolutionButton.setPreferredSize(new Dimension(160, 44));
-        showSolutionButton.setToolTipText("Show solution (Ctrl+S)");
+        showSolutionButton.setToolTipText(i18n.getString("tooltip.showSolution"));
         showSolutionButton.addActionListener(e -> onShowSolutionClick());
         actionPanel.add(showSolutionButton);
 
-        viewButton = ModernButton.secondary("Run Code");
+        viewButton = ModernButton.secondary(i18n.getString("button.runCode"));
         viewButton.setPreferredSize(new Dimension(140, 44));
-        viewButton.setToolTipText("Run code (Ctrl+R)");
+        viewButton.setToolTipText(i18n.getString("tooltip.runCode"));
         viewButton.addActionListener(e -> onViewClick());
         actionPanel.add(viewButton);
 
-        checkButton = ModernButton.primary("Submit Answer");
+        checkButton = ModernButton.primary(i18n.getString("button.submitAnswer"));
         checkButton.setPreferredSize(new Dimension(160, 44));
-        checkButton.setToolTipText("Submit answer (Ctrl+Enter)");
+        checkButton.setToolTipText(i18n.getString("tooltip.submitAnswer"));
         checkButton.addActionListener(e -> onCheckClick());
         actionPanel.add(checkButton);
 
@@ -513,7 +539,7 @@ public class MainFrameView extends JFrame {
         int currentIndex = taskComboBox.getSelectedIndex();
         int total = taskComboBox.getItemCount();
         if (total > 0) {
-            taskCounterLabel.setText(String.format("Task %d of %d", currentIndex + 1, total));
+            taskCounterLabel.setText(i18n.getString("main.taskCounter", currentIndex + 1, total));
         } else {
             taskCounterLabel.setText("");
         }
@@ -561,7 +587,7 @@ public class MainFrameView extends JFrame {
 
     private void updateQuestion() {
         Task task = (Task) taskComboBox.getSelectedItem();
-        String text = task != null ? task.question() : "<p>Select a task to begin</p>";
+        String text = task != null ? task.question() : i18n.getString("placeholder.selectTaskBegin");
         questionPane.setText(text);
     }
 
@@ -570,31 +596,31 @@ public class MainFrameView extends JFrame {
         if (task != null) {
             String languageCode = appState.getCurrentLanguage();
             var doc = controller.getDocumentation(task.idDocumentation(), languageCode);
-            String text = doc.map(Documentation::text).orElse("<p>Documentation not available</p>");
+            String text = doc.map(Documentation::text).orElse(i18n.getString("placeholder.documentationNotAvailable"));
             documentationPane.setText(text);
         } else {
-            documentationPane.setText("<p>Select a task to view documentation</p>");
+            documentationPane.setText(i18n.getString("placeholder.selectTaskViewDoc"));
         }
     }
 
     private void onShowSolutionClick() {
         Task task = (Task) taskComboBox.getSelectedItem();
         if (task == null) {
-            popupController.showError("Please select a task first!");
+            popupController.showError(i18n.getString("message.selectTaskFirst"));
             return;
         }
         
         String solution = task.solution();
         if (solution == null || solution.isBlank()) {
-            popupController.showError("No solution available for this task.");
+            popupController.showError(i18n.getString("message.noSolution"));
             return;
         }
         
         // Ask for confirmation before showing solution
         int result = JOptionPane.showConfirmDialog(
             this,
-            "Are you sure you want to see the solution?\nThis will replace your current code.",
-            "Show Solution",
+            i18n.getString("message.showSolutionConfirm"),
+            i18n.getString("message.showSolutionTitle"),
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE
         );
@@ -607,7 +633,7 @@ public class MainFrameView extends JFrame {
     private void onViewClick() {
         Task task = (Task) taskComboBox.getSelectedItem();
         if (task == null) {
-            popupController.showError("Please select a task first!");
+            popupController.showError(i18n.getString("message.selectTaskFirst"));
             return;
         }
 
@@ -630,18 +656,18 @@ public class MainFrameView extends JFrame {
 
     private void onCheckClick() {
         if (taskComboBox.getItemCount() == 0) {
-            popupController.showError("Please select a task first!");
+            popupController.showError(i18n.getString("message.selectTaskFirst"));
             return;
         }
         
         Task task = (Task) taskComboBox.getSelectedItem();
         if (task == null) {
-            popupController.showError("Please select a task!");
+            popupController.showError(i18n.getString("message.selectTask"));
             return;
         }
         
         if (controller.isTaskCompleted(currentUser.id(), task.id())) {
-            popupController.showError("Task already completed!");
+            popupController.showError(i18n.getString("message.taskAlreadyCompleted"));
             return;
         }
 
@@ -657,7 +683,7 @@ public class MainFrameView extends JFrame {
                 String errors = controller.compileUserCode(codeEditorPanel.getText(), task.imports());
                 if (errors != null && !errors.isEmpty()) {
                     errorMessage = errors;
-                    errorTitle = "Compilation Error";
+                    errorTitle = i18n.getString("error.compilationError");
                     return false;
                 }
 
@@ -665,7 +691,7 @@ public class MainFrameView extends JFrame {
                 errors = controller.validateAnswer(task.answer(), codeEditorPanel.getText());
                 if (errors != null && !errors.isEmpty()) {
                     errorMessage = errors;
-                    errorTitle = "Execution Error";
+                    errorTitle = i18n.getString("error.executionError");
                     return false;
                 }
 
@@ -683,7 +709,7 @@ public class MainFrameView extends JFrame {
                         taskComboBox.repaint();
 
                         codeEditorPanel.setText("");
-                        popupController.showSuccess("Correct! Great job!");
+                        popupController.showSuccess(i18n.getString("message.correct"));
                         updateProgress();
 
                         // Move to next task
@@ -695,7 +721,7 @@ public class MainFrameView extends JFrame {
                     }
                 } catch (Exception e) {
                     log.error("Error checking task", e);
-                    popupController.showError("An error occurred. Please try again.");
+                    popupController.showError(i18n.getString("message.errorOccurred"));
                 }
             }
         }.execute();
@@ -715,31 +741,14 @@ public class MainFrameView extends JFrame {
         var doc = controller.getDocumentation(0, languageCode);
         String docText = doc.map(Documentation::text)
                 .filter(t -> !t.isBlank())
-                .orElse("<h1>Documentation</h1><p>Documentation is not available.</p>");
+            .orElse(i18n.getString("documentation.notAvailable"));
 
-        showDialog("Documentation", docText, 900, 700);
+        showDialog(i18n.getString("documentation.title"), docText, 900, 700);
     }
 
     private void showAbout() {
-        String aboutText = """
-            <div style="text-align: center; padding: 20px;">
-            <h1>SwingTeacher Desktop</h1>
-                <p style="color: #94a3b8;">Version 1.0-SNAPSHOT</p>
-                <hr>
-                <p>An interactive Java programming learning application.</p>
-                <h3>Features</h3>
-                <ul style="text-align: left;">
-                    <li>Syntax-highlighted code editor</li>
-                    <li>Intelligent code completion</li>
-            <li>Task-based learning system</li>
-            <li>Progress tracking</li>
-            <li>Reference documentation</li>
-            </ul>
-            <hr>
-                <p style="color: #64748b; font-size: 12px;">Built with Java & Spring Framework</p>
-            </div>
-            """;
-        showDialog("About SwingTeacher", aboutText, 500, 450);
+        String aboutText = i18n.getString("about.content");
+        showDialog(i18n.getString("about.title"), aboutText, 500, 450);
     }
 
     private void showDialog(String title, String content, int width, int height) {
@@ -754,7 +763,7 @@ public class MainFrameView extends JFrame {
         ModernScrollPane scrollPane = new ModernScrollPane(editorPane);
         panel.add(scrollPane, BorderLayout.CENTER);
 
-        ModernButton closeButton = ModernButton.primary("Close");
+        ModernButton closeButton = ModernButton.primary(i18n.getString("button.close"));
         closeButton.setPreferredSize(new Dimension(100, 40));
         closeButton.addActionListener(e -> dialog.dispose());
         
@@ -790,6 +799,60 @@ public class MainFrameView extends JFrame {
         return codeEditorPanel;
     }
 
+    /**
+     * Updates all UI texts when language changes.
+     */
+    public void updateUITexts() {
+        SwingUtilities.invokeLater(() -> {
+            setTitle(i18n.getString("main.title"));
+            if (lessonLabel != null) lessonLabel.setText(i18n.getString("main.lessonLabel"));
+            if (taskLabel != null) taskLabel.setText(i18n.getString("main.taskLabel"));
+            if (documentationTitle != null) documentationTitle.setText(i18n.getString("main.documentationTitle"));
+            if (taskTitle != null) taskTitle.setText(i18n.getString("main.taskTitle"));
+            if (solutionTitle != null) solutionTitle.setText(i18n.getString("main.solutionTitle"));
+            if (settingsMenu != null) settingsMenu.setText(i18n.getString("menu.settings"));
+            if (helpMenu != null) helpMenu.setText(i18n.getString("menu.help"));
+            if (logoutItem != null) logoutItem.setText(i18n.getString("menu.logout"));
+            if (exitItem != null) exitItem.setText(i18n.getString("menu.exit"));
+            if (docsItem != null) docsItem.setText(i18n.getString("menu.documentation"));
+            if (aboutItem != null) aboutItem.setText(i18n.getString("menu.about"));
+            if (prevTaskButton != null) {
+                prevTaskButton.setText(i18n.getString("button.previous"));
+                prevTaskButton.setToolTipText(i18n.getString("tooltip.previousTask"));
+            }
+            if (nextTaskButton != null) {
+                nextTaskButton.setText(i18n.getString("button.next"));
+                nextTaskButton.setToolTipText(i18n.getString("tooltip.nextTask"));
+            }
+            if (showSolutionButton != null) {
+                showSolutionButton.setText(i18n.getString("button.showSolution"));
+                showSolutionButton.setToolTipText(i18n.getString("tooltip.showSolution"));
+            }
+            if (viewButton != null) {
+                viewButton.setText(i18n.getString("button.runCode"));
+                viewButton.setToolTipText(i18n.getString("tooltip.runCode"));
+            }
+            if (checkButton != null) {
+                checkButton.setText(i18n.getString("button.submitAnswer"));
+                checkButton.setToolTipText(i18n.getString("tooltip.submitAnswer"));
+            }
+            updateTaskCounter();
+            updateQuestion();
+            updateDocumentation();
+        });
+    }
+
+    public Set<Integer> getCompletedTaskIds() {
+        return Collections.unmodifiableSet(completedTaskIds);
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if ("locale".equals(evt.getPropertyName()) || "language".equals(evt.getPropertyName())) {
+            updateUITexts();
+        }
+    }
+
     private class TaskCellRenderer extends DefaultListCellRenderer {
         @Override
         public java.awt.Component getListCellRendererComponent(
@@ -820,7 +883,7 @@ public class MainFrameView extends JFrame {
                 label.setText(text);
 
                 // Add difficulty badge
-                DifficultyBadge badge = new DifficultyBadge(task.difficult());
+                DifficultyBadge badge = new DifficultyBadge(task.difficult(), i18n);
                 panel.add(label, BorderLayout.CENTER);
                 panel.add(badge, BorderLayout.EAST);
                 panel.setBackground(label.getBackground());
@@ -830,9 +893,5 @@ public class MainFrameView extends JFrame {
 
             return label;
         }
-    }
-
-    public Set<Integer> getCompletedTaskIds() {
-        return Collections.unmodifiableSet(completedTaskIds);
     }
 }

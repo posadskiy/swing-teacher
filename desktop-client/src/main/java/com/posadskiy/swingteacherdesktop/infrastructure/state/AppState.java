@@ -3,11 +3,14 @@ package com.posadskiy.swingteacherdesktop.infrastructure.state;
 import com.posadskiy.swingteacherdesktop.domain.model.User;
 import org.springframework.stereotype.Component;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Application state holder using atomic references for thread safety.
+ * Supports property change notifications for language changes.
  */
 @Component
 public class AppState {
@@ -16,6 +19,11 @@ public class AppState {
     
     private final AtomicReference<User> currentUser = new AtomicReference<>(EMPTY_USER);
     private final AtomicReference<String> currentLanguage = new AtomicReference<>("en");
+    private final PropertyChangeSupport propertyChangeSupport;
+
+    public AppState() {
+        this.propertyChangeSupport = new PropertyChangeSupport(this);
+    }
     
     public User getCurrentUser() {
         return currentUser.get();
@@ -30,7 +38,7 @@ public class AppState {
         currentUser.set(user != null ? user : EMPTY_USER);
         // Update language from user preference
         if (user != null && user.preferredLanguage() != null) {
-            currentLanguage.set(user.getPreferredLanguageOrDefault());
+            setCurrentLanguage(user.getPreferredLanguageOrDefault());
         }
     }
     
@@ -40,7 +48,7 @@ public class AppState {
     
     public void clearUser() {
         currentUser.set(EMPTY_USER);
-        currentLanguage.set("en");
+        setCurrentLanguage("en");
     }
     
     /**
@@ -49,7 +57,7 @@ public class AppState {
     public boolean compareAndSetUser(User expected, User newUser) {
         boolean result = currentUser.compareAndSet(expected, newUser != null ? newUser : EMPTY_USER);
         if (result && newUser != null && newUser.preferredLanguage() != null) {
-            currentLanguage.set(newUser.getPreferredLanguageOrDefault());
+            setCurrentLanguage(newUser.getPreferredLanguageOrDefault());
         }
         return result;
     }
@@ -62,10 +70,31 @@ public class AppState {
     }
 
     /**
-     * Sets the current language preference.
+     * Sets the current language preference and notifies listeners.
      */
     public void setCurrentLanguage(String languageCode) {
-        currentLanguage.set(languageCode != null ? languageCode : "en");
+        String oldLanguage = currentLanguage.get();
+        String newLanguage = languageCode != null ? languageCode : "en";
+        currentLanguage.set(newLanguage);
+
+        // Notify listeners of language change
+        if (!oldLanguage.equals(newLanguage)) {
+            propertyChangeSupport.firePropertyChange("language", oldLanguage, newLanguage);
+        }
+    }
+
+    /**
+     * Adds a property change listener for language changes.
+     */
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    /**
+     * Removes a property change listener.
+     */
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(listener);
     }
 }
 

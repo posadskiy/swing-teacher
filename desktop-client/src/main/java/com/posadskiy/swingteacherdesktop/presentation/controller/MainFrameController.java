@@ -6,6 +6,7 @@ import com.posadskiy.swingteacherdesktop.domain.model.Documentation;
 import com.posadskiy.swingteacherdesktop.domain.model.Lesson;
 import com.posadskiy.swingteacherdesktop.domain.model.Task;
 import com.posadskiy.swingteacherdesktop.infrastructure.compiler.DynamicCompiler;
+import com.posadskiy.swingteacherdesktop.infrastructure.i18n.I18nService;
 import lombok.extern.slf4j.Slf4j;
 import org.fife.ui.autocomplete.CompletionProvider;
 import org.springframework.stereotype.Component;
@@ -28,19 +29,22 @@ public class MainFrameController {
     private final CodeCompletionService codeCompletionService;
     private final AuthenticationService authenticationService;
     private final UserService userService;
+    private final I18nService i18n;
 
     public MainFrameController(
         LessonService lessonService,
         TaskCheckingService taskCheckingService,
         CodeCompletionService codeCompletionService,
         AuthenticationService authenticationService,
-        UserService userService
+        UserService userService,
+        I18nService i18n
     ) {
         this.lessonService = lessonService;
         this.taskCheckingService = taskCheckingService;
         this.codeCompletionService = codeCompletionService;
         this.authenticationService = authenticationService;
         this.userService = userService;
+        this.i18n = i18n;
     }
 
     public List<Lesson> getLessonsByCategory(int categoryId) {
@@ -87,8 +91,8 @@ public class MainFrameController {
             } else {
                 JOptionPane.showMessageDialog(
                     new JFrame(), 
-                    errors, 
-                    "Compilation error", 
+                    errors,
+                    i18n.getString("error.compilationError"), 
                     JOptionPane.DEFAULT_OPTION
                 );
             }
@@ -96,16 +100,16 @@ public class MainFrameController {
             log.error("Failed to compile file from editor", ex);
             JOptionPane.showMessageDialog(
                 new JFrame(), 
-                ex.getMessage(), 
-                "Compilation Error", 
+                ex.getMessage(),
+                i18n.getString("error.compilationError"), 
                 JOptionPane.DEFAULT_OPTION
             );
         } catch (ReflectiveOperationException ex) {
             log.error("Failed to run compiled class", ex);
             JOptionPane.showMessageDialog(
                 new JFrame(), 
-                ex.getMessage(), 
-                "Runtime Error", 
+                ex.getMessage(),
+                i18n.getString("error.executionError"), 
                 JOptionPane.DEFAULT_OPTION
             );
         }
@@ -119,7 +123,7 @@ public class MainFrameController {
             return DynamicCompiler.compile(code, imports);
         } catch (IOException ex) {
             log.error("Failed to compile file", ex);
-            return "Compilation failed: " + ex.getMessage();
+            return i18n.getString("error.compilationFailed", ex.getMessage());
         }
     }
 

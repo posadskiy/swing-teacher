@@ -37,6 +37,10 @@ public class SectionTitle extends JPanel {
         iconLabel.setText(icon);
         iconLabel.setVisible(icon != null && !icon.isEmpty());
     }
+
+    public void setText(String text) {
+        textLabel.setText(text);
+    }
 }
 
 

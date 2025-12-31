@@ -1,5 +1,7 @@
 package com.posadskiy.swingteacherdesktop.presentation.component;
 
+import com.posadskiy.swingteacherdesktop.infrastructure.i18n.I18nService;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -11,6 +13,7 @@ public class StatusBar extends JPanel {
     private final JLabel lineLabel;
     private final JLabel columnLabel;
     private final JLabel charLabel;
+    private I18nService i18n;
 
     public StatusBar() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 8, 4));
@@ -26,6 +29,15 @@ public class StatusBar extends JPanel {
         add(columnLabel);
         add(createSeparator());
         add(charLabel);
+    }
+
+    public StatusBar(I18nService i18n) {
+        this();
+        this.i18n = i18n;
+    }
+
+    public void setI18n(I18nService i18n) {
+        this.i18n = i18n;
     }
 
     private JLabel createLabel(String text) {
@@ -44,9 +56,15 @@ public class StatusBar extends JPanel {
     }
 
     public void updateStatus(int line, int column, int charCount) {
-        lineLabel.setText("Line: " + line);
-        columnLabel.setText("Column: " + column);
-        charLabel.setText("Chars: " + charCount);
+        if (i18n != null) {
+            lineLabel.setText(i18n.getString("status.line", line));
+            columnLabel.setText(i18n.getString("status.column", column));
+            charLabel.setText(i18n.getString("status.chars", charCount));
+        } else {
+            lineLabel.setText("Line: " + line);
+            columnLabel.setText("Column: " + column);
+            charLabel.setText("Chars: " + charCount);
+        }
     }
 }
 

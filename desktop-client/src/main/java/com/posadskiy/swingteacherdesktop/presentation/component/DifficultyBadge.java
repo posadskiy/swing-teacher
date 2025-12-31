@@ -1,5 +1,7 @@
 package com.posadskiy.swingteacherdesktop.presentation.component;
 
+import com.posadskiy.swingteacherdesktop.infrastructure.i18n.I18nService;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -10,6 +12,7 @@ import java.awt.geom.RoundRectangle2D;
  */
 public class DifficultyBadge extends JLabel {
     private final double difficulty;
+    private I18nService i18n;
 
     public DifficultyBadge(double difficulty) {
         this.difficulty = difficulty;
@@ -19,17 +22,33 @@ public class DifficultyBadge extends JLabel {
         updateText();
     }
 
+    public DifficultyBadge(double difficulty, I18nService i18n) {
+        this.difficulty = difficulty;
+        this.i18n = i18n;
+        setOpaque(false);
+        setBorder(new EmptyBorder(2, 8, 2, 8));
+        setFont(UITheme.getFont(Font.BOLD, 10));
+        updateText();
+    }
+
+    public void setI18n(I18nService i18n) {
+        this.i18n = i18n;
+        updateText();
+    }
+
     private void updateText() {
+        String text;
         if (difficulty < 15) {
-            setText("● Easy");
+            text = i18n != null ? i18n.getString("difficulty.easy") : "● Easy";
             setForeground(new Color(74, 222, 128)); // Green
         } else if (difficulty < 25) {
-            setText("● Medium");
+            text = i18n != null ? i18n.getString("difficulty.medium") : "● Medium";
             setForeground(new Color(251, 191, 36)); // Yellow
         } else {
-            setText("● Hard");
+            text = i18n != null ? i18n.getString("difficulty.hard") : "● Hard";
             setForeground(new Color(239, 68, 68)); // Red
         }
+        setText(text);
     }
 
     @Override

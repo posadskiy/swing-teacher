@@ -1,5 +1,6 @@
 package com.posadskiy.swingteacherdesktop.presentation.view;
 
+import com.posadskiy.swingteacherdesktop.infrastructure.i18n.I18nService;
 import com.posadskiy.swingteacherdesktop.presentation.component.*;
 import com.posadskiy.swingteacherdesktop.presentation.controller.AuthController;
 import com.posadskiy.swingteacherdesktop.presentation.navigation.AppNavigator;
@@ -12,6 +13,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * Authentication view for user login.
@@ -19,7 +22,7 @@ import java.awt.geom.RoundRectangle2D;
  */
 @Slf4j
 @Component
-public class AuthView extends JFrame {
+public class AuthView extends JFrame implements PropertyChangeListener {
 
     private static final int CARD_WIDTH = 380;
     private static final int CARD_HEIGHT = 480;
@@ -28,15 +31,24 @@ public class AuthView extends JFrame {
 
     private final AuthController controller;
     private final AppNavigator navigator;
+    private final I18nService i18n;
 
     private ModernTextField loginField;
     private ModernPasswordField passField;
     private JLabel errorLabel;
     private ModernButton loginButton;
+    private JLabel headerLabel;
+    private JLabel subHeaderLabel;
+    private JLabel emailLabel;
+    private JLabel passLabel;
+    private ModernButton registerButton;
+    private LinkButton forgotPasswordButton;
 
-    public AuthView(AuthController controller, AppNavigator navigator) {
+    public AuthView(AuthController controller, AppNavigator navigator, I18nService i18n) {
         this.controller = controller;
         this.navigator = navigator;
+        this.i18n = i18n;
+        i18n.addPropertyChangeListener(this);
         initializeUI();
     }
 
@@ -49,7 +61,7 @@ public class AuthView extends JFrame {
     }
 
     private void configureFrame() {
-        setTitle("Welcome Back");
+        setTitle(i18n.getString("auth.title"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 600);
         setMinimumSize(new Dimension(700, 500));
@@ -82,37 +94,37 @@ public class AuthView extends JFrame {
     }
 
     private int addHeader(JPanel card, int y) {
-        JLabel header = createLabel("Welcome Back", Font.BOLD, 28, UITheme.TEXT_PRIMARY, SwingConstants.CENTER);
-        header.setBounds(PADDING, y, CONTENT_WIDTH, 40);
-        card.add(header);
+        headerLabel = createLabel(i18n.getString("auth.title"), Font.BOLD, 28, UITheme.TEXT_PRIMARY, SwingConstants.CENTER);
+        headerLabel.setBounds(PADDING, y, CONTENT_WIDTH, 40);
+        card.add(headerLabel);
         y += 45;
 
-        JLabel subHeader = createLabel("Sign in to continue learning", Font.PLAIN, 14, UITheme.TEXT_SECONDARY, SwingConstants.CENTER);
-        subHeader.setBounds(PADDING, y, CONTENT_WIDTH, 24);
-        card.add(subHeader);
+        subHeaderLabel = createLabel(i18n.getString("auth.subtitle"), Font.PLAIN, 14, UITheme.TEXT_SECONDARY, SwingConstants.CENTER);
+        subHeaderLabel.setBounds(PADDING, y, CONTENT_WIDTH, 24);
+        card.add(subHeaderLabel);
         
         return y + 50;
     }
 
     private int addFormFields(JPanel card, int y) {
         // Email field
-        JLabel emailLabel = createLabel("Email or Username", Font.PLAIN, 13, UITheme.TEXT_SECONDARY, SwingConstants.LEFT);
+        emailLabel = createLabel(i18n.getString("auth.emailLabel"), Font.PLAIN, 13, UITheme.TEXT_SECONDARY, SwingConstants.LEFT);
         emailLabel.setBounds(PADDING, y, CONTENT_WIDTH, 20);
         card.add(emailLabel);
         y += 26;
 
-        loginField = new ModernTextField("Enter your email");
+        loginField = new ModernTextField(i18n.getString("auth.emailPlaceholder"));
         loginField.setBounds(PADDING, y, CONTENT_WIDTH, 48);
         card.add(loginField);
         y += 64;
 
         // Password field
-        JLabel passLabel = createLabel("Password", Font.PLAIN, 13, UITheme.TEXT_SECONDARY, SwingConstants.LEFT);
+        passLabel = createLabel(i18n.getString("auth.passwordLabel"), Font.PLAIN, 13, UITheme.TEXT_SECONDARY, SwingConstants.LEFT);
         passLabel.setBounds(PADDING, y, CONTENT_WIDTH, 20);
         card.add(passLabel);
         y += 26;
 
-        passField = new ModernPasswordField("Enter your password");
+        passField = new ModernPasswordField(i18n.getString("auth.passwordPlaceholder"));
         passField.setBounds(PADDING, y, CONTENT_WIDTH, 48);
         card.add(passField);
         
@@ -120,7 +132,7 @@ public class AuthView extends JFrame {
     }
 
     private int addErrorLabel(JPanel card, int y) {
-        errorLabel = new JLabel("Invalid credentials. Please try again.") {
+        errorLabel = new JLabel(i18n.getString("auth.error.invalidCredentials")) {
             @Override
             protected void paintComponent(Graphics g) {
                 if (isVisible()) {
@@ -145,19 +157,19 @@ public class AuthView extends JFrame {
     }
 
     private void addButtons(JPanel card, int y) {
-        loginButton = ModernButton.primary("Sign In");
+        loginButton = ModernButton.primary(i18n.getString("auth.signInButton"));
         loginButton.addActionListener(e -> onLoginClick());
         loginButton.setBounds(PADDING, y, CONTENT_WIDTH, 48);
         card.add(loginButton);
         y += 58;
 
-        ModernButton registerButton = ModernButton.secondary("Create Account");
+        registerButton = ModernButton.secondary(i18n.getString("auth.createAccountButton"));
         registerButton.addActionListener(e -> navigator.showRegistration());
         registerButton.setBounds(PADDING, y, CONTENT_WIDTH, 48);
         card.add(registerButton);
         y += 64;
 
-        LinkButton forgotPasswordButton = new LinkButton("Forgot your password?");
+        forgotPasswordButton = new LinkButton(i18n.getString("auth.forgotPasswordLink"));
         forgotPasswordButton.addActionListener(e -> onForgotPasswordClick());
         forgotPasswordButton.setBounds(PADDING, y, CONTENT_WIDTH, 24);
         card.add(forgotPasswordButton);
@@ -186,7 +198,7 @@ public class AuthView extends JFrame {
         String password = String.copyValueOf(passField.getPassword());
 
         if (username.isEmpty() || password.isEmpty()) {
-            showError("Please fill in all fields.");
+            showError(i18n.getString("auth.error.fillAllFields"));
             return;
         }
 
@@ -206,11 +218,11 @@ public class AuthView extends JFrame {
                         setVisible(false);
                         navigator.showMainFrame();
                     } else {
-                        showError("Invalid credentials. Please try again.");
+                        showError(i18n.getString("auth.error.invalidCredentials"));
                     }
                 } catch (Exception ex) {
                     log.error("Authentication error", ex);
-                    showError("An error occurred. Please try again.");
+                    showError(i18n.getString("auth.error.generic"));
                 } finally {
                     setLoadingState(false);
                 }
@@ -221,15 +233,42 @@ public class AuthView extends JFrame {
     private void onForgotPasswordClick() {
         JOptionPane.showMessageDialog(
             this,
-            "Password recovery feature coming soon.",
-            "Forgot Password",
+            i18n.getString("auth.forgotPassword.message"),
+            i18n.getString("auth.forgotPassword.title"),
             JOptionPane.INFORMATION_MESSAGE
         );
     }
 
     private void setLoadingState(boolean loading) {
         loginButton.setEnabled(!loading);
-        loginButton.setText(loading ? "Signing in..." : "Sign In");
+        loginButton.setText(loading ? i18n.getString("auth.signingInButton") : i18n.getString("auth.signInButton"));
+    }
+
+    /**
+     * Updates all UI texts when language changes.
+     */
+    public void updateUITexts() {
+        SwingUtilities.invokeLater(() -> {
+            setTitle(i18n.getString("auth.title"));
+            if (headerLabel != null) headerLabel.setText(i18n.getString("auth.title"));
+            if (subHeaderLabel != null) subHeaderLabel.setText(i18n.getString("auth.subtitle"));
+            if (emailLabel != null) emailLabel.setText(i18n.getString("auth.emailLabel"));
+            if (passLabel != null) passLabel.setText(i18n.getString("auth.passwordLabel"));
+            if (loginButton != null) {
+                boolean wasLoading = !loginButton.isEnabled();
+                loginButton.setText(wasLoading ? i18n.getString("auth.signingInButton") : i18n.getString("auth.signInButton"));
+            }
+            if (registerButton != null) registerButton.setText(i18n.getString("auth.createAccountButton"));
+            if (forgotPasswordButton != null) forgotPasswordButton.setText(i18n.getString("auth.forgotPasswordLink"));
+            // Note: Placeholders in ModernTextField/ModernPasswordField would need component updates
+        });
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if ("locale".equals(evt.getPropertyName())) {
+            updateUITexts();
+        }
     }
 
     private void showError(String message) {

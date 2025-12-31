@@ -1,5 +1,6 @@
 package com.posadskiy.swingteacherdesktop.presentation.view;
 
+import com.posadskiy.swingteacherdesktop.infrastructure.i18n.I18nService;
 import com.posadskiy.swingteacherdesktop.presentation.component.*;
 import com.posadskiy.swingteacherdesktop.presentation.controller.PopupController;
 import com.posadskiy.swingteacherdesktop.presentation.controller.RegistrationController;
@@ -11,6 +12,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * Modern registration view for new user sign-up.
@@ -19,7 +22,7 @@ import java.awt.event.KeyEvent;
 @Slf4j
 @Lazy
 @Component
-public class RegistrationView extends JFrame {
+public class RegistrationView extends JFrame implements PropertyChangeListener {
 
     private static final int CARD_WIDTH = 400;
     private static final int CARD_HEIGHT = 520;
@@ -28,19 +31,30 @@ public class RegistrationView extends JFrame {
 
     private final RegistrationController controller;
     private final PopupController popupController;
+    private final I18nService i18n;
 
     private ModernTextField loginField;
     private ModernPasswordField passwordField;
     private ModernPasswordField passwordRepeatField;
     private ModernTextField emailField;
     private ModernButton registerButton;
+    private JLabel headerLabel;
+    private JLabel subHeaderLabel;
+    private JLabel usernameLabel;
+    private JLabel emailLabel;
+    private JLabel passwordLabel;
+    private JLabel confirmPasswordLabel;
+    private LinkButton backButton;
 
     public RegistrationView(
         RegistrationController controller,
-        PopupController popupController
+        PopupController popupController,
+        I18nService i18n
     ) {
         this.controller = controller;
         this.popupController = popupController;
+        this.i18n = i18n;
+        i18n.addPropertyChangeListener(this);
         initializeUI();
     }
 
@@ -52,7 +66,7 @@ public class RegistrationView extends JFrame {
     }
 
     private void configureFrame() {
-        setTitle("Create Account");
+        setTitle(i18n.getString("registration.title"));
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setSize(900, 620);
         setMinimumSize(new Dimension(700, 550));
@@ -82,34 +96,38 @@ public class RegistrationView extends JFrame {
     }
 
     private int addHeader(JPanel card, int y) {
-        JLabel header = createLabel("Create Account", Font.BOLD, 28, UITheme.TEXT_PRIMARY, SwingConstants.CENTER);
-        header.setBounds(PADDING, y, CONTENT_WIDTH, 40);
-        card.add(header);
+        headerLabel = createLabel(i18n.getString("registration.title"), Font.BOLD, 28, UITheme.TEXT_PRIMARY, SwingConstants.CENTER);
+        headerLabel.setBounds(PADDING, y, CONTENT_WIDTH, 40);
+        card.add(headerLabel);
         y += 45;
 
-        JLabel subHeader = createLabel("Join us and start learning", Font.PLAIN, 14, UITheme.TEXT_SECONDARY, SwingConstants.CENTER);
-        subHeader.setBounds(PADDING, y, CONTENT_WIDTH, 24);
-        card.add(subHeader);
+        subHeaderLabel = createLabel(i18n.getString("registration.subtitle"), Font.PLAIN, 14, UITheme.TEXT_SECONDARY, SwingConstants.CENTER);
+        subHeaderLabel.setBounds(PADDING, y, CONTENT_WIDTH, 24);
+        card.add(subHeaderLabel);
 
         return y + 40;
     }
 
     private int addFormFields(JPanel card, int y) {
         // Username field
-        y = addField(card, y, "Username", "Choose a username");
+        y = addField(card, y, i18n.getString("registration.usernameLabel"), i18n.getString("registration.usernamePlaceholder"));
         loginField = (ModernTextField) card.getComponent(card.getComponentCount() - 1);
+        usernameLabel = (JLabel) card.getComponent(card.getComponentCount() - 2);
 
         // Email field
-        y = addField(card, y, "Email", "Enter your email");
+        y = addField(card, y, i18n.getString("registration.emailLabel"), i18n.getString("registration.emailPlaceholder"));
         emailField = (ModernTextField) card.getComponent(card.getComponentCount() - 1);
+        emailLabel = (JLabel) card.getComponent(card.getComponentCount() - 2);
 
         // Password field
-        y = addPasswordField(card, y, "Password", "Create a password");
+        y = addPasswordField(card, y, i18n.getString("registration.passwordLabel"), i18n.getString("registration.passwordPlaceholder"));
         passwordField = (ModernPasswordField) card.getComponent(card.getComponentCount() - 1);
+        passwordLabel = (JLabel) card.getComponent(card.getComponentCount() - 2);
 
         // Confirm password field
-        y = addPasswordField(card, y, "Confirm Password", "Repeat your password");
+        y = addPasswordField(card, y, i18n.getString("registration.confirmPasswordLabel"), i18n.getString("registration.confirmPasswordPlaceholder"));
         passwordRepeatField = (ModernPasswordField) card.getComponent(card.getComponentCount() - 1);
+        confirmPasswordLabel = (JLabel) card.getComponent(card.getComponentCount() - 2);
 
         return y;
     }
@@ -141,13 +159,13 @@ public class RegistrationView extends JFrame {
     }
 
     private void addButtons(JPanel card, int y) {
-        registerButton = ModernButton.primary("Create Account");
+        registerButton = ModernButton.primary(i18n.getString("registration.createAccountButton"));
         registerButton.addActionListener(e -> onRegisterClick());
         registerButton.setBounds(PADDING, y, CONTENT_WIDTH, 48);
         card.add(registerButton);
         y += 58;
 
-        LinkButton backButton = new LinkButton("Already have an account? Sign in");
+        backButton = new LinkButton(i18n.getString("registration.backLink"));
         backButton.addActionListener(e -> setVisible(false));
         backButton.setBounds(PADDING, y, CONTENT_WIDTH, 24);
         card.add(backButton);
@@ -200,13 +218,13 @@ public class RegistrationView extends JFrame {
                     var result = get();
                     if (result.isSuccess()) {
                         controller.closeRegistration();
-                        popupController.showSuccess("You are registered! Use your credentials to log in");
+                        popupController.showSuccess(i18n.getString("registration.success"));
                     } else if (result.hasErrors()) {
-                        popupController.showError("Please check the form and try again");
+                        popupController.showError(i18n.getString("registration.error.checkForm"));
                     }
                 } catch (Exception ex) {
                     log.error("Registration error", ex);
-                    popupController.showError("An error occurred. Please try again.");
+                    popupController.showError(i18n.getString("registration.error.generic"));
                 } finally {
                     setLoadingState(false);
                 }
@@ -216,7 +234,35 @@ public class RegistrationView extends JFrame {
 
     private void setLoadingState(boolean loading) {
         registerButton.setEnabled(!loading);
-        registerButton.setText(loading ? "Creating account..." : "Create Account");
+        registerButton.setText(loading ? i18n.getString("registration.creatingAccountButton") : i18n.getString("registration.createAccountButton"));
+    }
+
+    /**
+     * Updates all UI texts when language changes.
+     */
+    public void updateUITexts() {
+        SwingUtilities.invokeLater(() -> {
+            setTitle(i18n.getString("registration.title"));
+            if (headerLabel != null) headerLabel.setText(i18n.getString("registration.title"));
+            if (subHeaderLabel != null) subHeaderLabel.setText(i18n.getString("registration.subtitle"));
+            if (usernameLabel != null) usernameLabel.setText(i18n.getString("registration.usernameLabel"));
+            if (emailLabel != null) emailLabel.setText(i18n.getString("registration.emailLabel"));
+            if (passwordLabel != null) passwordLabel.setText(i18n.getString("registration.passwordLabel"));
+            if (confirmPasswordLabel != null)
+                confirmPasswordLabel.setText(i18n.getString("registration.confirmPasswordLabel"));
+            if (registerButton != null) {
+                boolean wasLoading = !registerButton.isEnabled();
+                registerButton.setText(wasLoading ? i18n.getString("registration.creatingAccountButton") : i18n.getString("registration.createAccountButton"));
+            }
+            if (backButton != null) backButton.setText(i18n.getString("registration.backLink"));
+        });
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if ("locale".equals(evt.getPropertyName())) {
+            updateUITexts();
+        }
     }
 
     // Getters for testing

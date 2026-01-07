@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swingteacher-service
+  namespace: default
+  labels:
+    app: swingteacher-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: swingteacher-service
+  template:
+    metadata:
+      labels:
+        app: swingteacher-service
+    spec:
+      containers:
+        - name: swingteacher-service
+          image: swingteacher-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "prod"
+            - name: SWINGTEACHER_DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: swingteacher-config
+                  key: db.url
+            - name: SWINGTEACHER_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: swingteacher-secrets
+                  key: db.user
+            - name: SWINGTEACHER_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: swingteacher-secrets
+                  key: db.password
+            - name: SWINGTEACHER_SERVICE_PORT
+              value: "8080"
+            - name: AUTH_SERVICE_BASE_URL
+              value: "http://auth-service.auth.svc.cluster.local:8100"
+              # Alternative: Use external IP if service is exposed externally
+              # value: "http://168.119.57.22:8100"
+            - name: USER_SERVICE_BASE_URL
+              value: "http://user-service.default.svc.cluster.local:8095"
+              # Alternative: If user-service is in different namespace
+              # value: "http://user-service.user.svc.cluster.local:8095"
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+      restartPolicy: Always

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: swingteacher-config
+  namespace: default
+data:
+  db.url: "jdbc:postgresql://postgres-service:5432/swingteacher"

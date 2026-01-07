@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: swingteacher-service
+  namespace: default
+  labels:
+    app: swingteacher-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+    app: swingteacher-service

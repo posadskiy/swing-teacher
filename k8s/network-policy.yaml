@@ -1,0 +1,47 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: swingteacher-service-network-policy
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      app: swingteacher-service
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: default
+        - namespaceSelector:
+            matchLabels:
+              name: auth
+      ports:
+        - protocol: TCP
+          port: 8080
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              name: default
+        - namespaceSelector:
+            matchLabels:
+              name: auth
+        - namespaceSelector:
+            matchLabels:
+              name: user
+      ports:
+        - protocol: TCP
+          port: 8100
+        - protocol: TCP
+          port: 8095
+        - protocol: TCP
+          port: 5432
+    - to: [ ]
+      ports:
+        - protocol: TCP
+          port: 53
+        - protocol: UDP
+          port: 53

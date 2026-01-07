@@ -119,8 +119,6 @@ spring-boot-*.log
 *.trace.db
 
 # Flyway
-flyway.conf
-
-# Application properties (if sensitive)
+flyway.conf# Application properties (if sensitive)
 # application-local.yml
 # application-prod.yml

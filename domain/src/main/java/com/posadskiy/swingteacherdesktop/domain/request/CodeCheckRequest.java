@@ -1,10 +1,8 @@
 package com.posadskiy.swingteacherdesktop.domain.request;
 
-import jakarta.validation.constraints.NotBlank;
-
 public record CodeCheckRequest(
-    @NotBlank String expectedSolution,
-    @NotBlank String userSolution
+    String expectedSolution,  // Can be blank - some tasks might not have expected solution
+    String userSolution        // Can be blank - user might not have written anything yet
 ) {
 }
 

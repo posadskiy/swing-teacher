@@ -23,8 +23,11 @@ public class CodeCheckingController {
     }
 
     @PostMapping("/check")
-    public List<CheckerResultDto> checkCode(@Valid @RequestBody CodeCheckRequest request) {
-        return codeCheckingService.checkCode(request.expectedSolution(), request.userSolution());
+    public List<CheckerResultDto> checkCode(@RequestBody CodeCheckRequest request) {
+        // Handle null/blank solutions - convert to empty strings
+        String expectedSolution = request.expectedSolution() != null ? request.expectedSolution() : "";
+        String userSolution = request.userSolution() != null ? request.userSolution() : "";
+        return codeCheckingService.checkCode(expectedSolution, userSolution);
     }
 
     @PostMapping("/validate/login")

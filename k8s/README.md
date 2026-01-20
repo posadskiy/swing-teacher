@@ -65,13 +65,11 @@ kubectl apply -f network-policy.yaml
 ### Auth Service Connection
 
 The service is configured to connect to the auth-service in the `auth` namespace:
-
 - Service URL: `http://auth-service.auth.svc.cluster.local:8100`
 
 ### Cross-Namespace Communication
 
 The service communicates with:
-
 - **Auth Service**: Located in `auth` namespace at `auth-service.auth.svc.cluster.local:8100`
 - **Database**: Located in `default` namespace (or as configured)
 

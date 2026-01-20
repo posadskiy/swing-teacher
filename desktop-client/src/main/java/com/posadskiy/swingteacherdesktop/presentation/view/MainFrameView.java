@@ -177,6 +177,9 @@ public class MainFrameView extends JFrame implements PropertyChangeListener {
 
         // Set language selector after UI is created
         SwingUtilities.invokeLater(() -> {
+            // Select first non-completed task on startup
+            selectFirstNonCompletedTask();
+            
             // Capture initial selection for task-switch guard after combo boxes are ready
             lastLessonIndex = lessonComboBox != null ? lessonComboBox.getSelectedIndex() : -1;
             lastTaskIndex = taskComboBox != null ? taskComboBox.getSelectedIndex() : -1;
@@ -748,6 +751,43 @@ public class MainFrameView extends JFrame implements PropertyChangeListener {
         }
         return lesson.tasks().stream()
             .allMatch(task -> task.id() != null && completedTaskIds.contains(task.id()));
+    }
+
+    /**
+     * Selects the first non-completed task across all lessons.
+     * Used on startup to open the main frame to the first uncompleted task.
+     */
+    private void selectFirstNonCompletedTask() {
+        if (lessons == null || lessons.isEmpty() || lessonComboBox == null || taskComboBox == null) {
+            return;
+        }
+
+        // Find the first lesson with a non-completed task
+        for (int lessonIdx = 0; lessonIdx < lessons.size(); lessonIdx++) {
+            Lesson lesson = lessons.get(lessonIdx);
+            Task firstNonCompleted = findFirstNonCompletedTask(lesson);
+            if (firstNonCompleted != null) {
+                final Integer targetTaskId = firstNonCompleted.id();
+
+                // Use the same mechanism as navigation to select lesson and task
+                skipConfirmationForNavigation = true;
+                pendingTaskIdAfterLessonChange = targetTaskId;
+
+                // Select the lesson - this will trigger onLessonChanged which will update UI and select the task
+                if (lessonIdx < lessonComboBox.getItemCount()) {
+                    lessonComboBox.setSelectedIndex(lessonIdx);
+                }
+                return; // Found and selected, exit
+            }
+        }
+
+        // If no non-completed tasks found, just select the first lesson and first task
+        if (lessonComboBox.getItemCount() > 0) {
+            lessonComboBox.setSelectedIndex(0);
+            if (taskComboBox.getItemCount() > 0) {
+                taskComboBox.setSelectedIndex(0);
+            }
+        }
     }
 
     private void updateNavigationButtons() {

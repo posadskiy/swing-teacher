@@ -1,6 +1,6 @@
 package com.posadskiy.swingteacherdesktop.infrastructure.config;
 
-import com.posadskiy.swingteacherdesktop.infrastructure.storage.TokenStorage;
+import com.posadskiy.swingteacherdesktop.infrastructure.auth.AccessTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
@@ -16,8 +16,8 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class BearerTokenInterceptor implements ClientHttpRequestInterceptor {
-    
-    private final TokenStorage tokenStorage;
+
+    private final AccessTokenProvider accessTokenProvider;
     
     @Override
     public ClientHttpResponse intercept(
@@ -25,11 +25,14 @@ public class BearerTokenInterceptor implements ClientHttpRequestInterceptor {
         byte[] body, 
         ClientHttpRequestExecution execution
     ) throws IOException {
-        var accessToken = tokenStorage.getAccessToken();
-        
-        if (accessToken != null && !accessToken.isBlank()) {
-            request.getHeaders().setBearerAuth(accessToken);
+        String path = request.getURI().getPath();
+        if (path != null && path.startsWith("/api/auth/")) {
+            return execution.execute(request, body);
         }
+
+        var accessToken = accessTokenProvider.getAccessToken()
+            .orElseThrow(() -> new IOException("Access token missing for authenticated request"));
+        request.getHeaders().setBearerAuth(accessToken);
         
         return execution.execute(request, body);
     }

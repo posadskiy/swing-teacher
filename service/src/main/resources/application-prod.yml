@@ -1,0 +1,14 @@
+auth:
+  service:
+    # Use Kubernetes service DNS for cluster-internal communication
+    # If auth-service is in 'auth' namespace: http://auth-service.auth.svc.cluster.local:8100
+    # If auth-service is in 'default' namespace: http://auth-service.default.svc.cluster.local:8100
+    # For external access (if needed): http://168.119.57.22:8100
+    base-url: ${AUTH_SERVICE_BASE_URL:http://auth-service.auth.svc.cluster.local:8100}
+
+user:
+  service:
+    # Use Kubernetes service DNS for cluster-internal communication
+    # If user-service is in 'user' namespace: http://user-service.user.svc.cluster.local:8095
+    # If user-service is in 'default' namespace: http://user-service.default.svc.cluster.local:8095
+    base-url: ${USER_SERVICE_BASE_URL:http://user-service.default.svc.cluster.local:8095}

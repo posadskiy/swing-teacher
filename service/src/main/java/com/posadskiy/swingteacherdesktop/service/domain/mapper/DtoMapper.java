@@ -10,18 +10,6 @@ public final class DtoMapper {
     private DtoMapper() {
     }
 
-    public static UserDto toDto(UserEntity entity) {
-        return new UserDto(
-            entity.getId(),
-            entity.getEmail(),
-            entity.getLogin(),
-            entity.getLogins(),
-            entity.getLastLogin(),
-            entity.getCompleteTraining(),
-            entity.getPreferredLanguage()
-        );
-    }
-
     public static LessonDto toDto(LessonEntity entity) {
         return toDto(entity, "en");
     }

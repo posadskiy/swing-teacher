@@ -1,0 +1,7 @@
+auth:
+  service:
+    base-url: http://localhost:8100
+
+user:
+  service:
+    base-url: http://localhost:8095

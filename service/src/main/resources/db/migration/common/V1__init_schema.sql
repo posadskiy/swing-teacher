@@ -11,18 +11,6 @@ CREATE TABLE IF NOT EXISTS task_category
     name VARCHAR(255) NOT NULL UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS users
-(
-    id                BIGSERIAL PRIMARY KEY,
-    email             VARCHAR(255),
-    login             VARCHAR(255),
-    password          VARCHAR(255),
-    logins            INT,
-    last_login        INT,
-    complete_training BOOLEAN
-);
-CREATE INDEX IF NOT EXISTS idx_users_login ON users (login);
-
 CREATE TABLE IF NOT EXISTS documentation
 (
     id BIGSERIAL PRIMARY KEY
@@ -76,29 +64,13 @@ CREATE INDEX IF NOT EXISTS idx_task_documentation ON task (id_documentation);
 CREATE TABLE IF NOT EXISTS completed_task
 (
     id      BIGSERIAL PRIMARY KEY,
-    user_id BIGINT NOT NULL REFERENCES users (id) ON DELETE CASCADE,
+    user_id BIGINT NOT NULL,
     task_id BIGINT NOT NULL REFERENCES task (id) ON DELETE CASCADE,
     CONSTRAINT uq_completed_task_user_task UNIQUE (user_id, task_id)
 );
+-- Note: user_id references external user-service user IDs, no FK constraint
 CREATE INDEX IF NOT EXISTS idx_completed_task_user ON completed_task (user_id);
 CREATE INDEX IF NOT EXISTS idx_completed_task_task ON completed_task (task_id);
-
--- ============================================================================
--- REFRESH TOKENS TABLE (from V3)
--- ============================================================================
-
-CREATE TABLE IF NOT EXISTS refresh_tokens
-(
-    id         BIGSERIAL PRIMARY KEY,
-    user_id    BIGINT       NOT NULL REFERENCES users (id) ON DELETE CASCADE,
-    token      VARCHAR(255) NOT NULL UNIQUE,
-    expires_at TIMESTAMP    NOT NULL,
-    created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE INDEX IF NOT EXISTS idx_refresh_tokens_token ON refresh_tokens (token);
-CREATE INDEX IF NOT EXISTS idx_refresh_tokens_user_id ON refresh_tokens (user_id);
-CREATE INDEX IF NOT EXISTS idx_refresh_tokens_expires_at ON refresh_tokens (expires_at);
 
 -- ============================================================================
 -- SEED DATA
@@ -128,10 +100,6 @@ VALUES (1, 'keyword');
 INSERT INTO shorthand (id, short_text, full_text)
 VALUES (1, 'psvm', 'public static void main(String[] argv) { }');
 
--- Demo user: login=login, password=password (kept as-is, because legacy code expects md5 in some flows)
-INSERT INTO users (id, email, login, password, logins, last_login, complete_training)
-VALUES (1, 'test@test.com', 'login', 'password', 0, 0, false);
-
 -- ============================================================================
 -- SEQUENCE UPDATES
 -- ============================================================================
@@ -146,8 +114,6 @@ SELECT setval(pg_get_serial_sequence('keyword', 'id'), GREATEST((SELECT COALESCE
 SELECT setval(pg_get_serial_sequence('shorthand', 'id'), GREATEST((SELECT COALESCE(MAX(id), 0) FROM shorthand), 1));
 SELECT setval(pg_get_serial_sequence('lesson', 'id'), GREATEST((SELECT COALESCE(MAX(id), 0) FROM lesson), 1));
 SELECT setval(pg_get_serial_sequence('task', 'id'), GREATEST((SELECT COALESCE(MAX(id), 0) FROM task), 1));
-SELECT setval(pg_get_serial_sequence('users', 'id'), (SELECT COALESCE(MAX(id), 1) FROM users));
-SELECT setval(pg_get_serial_sequence('refresh_tokens', 'id'), (SELECT COALESCE(MAX(id), 1) FROM refresh_tokens));
 SELECT setval(pg_get_serial_sequence('completed_task', 'id'), (SELECT COALESCE(MAX(id), 1) FROM completed_task));
 
 
@@ -200,15 +166,6 @@ CREATE TABLE IF NOT EXISTS task_translation
 
 CREATE INDEX IF NOT EXISTS idx_task_translation_task ON task_translation (task_id);
 CREATE INDEX IF NOT EXISTS idx_task_translation_language ON task_translation (language_code);
-
--- ============================================================================
--- ADD PREFERRED LANGUAGE TO USERS TABLE
--- ============================================================================
-
-ALTER TABLE users
-    ADD COLUMN IF NOT EXISTS preferred_language VARCHAR(10) REFERENCES language (code) DEFAULT 'en';
-
-CREATE INDEX IF NOT EXISTS idx_users_preferred_language ON users (preferred_language);
 
 -- ============================================================================
 -- MIGRATE EXISTING RUSSIAN DATA TO TRANSLATION TABLES

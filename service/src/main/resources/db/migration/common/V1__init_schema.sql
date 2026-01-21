@@ -1,4 +1,4 @@
--- Flyway migration V1: Complete schema and seed data for SwingTeacherDesktop (PostgreSQL)
+-- Flyway migration V1: Complete schema and seed data for java-swing-tutor (PostgreSQL)
 -- This migration consolidates all previous migrations (V1-V5) and V2 into a single script
 
 -- ============================================================================
@@ -215,9 +215,9 @@ CREATE INDEX IF NOT EXISTS idx_documentation_translation_language ON documentati
 
 -- Application documentation (ID 0) - English translation
 INSERT INTO documentation_translation (documentation_id, language_code, text)
-VALUES (0, 'en', '<h1>SwingTeacher Desktop Application</h1>
-<h2>Welcome to SwingTeacher Desktop</h2>
-<p>SwingTeacher Desktop is an educational application designed to help you learn Java programming through interactive tasks and lessons.</p>
+VALUES (0, 'en', '<h1>Java Swing Tutor Application</h1>
+<h2>Welcome to Java Swing Tutor</h2>
+<p>Java Swing Tutor is an educational application designed to help you learn Java programming through interactive tasks and lessons.</p>
 
 <h2>Getting Started</h2>
 <h3>Registration</h3>

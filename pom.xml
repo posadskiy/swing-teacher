@@ -6,7 +6,7 @@
     <artifactId>java-swing-tutor</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>SwingTeacherDesktop</name>
+    <name>java-swing-tutor</name>
 
     <modules>
         <module>domain</module>

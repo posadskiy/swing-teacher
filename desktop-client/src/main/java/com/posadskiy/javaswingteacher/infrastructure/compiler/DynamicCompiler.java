@@ -78,7 +78,7 @@ public final class DynamicCompiler {
         var safeTitle = escapeJavaString(Optional.ofNullable(frameTitle).orElse("Your frame"));
         
         return """
-            package com.posadskiy.swingteacherdesktop.presentation.component;
+            package com.posadskiy.javaswingtutor.presentation.component;
             import javax.swing.*;
             import java.awt.*;
             %s

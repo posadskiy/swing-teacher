@@ -1,11 +1,11 @@
-# SwingTeacher Desktop
+# Java Swing Tutor
 
 An interactive desktop application for learning Java Swing GUI development through hands-on, task-based programming
 exercises.
 
 ## 📖 About
 
-**SwingTeacher Desktop** is a comprehensive educational platform designed to teach Java Swing library through an
+**Java Swing Tutor** is a comprehensive educational platform designed to teach Java Swing library through an
 engaging, interactive learning experience. The application provides a structured curriculum with lessons, coding tasks,
 real-time code compilation, and progress tracking.
 
@@ -23,7 +23,7 @@ real-time code compilation, and progress tracking.
 
 ### Business Value
 
-SwingTeacher Desktop serves as a comprehensive learning tool for:
+Java Swing Tutor serves as a comprehensive learning tool for:
 
 - **Students** learning Java GUI development
 - **Educators** teaching Swing programming concepts
@@ -191,17 +191,17 @@ java -jar desktop-client/target/desktop-client-1.0-SNAPSHOT.jar
 ## 📁 Project Structure
 
 ```
-SwingTeacherDesktop/
+java-swing-tutor/
 ├── domain/                    # Shared DTOs and request models
 │   └── src/main/java/
-│       └── com/posadskiy/swingteacherdesktop/domain/
+│       └── com/posadskiy/javaswingtutor/domain/
 │           ├── dto/          # Data Transfer Objects
 │           ├── request/      # API request models
 │           └── response/     # API response models
 │
 ├── service/                   # Spring Boot REST API backend
 │   └── src/main/java/
-│       └── com/posadskiy/swingteacherdesktop/service/
+│       └── com/posadskiy/javaswingtutor/service/
 │           ├── application/  # Application services
 │           ├── domain/       # Domain entities, mappers, and checkers
 │           ├── infrastructure/ # JPA repositories and external clients
@@ -218,7 +218,7 @@ SwingTeacherDesktop/
 │
 ├── desktop-client/            # Swing desktop UI client
 │   └── src/main/java/
-│       └── com/posadskiy/swingteacherdesktop/
+│       └── com/posadskiy/javaswingtutor/
 │           ├── api/          # REST API clients
 │           ├── application/  # Application services
 │           ├── domain/       # Domain models
@@ -345,4 +345,4 @@ This is an educational project. Contributions, suggestions, and improvements are
 
 ---
 
-**Happy Learning!** 🎓 Start your Java Swing journey today with SwingTeacher Desktop.
+**Happy Learning!** 🎓 Start your Java Swing journey today with Java Swing Tutor.

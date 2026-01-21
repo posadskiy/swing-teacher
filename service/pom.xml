@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>com.posadskiy</groupId>
-        <artifactId>SwingTeacherDesktop</artifactId>
+        <artifactId>java-swing-tutor</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 

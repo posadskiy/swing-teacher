@@ -1,0 +1,200 @@
+name: Release Desktop Client
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g., v1.0.0). Leave empty to skip GitHub Release.'
+        required: false
+        default: ''
+
+jobs:
+  build:
+    name: Build (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ macos-latest, windows-latest, ubuntu-latest ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install Linux deps
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get update && sudo apt-get install -y fakeroot zip
+
+      - name: Build app
+        run: mvn clean package -pl desktop-client -am -DskipTests
+
+      - name: Build installers and portable app image (macOS)
+        if: matrix.os == 'macos-latest'
+        run: |
+          cd desktop-client
+          MAVEN_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          APP_VERSION=$(echo "$MAVEN_VERSION" | sed 's/-SNAPSHOT//' | sed 's/-.*//')
+          if [[ ! "$APP_VERSION" =~ \. ]]; then
+            APP_VERSION="${APP_VERSION}.0"
+          fi
+          JAR_NAME=$(basename target/desktop-client-*.jar)
+          ICON_ARG=""
+          if [ -f "src/main/resources/icons/app-icon.icns" ]; then
+            ICON_ARG="--icon src/main/resources/icons/app-icon.icns"
+          fi
+          jpackage --input target \
+            --name "Java Swing Tutor" \
+            --main-jar $JAR_NAME \
+            --main-class com.posadskiy.javaswingteacher.Start \
+            --type dmg \
+            --dest target/jpackage \
+            --app-version $APP_VERSION \
+            --vendor Posadskiy \
+            --java-options "-Dfile.encoding=UTF-8" \
+            --mac-package-identifier com.posadskiy.javaswingtutor \
+            --mac-package-name "Java Swing Tutor" \
+            $ICON_ARG
+          jpackage --input target \
+            --name "Java Swing Tutor" \
+            --main-jar $JAR_NAME \
+            --main-class com.posadskiy.javaswingteacher.Start \
+            --type app-image \
+            --dest target/jpackage \
+            --app-version $APP_VERSION \
+            --vendor Posadskiy \
+            --java-options "-Dfile.encoding=UTF-8" \
+            --mac-package-identifier com.posadskiy.javaswingtutor \
+            --mac-package-name "Java Swing Tutor" \
+            $ICON_ARG
+          if [ -d "target/jpackage/Java Swing Tutor.app" ]; then
+            ditto -c -k --sequesterRsrc --keepParent "target/jpackage/Java Swing Tutor.app" "target/jpackage/JavaSwingTutor-macos-app-image-${APP_VERSION}.zip"
+          fi
+
+      - name: Build installers and portable app image (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          cd desktop-client
+          $MAVEN_VERSION = mvn help:evaluate -Dexpression=project.version -q -DforceStdout
+          $APP_VERSION = $MAVEN_VERSION -replace "-SNAPSHOT", "" -replace "-.*", ""
+          if ($APP_VERSION -notmatch "\.") {
+            $APP_VERSION = "$APP_VERSION.0"
+          }
+          $JAR_NAME = (Get-ChildItem target\desktop-client-*.jar | Select-Object -First 1).Name
+          $ICON_ARG = ""
+          if (Test-Path "src\main\resources\icons\app-icon.ico") {
+            $ICON_ARG = "--icon src\main\resources\icons\app-icon.ico"
+          }
+          jpackage --input target `
+            --name "Java Swing Tutor" `
+            --main-jar $JAR_NAME `
+            --main-class com.posadskiy.javaswingteacher.Start `
+            --type exe `
+            --dest target\jpackage `
+            --app-version $APP_VERSION `
+            --vendor Posadskiy `
+            --java-options "-Dfile.encoding=UTF-8" `
+            --win-dir-chooser `
+            --win-menu `
+            --win-menu-group JavaSwingTutor `
+            --win-shortcut `
+            $ICON_ARG
+          jpackage --input target `
+            --name "Java Swing Tutor" `
+            --main-jar $JAR_NAME `
+            --main-class com.posadskiy.javaswingteacher.Start `
+            --type app-image `
+            --dest target\jpackage `
+            --app-version $APP_VERSION `
+            --vendor Posadskiy `
+            --java-options "-Dfile.encoding=UTF-8" `
+            $ICON_ARG
+          if (Test-Path "target\jpackage\Java Swing Tutor") {
+            Compress-Archive -Path "target\jpackage\Java Swing Tutor" -DestinationPath ("target\jpackage\JavaSwingTutor-windows-app-image-" + $APP_VERSION + ".zip") -Force
+          }
+
+      - name: Build installers and portable app image (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          cd desktop-client
+          MAVEN_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          APP_VERSION=$(echo "$MAVEN_VERSION" | sed 's/-SNAPSHOT//' | sed 's/-.*//')
+          if [[ ! "$APP_VERSION" =~ \. ]]; then
+            APP_VERSION="${APP_VERSION}.0"
+          fi
+          JAR_NAME=$(basename target/desktop-client-*.jar)
+          ICON_ARG=""
+          if [ -f "src/main/resources/icons/app-icon.png" ]; then
+            ICON_ARG="--icon src/main/resources/icons/app-icon.png"
+          fi
+          jpackage --input target \
+            --name "Java Swing Tutor" \
+            --main-jar $JAR_NAME \
+            --main-class com.posadskiy.javaswingteacher.Start \
+            --type deb \
+            --dest target/jpackage \
+            --app-version $APP_VERSION \
+            --vendor Posadskiy \
+            --java-options "-Dfile.encoding=UTF-8" \
+            --linux-menu-group Education \
+            --linux-shortcut \
+            --linux-package-name javaswingtutor \
+            $ICON_ARG
+          jpackage --input target \
+            --name "Java Swing Tutor" \
+            --main-jar $JAR_NAME \
+            --main-class com.posadskiy.javaswingteacher.Start \
+            --type app-image \
+            --dest target/jpackage \
+            --app-version $APP_VERSION \
+            --vendor Posadskiy \
+            --java-options "-Dfile.encoding=UTF-8" \
+            --linux-menu-group Education \
+            --linux-shortcut \
+            $ICON_ARG
+          if [ -d "target/jpackage/Java Swing Tutor" ]; then
+            (cd target/jpackage && zip -r "JavaSwingTutor-linux-app-image-${APP_VERSION}.zip" "Java Swing Tutor" >/dev/null)
+          fi
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-${{ matrix.os }}
+          path: |
+            desktop-client/target/jpackage/*.dmg
+            desktop-client/target/jpackage/*.exe
+            desktop-client/target/jpackage/*.deb
+            desktop-client/target/jpackage/*app-image*.zip
+          retention-days: 30
+
+  bundle:
+    name: Bundle release
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      - name: Create release bundle
+        run: |
+          mkdir -p release
+          find dist -type f -maxdepth 3 -exec cp {} release/ \;
+          (cd release && ls -la)
+
+      - name: Upload bundled artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-release-bundle
+          path: release/*
+          retention-days: 30
+
+      - name: Publish GitHub Release
+        if: ${{ inputs.tag != '' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.tag }}
+          name: ${{ inputs.tag }}
+          files: release/*

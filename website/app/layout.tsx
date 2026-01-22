@@ -3,6 +3,7 @@ import {Geist, Geist_Mono} from "next/font/google";
 import {Header} from "@/components/layout/Header";
 import {Footer} from "@/components/layout/Footer";
 import {TranslationProvider} from "@/lib/translations/context";
+import {ThemeProvider} from "@/lib/theme/context";
 import {LocaleSetter} from "@/components/layout/LocaleSetter";
 import {SITE_DESCRIPTION, SITE_NAME, SITE_URL} from "@/lib/constants";
 import "./globals.css";
@@ -83,19 +84,35 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+        <html lang="en" className={`${geistSans.variable} ${geistMono.variable} dark`} suppressHydrationWarning>
         <head>
             <link rel="icon" href="/favicon.ico" sizes="any"/>
             <link rel="apple-touch-icon" href="/images/apple-touch-icon.png"/>
             <meta name="theme-color" content="#0f172a"/>
+            {/* Prevent flash of wrong theme */}
+            <script dangerouslySetInnerHTML={{
+                __html: `
+                    (function() {
+                        try {
+                            var theme = localStorage.getItem('preferred-theme');
+                            if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                                document.documentElement.classList.remove('dark');
+                                document.documentElement.classList.add('light');
+                            }
+                        } catch (e) {}
+                    })();
+                `
+            }}/>
         </head>
         <body className="min-h-screen flex flex-col antialiased">
+        <ThemeProvider>
         <TranslationProvider>
             <LocaleSetter/>
             <Header/>
             <main className="flex-1">{children}</main>
             <Footer/>
         </TranslationProvider>
+        </ThemeProvider>
 
         {/* JSON-LD Structured Data */}
         <script

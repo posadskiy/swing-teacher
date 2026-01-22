@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+    /* Default (dark) theme colors */
     --color-background: #0f172a;
     --color-surface: #1e293b;
     --color-border: #334155;
@@ -13,6 +14,28 @@
     --font-mono: var(--font-geist-mono), monospace;
 }
 
+/* Dark theme (default) */
+html.dark {
+    --color-background: #0f172a;
+    --color-surface: #1e293b;
+    --color-border: #334155;
+    --color-primary: #3b82f6;
+    --color-accent: #22c55e;
+    --color-text: #f8fafc;
+    --color-text-muted: #94a3b8;
+}
+
+/* Light theme - LEGO inspired bright colors */
+html.light {
+    --color-background: #fef9c3;
+    --color-surface: #ffffff;
+    --color-border: #fbbf24;
+    --color-primary: #dc2626;
+    --color-accent: #16a34a;
+    --color-text: #1c1917;
+    --color-text-muted: #57534e;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -21,6 +44,217 @@ body {
     background-color: var(--color-background);
     color: var(--color-text);
     font-family: var(--font-sans);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light theme specific overrides */
+html.light body {
+    background-image: radial-gradient(circle at 25px 25px, #fde047 2px, transparent 0),
+    radial-gradient(circle at 75px 75px, #fde047 2px, transparent 0);
+    background-size: 100px 100px;
+}
+
+html.light .bg-primary {
+    background-color: #dc2626;
+}
+
+html.light .shadow-primary\/25 {
+    --tw-shadow-color: rgba(220, 38, 38, 0.25);
+}
+
+/* LEGO brick-style buttons in light mode */
+html.light button[class*="bg-primary"],
+html.light .btn-primary {
+    box-shadow: inset 0 -4px 0 0 #991b1b,
+    0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+}
+
+html.light button[class*="bg-primary"]:hover,
+html.light .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: inset 0 -4px 0 0 #991b1b,
+    0 6px 8px -1px rgba(0, 0, 0, 0.15);
+}
+
+html.light button[class*="bg-primary"]:active,
+html.light .btn-primary:active {
+    transform: translateY(2px);
+    box-shadow: inset 0 -2px 0 0 #991b1b,
+    0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Cards get LEGO brick shadows in light mode */
+html.light [class*="rounded-xl"][class*="border"] {
+    box-shadow: 0 4px 0 0 #f59e0b,
+    0 6px 12px -2px rgba(0, 0, 0, 0.1);
+}
+
+/* Header gets a fun LEGO-like bottom border */
+html.light header {
+    border-bottom-width: 4px;
+    border-bottom-color: #dc2626;
+    background: linear-gradient(to bottom, #fef9c3 0%, #fef08a 100%);
+}
+
+/* Footer in light mode */
+html.light footer {
+    background: linear-gradient(to top, #fde047 0%, #fef9c3 100%);
+    border-top: 4px solid #dc2626;
+}
+
+/* LEGO studs pattern on hero section */
+html.light section:first-of-type {
+    background-image: radial-gradient(circle at 20px 20px, rgba(251, 191, 36, 0.3) 8px, transparent 8px),
+    radial-gradient(circle at 60px 60px, rgba(251, 191, 36, 0.3) 8px, transparent 8px);
+    background-size: 80px 80px;
+}
+
+/* Colorful badges in light mode */
+html.light [class*="bg-primary\/10"] {
+    background-color: rgba(220, 38, 38, 0.15);
+}
+
+html.light [class*="bg-accent\/10"] {
+    background-color: rgba(22, 163, 74, 0.15);
+}
+
+/* Feature cards get LEGO brick style */
+html.light .group[class*="rounded-xl"]:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0 0 #f59e0b,
+    0 12px 20px -4px rgba(0, 0, 0, 0.15);
+}
+
+/* Input fields in light mode */
+html.light input,
+html.light select,
+html.light textarea {
+    background-color: #ffffff;
+    border: 3px solid #fbbf24;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+html.light input:focus,
+html.light select:focus,
+html.light textarea:focus {
+    border-color: #dc2626;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05),
+    0 0 0 3px rgba(220, 38, 38, 0.2);
+}
+
+/* Code blocks in light mode - LEGO style with bright, readable colors */
+html.light pre {
+    background-color: #1a1a2e !important;
+    border: 4px solid #fbbf24;
+    box-shadow: 6px 6px 0 0 #f59e0b;
+    border-radius: 0.75rem;
+}
+
+/* Make code text bright and readable in light mode */
+html.light pre code {
+    color: #f8fafc !important;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+/* Fix text-text class inside code blocks for light mode */
+html.light pre .text-text,
+html.light pre [class*="text-text"],
+html.light pre span.text-text,
+html.light pre code .text-text,
+html.light pre code span.text-text {
+    color: #f8fafc !important;
+}
+
+/* Override the CSS variable for text color inside pre in light mode */
+html.light pre {
+    --color-text: #f8fafc;
+}
+
+/* Syntax highlighting for light theme code blocks */
+html.light pre .keyword,
+html.light pre .token.keyword {
+    color: #f472b6 !important; /* Pink for keywords like public, class, static */
+}
+
+html.light pre .class-name,
+html.light pre .token.class-name {
+    color: #fbbf24 !important; /* Yellow for class names */
+}
+
+html.light pre .function,
+html.light pre .token.function {
+    color: #60a5fa !important; /* Blue for function names */
+}
+
+html.light pre .string,
+html.light pre .token.string {
+    color: #4ade80 !important; /* Green for strings */
+}
+
+html.light pre .comment,
+html.light pre .token.comment {
+    color: #94a3b8 !important; /* Gray for comments */
+}
+
+html.light pre .number,
+html.light pre .token.number {
+    color: #fb923c !important; /* Orange for numbers */
+}
+
+html.light pre .operator,
+html.light pre .token.operator,
+html.light pre .punctuation,
+html.light pre .token.punctuation {
+    color: #e2e8f0 !important; /* Light gray for operators */
+}
+
+html.light :not(pre) > code {
+    background-color: #fef3c7;
+    color: #b91c1c;
+    border: 2px solid #fbbf24;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.375rem;
+}
+
+/* Tables in light mode */
+html.light table {
+    border: 3px solid #fbbf24;
+    box-shadow: 4px 4px 0 0 #f59e0b;
+}
+
+html.light thead {
+    background-color: #fef08a;
+}
+
+html.light th {
+    border-bottom: 3px solid #fbbf24;
+}
+
+html.light td {
+    border-bottom: 2px solid #fde68a;
+}
+
+/* Sidebar in light mode */
+html.light aside nav {
+    background: linear-gradient(135deg, #ffffff 0%, #fef9c3 100%);
+    border: 3px solid #fbbf24;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 4px 4px 0 0 #f59e0b;
+}
+
+/* Badge style in light mode */
+html.light span[class*="rounded-full"][class*="bg-"] {
+    box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Docs sidebar active item */
+html.light [class*="bg-primary\/10"][class*="text-primary"] {
+    background-color: #fef08a;
+    border: 2px solid #dc2626;
+    box-shadow: 2px 2px 0 0 #991b1b;
 }
 
 ::selection {

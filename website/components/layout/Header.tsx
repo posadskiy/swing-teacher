@@ -5,6 +5,7 @@ import {useState} from "react";
 import {GITHUB_URL} from "@/lib/constants";
 import {Button} from "@/components/ui";
 import {LanguageSwitcher} from "@/components/ui/LanguageSwitcher";
+import {ThemeSwitcher} from "@/components/ui/ThemeSwitcher";
 import {useTranslations} from "@/lib/translations/context";
 import {addLocaleToPath} from "@/lib/i18n";
 import {cn} from "@/lib/utils";
@@ -14,11 +15,11 @@ export function Header() {
     const {t, locale} = useTranslations();
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-lg">
+        <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-lg transition-all duration-300">
             <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2 group">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white font-bold text-sm">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white font-bold text-sm shadow-md">
                         JST
                     </div>
                     <span className="text-lg font-semibold text-text group-hover:text-primary transition-colors">
@@ -55,13 +56,14 @@ export function Header() {
                 </div>
 
                 {/* Desktop CTA */}
-                <div className="hidden md:flex items-center gap-3">
+                <div className="hidden md:flex items-center gap-2">
+                    <ThemeSwitcher/>
                     <LanguageSwitcher/>
                     <Link
                         href={GITHUB_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-text-muted hover:text-text transition-colors"
+                        className="text-text-muted hover:text-text transition-colors p-2"
                         aria-label="GitHub"
                     >
                         <GitHubIcon className="h-5 w-5"/>
@@ -123,7 +125,8 @@ export function Header() {
                         {t.nav.support}
                     </Link>
                     <div className="pt-2 border-t border-border space-y-2">
-                        <div className="px-4">
+                        <div className="px-4 flex items-center gap-2">
+                            <ThemeSwitcher/>
                             <LanguageSwitcher/>
                         </div>
                         <Link href={addLocaleToPath("/download", locale)} onClick={() => setMobileMenuOpen(false)}>

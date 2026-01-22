@@ -1,20 +1,29 @@
-# Kubernetes Deployment for SwingTeacher Service
+# Kubernetes Deployment for Java Swing Tutor
 
-This directory contains Kubernetes manifests for deploying the SwingTeacher service to the cluster at `168.119.57.22`.
+This directory contains Kubernetes manifests for deploying the Java Swing Tutor service and website to the cluster at
+`168.119.57.22`.
 
 ## Prerequisites
 
 - Kubernetes cluster access (k3s/k8s)
 - kubectl configured to access the cluster
-- Docker image built and available in the cluster registry
+- Docker images built and available in the cluster registry
 
 ## Files
 
-- `deployment.yaml` - Main deployment configuration
+### Service (Backend)
+
+- `deployment.yaml` - Main service deployment configuration
 - `service.yaml` - Service definition for internal cluster access
 - `configmap.yaml` - Configuration values
 - `secret.yaml.example` - Example secret file (create actual secret separately)
 - `network-policy.yaml` - Network policy for cross-namespace communication
+
+### Website (Frontend)
+
+- `website-deployment.yaml` - Website deployment configuration
+- `website-service.yaml` - Website service definition
+- `website-network-policy.yaml` - Network policy for website
 
 ## Deployment Steps
 
@@ -144,3 +153,59 @@ To rollback to a previous version:
 ```bash
 kubectl rollout undo deployment/swingteacher-service -n default
 ```
+
+## Website Deployment
+
+The website is a static Next.js application served via nginx.
+
+### Deploy Website
+
+```bash
+# Build and push the website Docker image first
+# Then deploy:
+kubectl apply -f website-deployment.yaml
+kubectl apply -f website-service.yaml
+kubectl apply -f website-network-policy.yaml
+```
+
+### Verify Website
+
+```bash
+kubectl get deployments -n default -l app=java-swing-tutor-website
+kubectl get pods -n default -l app=java-swing-tutor-website
+kubectl get services -n default -l app=java-swing-tutor-website
+```
+
+### Access Website
+
+The website service is exposed on port 80. To access it externally, you'll need an Ingress controller or NodePort
+service:
+
+```yaml
+# Example Ingress (if using ingress controller)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: java-swing-tutor-website-ingress
+  namespace: default
+spec:
+  rules:
+    - host: javaswingtutor.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: java-swing-tutor-website
+                port:
+                  number: 80
+```
+
+### Website Resources
+
+The website is lightweight and requires minimal resources:
+
+- Memory: 64-128 Mi
+- CPU: 50-100m
+- Replicas: 2 (for high availability)

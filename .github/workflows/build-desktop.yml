@@ -174,7 +174,8 @@ jobs:
 
       - name: Create Windows installer
         run: |
-          cd desktop-client
+          subst X: $env:GITHUB_WORKSPACE
+          cd X:\desktop-client
           $MAVEN_VERSION = mvn help:evaluate -Dexpression=project.version -q -DforceStdout
           $APP_VERSION = $MAVEN_VERSION -replace "-SNAPSHOT", "" -replace "-.*", ""
           if ($APP_VERSION -notmatch "\.") {
@@ -190,8 +191,8 @@ jobs:
             --main-jar $JAR_NAME `
             --main-class com.posadskiy.javaswingteacher.Start `
             --type exe `
-            --dest target\jpkg `
-            --temp target\jptmp `
+            --dest X:\dist\win\jpkg `
+            --temp X:\dist\win\jptmp `
             --app-version $APP_VERSION `
             --vendor Posadskiy `
             --java-options "-Dfile.encoding=UTF-8" `
@@ -205,23 +206,24 @@ jobs:
             --main-jar $JAR_NAME `
             --main-class com.posadskiy.javaswingteacher.Start `
             --type app-image `
-            --dest target\jpkg `
-            --temp target\jptmp `
+            --dest X:\dist\win\jpkg `
+            --temp X:\dist\win\jptmp `
             --app-version $APP_VERSION `
             --vendor Posadskiy `
             --java-options "-Dfile.encoding=UTF-8" `
             $ICON_ARG
-          if (Test-Path "target\jpkg\Java Swing Tutor") {
-            Compress-Archive -Path "target\jpkg\Java Swing Tutor" -DestinationPath ("target\jpkg\JavaSwingTutor-windows-app-image-" + $APP_VERSION + ".zip") -Force
+          if (Test-Path "X:\dist\win\jpkg\Java Swing Tutor") {
+            Compress-Archive -Path "X:\dist\win\jpkg\Java Swing Tutor" -DestinationPath ("X:\dist\win\jpkg\JavaSwingTutor-windows-app-image-" + $APP_VERSION + ".zip") -Force
           }
+          subst X: /d
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: windows-installer
           path: |
-            desktop-client/target/jpkg/*.exe
-            desktop-client/target/jpkg/*windows-app-image*.zip
+            dist/win/jpkg/*.exe
+            dist/win/jpkg/*windows-app-image*.zip
           retention-days: 30
 
   build-linux:

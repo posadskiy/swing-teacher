@@ -39,7 +39,7 @@ for %%f in (target\desktop-client-*.jar) do set JAR_NAME=%%~nxf & goto :found
 set ICON_FILE=src\main\resources\icons\app-icon.ico
 
 REM Build jpackage command (EXE)
-set JPACKAGE_CMD=jpackage --input target --name "Java Swing Tutor" --main-jar %JAR_NAME% --main-class com.posadskiy.javaswingteacher.Start --type exe --dest target\jpackage --app-version %APP_VERSION% --vendor Posadskiy --java-options "-Dfile.encoding=UTF-8" --win-dir-chooser --win-menu --win-menu-group JavaSwingTutor --win-shortcut
+set JPACKAGE_CMD=jpackage --input target --name "Java Swing Tutor" --main-jar %JAR_NAME% --main-class com.posadskiy.javaswingteacher.Start --type exe --dest target\jpkg --temp target\jptmp --app-version %APP_VERSION% --vendor Posadskiy --java-options "-Dfile.encoding=UTF-8" --win-dir-chooser --win-menu --win-menu-group JavaSwingTutor --win-shortcut
 
 REM Add icon if it exists
 if exist "%ICON_FILE%" (
@@ -50,19 +50,19 @@ REM Execute jpackage (EXE)
 %JPACKAGE_CMD%
 
 REM Build app image (portable, includes runtime)
-set APP_IMAGE_CMD=jpackage --input target --name "Java Swing Tutor" --main-jar %JAR_NAME% --main-class com.posadskiy.javaswingteacher.Start --type app-image --dest target\jpackage --app-version %APP_VERSION% --vendor Posadskiy --java-options "-Dfile.encoding=UTF-8"
+set APP_IMAGE_CMD=jpackage --input target --name "Java Swing Tutor" --main-jar %JAR_NAME% --main-class com.posadskiy.javaswingteacher.Start --type app-image --dest target\jpkg --temp target\jptmp --app-version %APP_VERSION% --vendor Posadskiy --java-options "-Dfile.encoding=UTF-8"
 if exist "%ICON_FILE%" (
     set APP_IMAGE_CMD=%APP_IMAGE_CMD% --icon %ICON_FILE%
 )
 %APP_IMAGE_CMD%
 
 REM Zip app image for distribution
-powershell -NoProfile -Command "if (Test-Path 'target\\jpackage\\Java Swing Tutor') { Compress-Archive -Path 'target\\jpackage\\Java Swing Tutor' -DestinationPath ('target\\jpackage\\JavaSwingTutor-windows-app-image-' + $env:APP_VERSION + '.zip') -Force }"
+powershell -NoProfile -Command "if (Test-Path 'target\\jpkg\\Java Swing Tutor') { Compress-Archive -Path 'target\\jpkg\\Java Swing Tutor' -DestinationPath ('target\\jpkg\\JavaSwingTutor-windows-app-image-' + $env:APP_VERSION + '.zip') -Force }"
 
 echo.
 echo ✅ Build complete!
-echo 📦 Installer location: desktop-client\target\jpackage\Java Swing Tutor-%APP_VERSION%.exe
-echo 📦 Portable app image: desktop-client\target\jpackage\JavaSwingTutor-windows-app-image-%APP_VERSION%.zip
+echo 📦 Installer location: desktop-client\target\jpkg\Java Swing Tutor-%APP_VERSION%.exe
+echo 📦 Portable app image: desktop-client\target\jpkg\JavaSwingTutor-windows-app-image-%APP_VERSION%.zip
 echo.
 echo To install:
 echo   1. Run the .exe file

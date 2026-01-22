@@ -62,7 +62,7 @@ ICON_FILE="src/main/resources/icons/app-icon.png"
 
 # Build commands
 DEB_CMD="jpackage --input target --name 'Java Swing Tutor' --main-jar $JAR_NAME --main-class com.posadskiy.javaswingteacher.Start --type deb --dest target/jpackage --app-version $APP_VERSION --vendor Posadskiy --java-options '-Dfile.encoding=UTF-8' --linux-menu-group Education --linux-shortcut --linux-package-name javaswingtutor"
-APP_IMAGE_CMD="jpackage --input target --name 'Java Swing Tutor' --main-jar $JAR_NAME --main-class com.posadskiy.javaswingteacher.Start --type app-image --dest target/jpackage --app-version $APP_VERSION --vendor Posadskiy --java-options '-Dfile.encoding=UTF-8' --linux-menu-group Education --linux-shortcut"
+APP_IMAGE_CMD="jpackage --input target --name 'Java Swing Tutor' --main-jar $JAR_NAME --main-class com.posadskiy.javaswingteacher.Start --type app-image --dest target/jpackage --app-version $APP_VERSION --vendor Posadskiy --java-options '-Dfile.encoding=UTF-8'"
 
 if [ -f "$ICON_FILE" ]; then
     DEB_CMD="$DEB_CMD --icon $ICON_FILE"

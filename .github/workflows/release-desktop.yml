@@ -92,7 +92,8 @@ jobs:
             --main-jar $JAR_NAME `
             --main-class com.posadskiy.javaswingteacher.Start `
             --type exe `
-            --dest target\jpackage `
+            --dest target\jpkg `
+            --temp target\jptmp `
             --app-version $APP_VERSION `
             --vendor Posadskiy `
             --java-options "-Dfile.encoding=UTF-8" `
@@ -106,13 +107,14 @@ jobs:
             --main-jar $JAR_NAME `
             --main-class com.posadskiy.javaswingteacher.Start `
             --type app-image `
-            --dest target\jpackage `
+            --dest target\jpkg `
+            --temp target\jptmp `
             --app-version $APP_VERSION `
             --vendor Posadskiy `
             --java-options "-Dfile.encoding=UTF-8" `
             $ICON_ARG
-          if (Test-Path "target\jpackage\Java Swing Tutor") {
-            Compress-Archive -Path "target\jpackage\Java Swing Tutor" -DestinationPath ("target\jpackage\JavaSwingTutor-windows-app-image-" + $APP_VERSION + ".zip") -Force
+          if (Test-Path "target\jpkg\Java Swing Tutor") {
+            Compress-Archive -Path "target\jpkg\Java Swing Tutor" -DestinationPath ("target\jpkg\JavaSwingTutor-windows-app-image-" + $APP_VERSION + ".zip") -Force
           }
 
       - name: Build installers and portable app image (Linux)
@@ -151,8 +153,6 @@ jobs:
             --app-version $APP_VERSION \
             --vendor Posadskiy \
             --java-options "-Dfile.encoding=UTF-8" \
-            --linux-menu-group Education \
-            --linux-shortcut \
             $ICON_ARG
           if [ -d "target/jpackage/Java Swing Tutor" ]; then
             (cd target/jpackage && zip -r "JavaSwingTutor-linux-app-image-${APP_VERSION}.zip" "Java Swing Tutor" >/dev/null)
@@ -164,9 +164,10 @@ jobs:
           name: desktop-${{ matrix.os }}
           path: |
             desktop-client/target/jpackage/*.dmg
-            desktop-client/target/jpackage/*.exe
+            desktop-client/target/jpkg/*.exe
             desktop-client/target/jpackage/*.deb
             desktop-client/target/jpackage/*app-image*.zip
+            desktop-client/target/jpkg/*windows-app-image*.zip
           retention-days: 30
 
   bundle:

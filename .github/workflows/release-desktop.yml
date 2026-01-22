@@ -77,6 +77,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           subst X: $env:GITHUB_WORKSPACE
+          New-Item -ItemType Directory -Force -Path "C:\t" | Out-Null
           cd X:\desktop-client
           $MAVEN_VERSION = mvn help:evaluate -Dexpression=project.version -q -DforceStdout
           $APP_VERSION = $MAVEN_VERSION -replace "-SNAPSHOT", "" -replace "-.*", ""
@@ -89,33 +90,33 @@ jobs:
             $ICON_ARG = "--icon src\main\resources\icons\app-icon.ico"
           }
           jpackage --input target `
-            --name "Java Swing Tutor" `
+            --name "JSTutor" `
             --main-jar $JAR_NAME `
             --main-class com.posadskiy.javaswingteacher.Start `
             --type exe `
-            --dest X:\dist\win\jpkg `
-            --temp X:\dist\win\jptmp `
+            --dest X:\d `
+            --temp C:\t `
             --app-version $APP_VERSION `
             --vendor Posadskiy `
             --java-options "-Dfile.encoding=UTF-8" `
             --win-dir-chooser `
             --win-menu `
-            --win-menu-group JavaSwingTutor `
+            --win-menu-group JSTutor `
             --win-shortcut `
             $ICON_ARG
           jpackage --input target `
-            --name "Java Swing Tutor" `
+            --name "JSTutor" `
             --main-jar $JAR_NAME `
             --main-class com.posadskiy.javaswingteacher.Start `
             --type app-image `
-            --dest X:\dist\win\jpkg `
-            --temp X:\dist\win\jptmp `
+            --dest X:\d `
+            --temp C:\t `
             --app-version $APP_VERSION `
             --vendor Posadskiy `
             --java-options "-Dfile.encoding=UTF-8" `
             $ICON_ARG
-          if (Test-Path "X:\dist\win\jpkg\Java Swing Tutor") {
-            Compress-Archive -Path "X:\dist\win\jpkg\Java Swing Tutor" -DestinationPath ("X:\dist\win\jpkg\JavaSwingTutor-windows-app-image-" + $APP_VERSION + ".zip") -Force
+          if (Test-Path "X:\d\JSTutor") {
+            Compress-Archive -Path "X:\d\JSTutor" -DestinationPath ("X:\d\JSTutor-win-${APP_VERSION}.zip") -Force
           }
           subst X: /d
 
@@ -168,8 +169,8 @@ jobs:
             desktop-client/target/jpackage/*.dmg
             desktop-client/target/jpackage/*.deb
             desktop-client/target/jpackage/*app-image*.zip
-            dist/win/jpkg/*.exe
-            dist/win/jpkg/*windows-app-image*.zip
+            d/*.exe
+            d/*.zip
           retention-days: 30
 
   bundle:

@@ -84,20 +84,21 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className={`${geistSans.variable} ${geistMono.variable} dark`} suppressHydrationWarning>
+        <html lang="en" className={`${geistSans.variable} ${geistMono.variable} light`} suppressHydrationWarning>
         <head>
             <link rel="icon" href="/favicon.ico" sizes="any"/>
             <link rel="apple-touch-icon" href="/images/apple-touch-icon.png"/>
-            <meta name="theme-color" content="#0f172a"/>
-            {/* Prevent flash of wrong theme */}
+            <meta name="theme-color" content="#fef9c3"/>
+            {/* Prevent flash of wrong theme - default to light */}
             <script dangerouslySetInnerHTML={{
                 __html: `
                     (function() {
                         try {
                             var theme = localStorage.getItem('preferred-theme');
-                            if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-                                document.documentElement.classList.remove('dark');
-                                document.documentElement.classList.add('light');
+                            // Only switch to dark if explicitly stored, otherwise keep light (default)
+                            if (theme === 'dark') {
+                                document.documentElement.classList.remove('light');
+                                document.documentElement.classList.add('dark');
                             }
                         } catch (e) {}
                     })();

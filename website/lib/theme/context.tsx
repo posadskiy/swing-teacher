@@ -13,7 +13,7 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({children}: { children: ReactNode }) {
-    const [theme, setThemeState] = useState<Theme>("dark");
+    const [theme, setThemeState] = useState<Theme>("light");
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -24,10 +24,8 @@ export function ThemeProvider({children}: { children: ReactNode }) {
             setThemeState(stored);
             return;
         }
-        // Check system preference
-        if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-            setThemeState("light");
-        }
+        // Default to light - don't check system preference
+        // Theme stays as "light" (initial state)
     }, []);
 
     useEffect(() => {
@@ -71,7 +69,7 @@ export function useTheme() {
     // Return a default context during SSR or when ThemeProvider is not available
     if (!context) {
         return {
-            theme: "dark" as Theme,
+            theme: "light" as Theme,
             setTheme: () => {
             },
             toggleTheme: () => {

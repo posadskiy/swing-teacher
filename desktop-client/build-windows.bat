@@ -10,7 +10,7 @@ REM Check if Java is available
 where java >nul 2>&1
 if %ERRORLEVEL% NEQ 0 (
     echo Error: Java is not installed or not in PATH
-    echo Please install JDK 17 or later
+    echo Please install JDK 25 (project uses release 25)
     exit /b 1
 )
 

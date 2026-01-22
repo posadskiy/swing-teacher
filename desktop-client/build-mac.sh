@@ -18,7 +18,7 @@ fi
 # Check if Java is available
 if ! command -v java &> /dev/null; then
     echo "Error: Java is not installed or not in PATH"
-    echo "Please install JDK 17 or later"
+    echo "Please install JDK 25 (project uses release 25)"
     exit 1
 fi
 
